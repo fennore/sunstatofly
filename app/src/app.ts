@@ -20,3 +20,10 @@ export class DayProductionChart extends LitElement {
     return html`<p>${this.title}!</p>`;
   }
 }
+
+@customElement('app')
+export class App extends LitElement {
+  override render() {
+    return html`<p>Hallo wereld</p>`
+  }
+}
