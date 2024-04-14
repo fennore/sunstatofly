@@ -30,4 +30,13 @@ DayProductionChart = __decorate([
     customElement('day-production-chart')
 ], DayProductionChart);
 export { DayProductionChart };
+let App = class App extends LitElement {
+    render() {
+        return html `<p>Hallo wereld</p>`;
+    }
+};
+App = __decorate([
+    customElement('app')
+], App);
+export { App };
 //# sourceMappingURL=app.js.map

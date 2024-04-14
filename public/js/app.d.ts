@@ -4,4 +4,7 @@ export declare class DayProductionChart extends LitElement {
     title: string;
     render(): import("lit-html").TemplateResult<1>;
 }
+export declare class App extends LitElement {
+    render(): import("lit-html").TemplateResult<1>;
+}
 //# sourceMappingURL=app.d.ts.map
