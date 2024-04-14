@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+// import { Chart } from 'chart.js';
 let DayProductionChart = class DayProductionChart extends LitElement {
     constructor() {
         super(...arguments);

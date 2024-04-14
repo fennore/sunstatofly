@@ -1,6 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import { Chart } from 'chart.js';
+// import { Chart } from 'chart.js';
 
 @customElement('day-production-chart')
 export class DayProductionChart extends LitElement {
