@@ -27,7 +27,6 @@
           "strict": true
         }
       ],
-      "types": []
     },
     "include": ["app/src/*.ts", "app/src/**/*.ts"],
     "exclude": ["node_module/"]
