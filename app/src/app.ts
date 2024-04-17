@@ -3,7 +3,7 @@ import {customElement, property} from 'lit/decorators.js';
 // import { Chart } from 'chart.js';
 
 @customElement('day-production-chart')
-export class DayProductionChart extends LitElement {
+class DayProductionChart extends LitElement {
   // Define scoped styles right with your component, in plain CSS
   static override styles = css`
     :host {
@@ -22,7 +22,7 @@ export class DayProductionChart extends LitElement {
 }
 
 @customElement('app')
-export class App extends LitElement {
+class App extends LitElement {
   override render() {
     return html`<p>Hallo wereld</p>`
   }
