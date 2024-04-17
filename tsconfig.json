@@ -29,5 +29,5 @@
       ],
     },
     "include": ["app/src/*.ts", "app/src/**/*.ts"],
-    "exclude": ["node_module/"]
+    "exclude": []
 }

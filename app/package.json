@@ -1,7 +1,8 @@
 {
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc --watch"
+    "build:watch": "tsc --watch",
+    "postbuild": "cp package*.json ../public && cd ../public && npm ci --omit=dev && rm ../public/package*.json"
   },
   "dependencies": {
     "chart.js": "^4.4.2",
