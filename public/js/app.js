@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators';
 // import { Chart } from 'chart.js';
 let DayProductionChart = class DayProductionChart extends LitElement {
     constructor() {
