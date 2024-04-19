@@ -21,7 +21,7 @@ export class DayProductionChart extends LitElement {
   }
 }
 
-@customElement('app')
+@customElement('solar-app')
 export class App extends LitElement {
   override render() {
     return html`<p>Hallo wereld</p>`
