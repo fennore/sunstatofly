@@ -1,4 +1,4 @@
-/dist/
+/public/js/
 /app/node_modules/
 *-lock.json
 .env.*
