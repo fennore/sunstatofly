@@ -6,6 +6,7 @@ import { customElement } from "lit/decorators";
 export class Wrapper extends LitElement {
     static override styles = css`
         div {
+            display: grid;
             position: fixed;
             top: 0;
             left: 0;

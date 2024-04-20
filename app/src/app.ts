@@ -15,7 +15,7 @@ export class App extends LitElement {
   accessor #accessKey: string | null = '';
 
   @state()
-  accessor #loading: boolean = true;
+  accessor #loading: Boolean = false;
 
   constructor() {
     super()
@@ -42,7 +42,7 @@ export class App extends LitElement {
   }
 
   override render() {
-    const loader = html`<app-loader loading=${this.#loading}></app-loader>`;
+    const loader = html`<app-loader ?loading=${this.#loading}></app-loader>`;
 
     if(!this.#accessKey) {
       return html`${loader}<request-key @save=${this.handleSave}></request-key>`;
