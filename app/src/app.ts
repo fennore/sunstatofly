@@ -1,10 +1,10 @@
 import {LitElement, html} from 'lit';
 import {customElement,  state} from 'lit/decorators';
-import {initiateDb, SolarAccessRepository} from './db';
+import {initiateDb, SolarAccessRepository} from './db/index.js';
 
-import './components/app-loader';
-import './components/request-key';
-import './components/chart-dashboard'
+import './components/app-loader/index.js';
+import './components/request-key/index.js';
+import './components/chart-dashboard/index.js'
 
 @customElement('solar-app')
 export class App extends LitElement {

@@ -27,7 +27,7 @@
           "name": "ts-lit-plugin",
           "strict": true
         }
-      ],
+      ]
     },
     "include": ["app/src/*.ts", "app/src/**/*.ts"],
     "exclude": ["app/node_modules"]

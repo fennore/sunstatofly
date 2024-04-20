@@ -2,7 +2,7 @@ import {LitElement, css, html} from 'lit';
 import {customElement, property} from 'lit/decorators';
 import '@material/web/textfield/outlined-text-field';
 
-import './wrapper'
+import './wrapper.js'
 
 @customElement('request-key')
 export class RequestKey extends LitElement {
