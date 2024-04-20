@@ -1,4 +1,4 @@
-import { LitElement, css } from "lit";
+import { LitElement, css, html } from "lit";
 import '@material/web/progress/circular-progress';
 import { customElement } from "lit/decorators";
 
@@ -14,6 +14,6 @@ export class Wrapper extends LitElement {
         }
     `;
     override render() {
-        return `<div><slot></slot></div>`
+        return html`<div><slot></slot></div>`
     }
 }

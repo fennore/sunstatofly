@@ -1,8 +1,20 @@
 import {LitElement, css, html} from 'lit';
-import {customElement, property} from 'lit/decorators';
+import {customElement} from 'lit/decorators';
 import '@material/web/textfield/outlined-text-field';
 
-import './wrapper.js'
+import './wrapper.js';
+
+type Data = { [k:string]: any }
+
+export class SaveEvent extends Event {
+    constructor(eventName: string, data: Data) {
+        super(eventName);
+
+        this.data = data;
+    }
+
+    data: Data;
+}
 
 @customElement('request-key')
 export class RequestKey extends LitElement {
@@ -12,17 +24,26 @@ export class RequestKey extends LitElement {
             min-height: 100vh;
         }
     `
-    
-    @property()
-    accessor name: string = '';
 
-    @property()
-    accessor onSave: Function = () => {};
+    constructor() {
+        super();
+
+        this.addEventListener('submit', this.#handleSave)
+    }
+
+    #handleSave = (event: any): any => {
+        event.stopPropagation();
+        event.preventDefault();
+        const target: HTMLFormElement = event.target;
+        const data = Object.fromEntries(new FormData(target));
+
+        this.dispatchEvent(new SaveEvent('save', { data }));
+    }
 
     override render() {
-        return html`<form @submit=${this.onSave}>
+        return html`<form>
             <key-wrapper>
-                <md-outlined-text-field type="password" label="Key" placeholder="Geef de toegangssleutel in">
+                <md-outlined-text-field name="key" type="password" label="Toegangssleutel" placeholder="Geef de toegangssleutel in">
                     <md-icon-button toggle slot="trailing-icon">
                         <md-icon>visibility</md-icon>
                         <md-icon slot="selected">visibility_off</md-icon>
