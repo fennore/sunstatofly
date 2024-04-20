@@ -10,6 +10,7 @@ export class Wrapper extends LitElement {
             align-content: center;
             gap: 8px;
             grid-auto-flow: column;
+            min-height: 100vh;
         }
     `
     override render() {
