@@ -13,7 +13,7 @@ export class DayProductionChart extends LitElement {
 
   // Declare reactive properties
   @property()
-  override title: string = 'Productie vandaag';
+  override accessor title: string = 'Productie vandaag';
 
   // Render the UI as a function of component state
   override render() {
