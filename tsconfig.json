@@ -18,7 +18,8 @@
       "noImplicitThis": true,
       "moduleResolution": "node",
       "allowSyntheticDefaultImports": true,
-      "experimentalDecorators": true,
+      "experimentalDecorators": false, // Using accessor
+      "useDefineForClassFields": true, // Recommended false according to Lit docs, but we shall see...
       "forceConsistentCasingInFileNames": true,
       "noImplicitOverride": true,
       "plugins": [

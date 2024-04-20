@@ -4,6 +4,7 @@
     "build:watch": "tsc --watch"
   },
   "dependencies": {
+    "@material/web": "^1.4.1",
     "chart.js": "^4.4.2",
     "lit": "^3.1.2"
   },
