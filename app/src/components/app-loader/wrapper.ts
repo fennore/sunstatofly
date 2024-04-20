@@ -13,7 +13,8 @@ export class Wrapper extends LitElement {
             height: 100vh;
         }
     `;
+
     override render() {
-        return html`<div><slot></slot></div>`
+        return html`<div><slot></slot></div>`;
     }
 }

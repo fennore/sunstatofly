@@ -12,7 +12,7 @@ export class AppLoader extends LitElement {
 
     override render() {
         if(!this.loading) {
-            return null;
+            return html``;
         }
 
         return html`<page-loader-wrapper><md-circular-progress indeterminate></md-circular-progress></page-loader-wrapper>`;
