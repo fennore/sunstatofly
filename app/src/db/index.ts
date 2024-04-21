@@ -16,10 +16,11 @@ export const initiateDb = (): Promise<IDBDatabase> => {
             const db: IDBDatabase = request.result;
 
             // Create an objectStore to hold solar stats.
-            // const objectStore = db.createObjectStore("solarStats", { keyPath: "id" });
-            const objectStore = db.createObjectStore("solar-access", { keyPath: "reference" });
+            const objectStore = db.createObjectStore("solar-access", { keyPath: "id" });
+            // const objectStore = db.createObjectStore("solar-access", { keyPath: "reference" });
 
             // Each data field that is not used as key, requires an index
+            objectStore.createIndex("reference", "reference");
             objectStore.createIndex("key", "key");
 
         });
