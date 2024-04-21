@@ -3,7 +3,6 @@ import {customElement} from 'lit/decorators';
 import '@material/web/button/filled-button'
 import '@material/web/textfield/outlined-text-field';
 
-import './key-icon-button.js'
 import './wrapper.js';
 
 type Data = { [k:string]: any }
@@ -53,3 +52,6 @@ export class RequestKey extends LitElement {
         </form>`
     }
 }
+
+// <key-icon-button slot="trailing-icon" />
+// 
