@@ -34,7 +34,9 @@ export class App extends LitElement {
     const {key} = data;
     initiateDb().then(db => {
       const repo = new SolarAccessRepository(db, 'solar-access');
-      repo.create({reference: KEY_REF, key }).then(() => {
+      const solarAccess = { reference: KEY_REF, key };
+      console.log(solarAccess);
+      repo.create(solarAccess).then(() => {
         this.#accessKey = key;
         this.#loading = false;
       });

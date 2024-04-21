@@ -54,7 +54,7 @@ export class SolarAccessRepository {
             const objectStore = transaction.objectStore(this.#storeName);
 
             // Make a request to add our newItem object to the object store
-            const request = objectStore.add(value, value.reference);
+            const request = objectStore.add(value);
 
             // report on the success of the transaction completing, when everything is done
             transaction.addEventListener('complete', () => {
