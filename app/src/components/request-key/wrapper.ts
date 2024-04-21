@@ -14,6 +14,6 @@ export class Wrapper extends LitElement {
         }
     `
     override render() {
-        return html`<div><slot></slot></div>`;
+        return html`<div><slot /></div>`;
     }
 }
