@@ -42,7 +42,7 @@ export class RequestKey extends LitElement {
 
         console.log(data);
 
-        this.dispatchEvent(new SaveEvent('save', { data }));
+        this.dispatchEvent(new SaveEvent('save', data ));
     }
 
     override render() {
