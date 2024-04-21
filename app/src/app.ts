@@ -30,8 +30,9 @@ export class App extends LitElement {
     });
   }
 
-  handleSave: (event: SaveEvent) => void = ({data}) => {
-    const {key} = data;
+  handleSave: (event: SaveEvent) => void = (event) => {
+    console.log(event);
+    const {key} = event.data;
     initiateDb().then(db => {
       const repo = new SolarAccessRepository(db, 'solar-access');
       const solarAccess = { reference: KEY_REF, key };
