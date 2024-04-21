@@ -46,7 +46,7 @@ export class RequestKey extends LitElement {
         return html`<form>
             <key-wrapper>
                 <md-outlined-text-field name="key" type="password" label="Toegangssleutel" placeholder="Geef de toegangssleutel in">
-                    <key-icon-button slot="trailing-icon" />
+                    
                 </md-outlined-text-field>
                 <md-filled-button type="submit">Naar dashboard</md-filled-button>
             </key-wrapper>
