@@ -29,7 +29,7 @@ export class RequestKey extends LitElement {
     constructor() {
         super();
 
-        // TODO find out how this works on submit, is there no bubbling etc.?
+        // TODO find out how this works on submit, is there no bubbling etc.? using @submit for now...
         // this.addEventListener('submit', this.#handleSave)
     }
 
@@ -39,6 +39,8 @@ export class RequestKey extends LitElement {
         event.preventDefault();
         const target: HTMLFormElement = event.target;
         const data = Object.fromEntries(new FormData(target));
+
+        console.log(data);
 
         this.dispatchEvent(new SaveEvent('save', { data }));
     }
