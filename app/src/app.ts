@@ -29,11 +29,13 @@ export class App extends LitElement {
     this.#loading = true;
     initiateDb().then(db => {
       const repo = new SolarAccessRepository(db, 'solar-access');
-      repo.get(KEY_REF).then(accessKey => {
+      
+      return repo.get(KEY_REF).then(accessKey => {
         this.#accessKey = accessKey?.key ?? null;
         this.#loading = false;
       });
-    }).catch(() => {
+    }).catch((error) => {
+      console.error(error);
       this.#error = "Something went wrong, try again later."
     });
   }
@@ -46,10 +48,14 @@ export class App extends LitElement {
       const repo = new SolarAccessRepository(db, 'solar-access');
       const solarAccess = { reference: KEY_REF, key };
       console.log(solarAccess);
-      repo.create(solarAccess).then(() => {
+
+      return repo.create(solarAccess).then(() => {
         this.#accessKey = key;
         this.#loading = false;
       });
+    }).catch((error) => {
+      console.error(error);
+      this.#error = "Something went wrong, try again later."
     });
   }
 
@@ -62,7 +68,7 @@ export class App extends LitElement {
         ${this.#error}
       </p>
     </md-dialog>`;
-    
+
     const loader = html`<app-loader ?loading=${this.#loading}></app-loader>`;
 
     const inject = html`${this.#error ? errorDialog : nothing}${loader}`
