@@ -29,7 +29,8 @@ export class RequestKey extends LitElement {
     constructor() {
         super();
 
-        this.addEventListener('submit', this.#handleSave)
+        // TODO find out how this works on submit, is there no bubbling etc.?
+        // this.addEventListener('submit', this.#handleSave)
     }
 
     #handleSave = (event: any): any => {
@@ -43,7 +44,7 @@ export class RequestKey extends LitElement {
     }
 
     override render() {
-        return html`<form>
+        return html`<form @submit=${this.#handleSave}>
             <key-wrapper>
                 <md-outlined-text-field name="key" type="password" label="Toegangssleutel" placeholder="Geef de toegangssleutel in">
                 </md-outlined-text-field>
@@ -53,5 +54,5 @@ export class RequestKey extends LitElement {
     }
 }
 
-// <key-icon-button slot="trailing-icon" />
+// <key-icon-button slot="trailing-icon" /> cannot be combined with filled button due to duplicate declaration of custome element: how to fix?
 // 
