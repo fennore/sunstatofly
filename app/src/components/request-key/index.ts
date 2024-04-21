@@ -3,6 +3,7 @@ import {customElement} from 'lit/decorators';
 import '@material/web/textfield/outlined-text-field';
 import '@material/web/icon/icon'
 import '@material/web/iconbutton/icon-button'
+import '@material/web/button/filled-button'
 
 import './wrapper.js';
 
@@ -46,11 +47,12 @@ export class RequestKey extends LitElement {
         return html`<form>
             <key-wrapper>
                 <md-outlined-text-field name="key" type="password" label="Toegangssleutel" placeholder="Geef de toegangssleutel in">
-                    <md-icon-button toggle slot="trailing-icon">
+                    <md-icon-button type="button" toggle slot="trailing-icon">
                         <md-icon>visibility</md-icon>
                         <md-icon slot="selected">visibility_off</md-icon>
                     </md-icon-button>
                 </md-outlined-text-field>
+                <md-filled-button type="submit">Naar dashboard</md-filled-button>
             </key-wrapper>
         </form>`
     }

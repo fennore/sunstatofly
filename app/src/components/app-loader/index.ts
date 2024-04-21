@@ -1,4 +1,4 @@
-import { LitElement, html } from "lit";
+import { LitElement, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators";
 import '@material/web/progress/circular-progress';
 
@@ -12,7 +12,7 @@ export class AppLoader extends LitElement {
 
     override render() {
         if(!this.loading) {
-            return html``;
+            return nothing;
         }
 
         return html`<page-loader-wrapper><md-circular-progress indeterminate></md-circular-progress></page-loader-wrapper>`;
