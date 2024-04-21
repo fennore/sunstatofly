@@ -33,6 +33,7 @@ export class RequestKey extends LitElement {
     }
 
     #handleSave = (event: any): any => {
+        console.log('I submitted', event);
         event.stopPropagation();
         event.preventDefault();
         const target: HTMLFormElement = event.target;
@@ -45,7 +46,6 @@ export class RequestKey extends LitElement {
         return html`<form>
             <key-wrapper>
                 <md-outlined-text-field name="key" type="password" label="Toegangssleutel" placeholder="Geef de toegangssleutel in">
-                    
                 </md-outlined-text-field>
                 <md-filled-button type="submit">Naar dashboard</md-filled-button>
             </key-wrapper>
