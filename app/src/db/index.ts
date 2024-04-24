@@ -1,7 +1,20 @@
-export const initiateDb = (): Promise<IDBDatabase> => {
+interface Repository {
+    build: Function;
+    create: Function;
+    get: Function;
+}
+
+interface RepositoryConstructable {
+    new (db:IDBDatabase): Repository
+}
+
+export const initiateDb = (name: string, repositories: Array<RepositoryConstructable>): Promise<IDBDatabase> => {
     return new Promise((resolve, reject) => {
+        // ! use version 0 for initial build and testing only, it is intended to clear and build from 0
+        const version = 0;
     
-        const request: IDBOpenDBRequest = indexedDB.open('SolarPowerStats', 1);
+        indexedDB.deleteDatabase(name)
+        const request: IDBOpenDBRequest = indexedDB.open(name, version);
     
         request.addEventListener('success', () => {
             resolve(request.result);
@@ -16,13 +29,11 @@ export const initiateDb = (): Promise<IDBDatabase> => {
             const db: IDBDatabase = request.result;
 
             // Create an objectStore to hold solar stats.
-            const objectStore = db.createObjectStore("solar-access", { keyPath: "id" });
-            // const objectStore = db.createObjectStore("solar-access", { keyPath: "reference" });
+            repositories.forEach((repoClass: RepositoryConstructable) => {
+                const repo = new repoClass(db);
 
-            // Each data field that is not used as key, requires an index
-            objectStore.createIndex("reference", "reference");
-            objectStore.createIndex("key", "key");
-
+                repo.build(version);
+            });
         });
     
     });
@@ -36,12 +47,27 @@ declare type SolarAccess = {
 
 export class SolarAccessRepository {
     #db: IDBDatabase;
-    #storeName: string;
+    #storeName: string = 'solar-access';
 
-    constructor(db: IDBDatabase, storeName: string) {
+    constructor(db: IDBDatabase) {
         this.#db = db;
-        this.#storeName = storeName;
     }
+
+    build(version: number) {
+        const clearStorage = () => {
+            if(this.#db.objectStoreNames.contains(this.#storeName)) {
+                this.#db.deleteObjectStore(this.#storeName);
+            }
+        }
+
+        if(version === 0) {
+            clearStorage();
+        }
+
+        if(version <= 1) {
+            this.#db.createObjectStore(this.#storeName, { keyPath: "reference" });
+        }
+    } 
 
     create(value: SolarAccess): Promise<IDBValidKey> {
 
@@ -54,7 +80,7 @@ export class SolarAccessRepository {
             const objectStore = transaction.objectStore(this.#storeName);
 
             // Make a request to add our newItem object to the object store
-            const request = objectStore.add(value, value.reference);
+            const request = objectStore.add(value);
 
             // report on the success of the transaction completing, when everything is done
             transaction.addEventListener('complete', () => {

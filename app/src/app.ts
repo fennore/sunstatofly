@@ -12,8 +12,14 @@ import { SaveEvent } from './components/request-key/index.js';
 
 const KEY_REF = "saj-solar-key";
 
+const repositories = [
+  SolarAccessRepository
+]
+
 @customElement('solar-app')
 export class App extends LitElement {
+  #dbName = 'SolarPowerStats';
+
   @state()
   accessor #accessKey: string | null = null;
 
@@ -27,8 +33,8 @@ export class App extends LitElement {
     super()
 
     this.#loading = true;
-    initiateDb().then(db => {
-      const repo = new SolarAccessRepository(db, 'solar-access');
+    initiateDb(this.#dbName, repositories).then(db => {
+      const repo = new SolarAccessRepository(db);
       
       return repo.get(KEY_REF).then(accessKey => {
         this.#accessKey = accessKey?.key ?? null;
@@ -44,10 +50,9 @@ export class App extends LitElement {
     console.log(event);
     const { key } = event.data;
     console.log(key);
-    initiateDb().then(db => {
-      const repo = new SolarAccessRepository(db, 'solar-access');
+    initiateDb(this.#dbName, repositories).then(db => {
+      const repo = new SolarAccessRepository(db);
       const solarAccess = { reference: KEY_REF, key };
-      console.log(solarAccess);
 
       return repo.create(solarAccess).then(() => {
         this.#accessKey = key;
