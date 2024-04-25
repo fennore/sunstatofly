@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators";
 
-import './charts/day-production-chart.js';
+import '../charts/day-production-chart.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
 
