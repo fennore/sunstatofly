@@ -21,7 +21,7 @@ export class App extends LitElement {
   #dbName = 'SolarPowerStats';
 
   @state()
-  accessor #accessKey: string | null = null;
+  accessor #authKey: string | null = null;
 
   @state()
   accessor #loading: Boolean = false;
@@ -30,14 +30,15 @@ export class App extends LitElement {
   accessor #error: string | null = null;
 
   constructor() {
-    super()
+    super();
 
     this.#loading = true;
     const db = initiateDb(this.#dbName, repositories);
     const repo = new SolarAccessRepository(db);
       
-    repo.get(KEY_REF).then(accessKey => {
-        this.#accessKey = accessKey?.key ?? null;
+    repo.get(KEY_REF).then(authKey => {
+      console.log('got this thing', authKey)
+        this.#authKey = authKey?.key ?? null;
         this.#loading = false;
     }).catch((error) => {
         console.error(error);
@@ -52,7 +53,7 @@ export class App extends LitElement {
     const solarAccess = { reference: KEY_REF, key };
 
     repo.create(solarAccess).then(() => {
-        this.#accessKey = key;
+        this.#authKey = key;
         this.#loading = false;
     }).catch((error) => {
         console.error(error);
@@ -74,10 +75,12 @@ export class App extends LitElement {
 
     const inject = html`${this.#error ? errorDialog : nothing}${loader}`
 
-    if(!this.#accessKey) {
+    if(!this.#authKey) {
       return html`${inject}<request-key @save=${this.handleSave}></request-key>`;
     }
 
-    return html`${inject}<chart-dashboard authKey=${this.#accessKey}></chart-dashboard>`;
+    console.log('we got it boys', this.#authKey);
+
+    return html`${inject}<chart-dashboard authKey=${this.#authKey}></chart-dashboard>`;
   }
 }
