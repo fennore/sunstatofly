@@ -10,7 +10,15 @@ interface Repository {
      * @see https://dexie.org/docs/Version/Version.stores()#schema-syntax
      */
     getSchema: (version: number) => string;
+    
+    /**
+     * @see https://dexie.org/docs/Table/Table.add()
+     */
     create: Function;
+
+    /**
+     * @see https://dexie.org/docs/Table/Table.get()
+     */
     get: Function;
 }
 
