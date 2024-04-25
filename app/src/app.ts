@@ -33,34 +33,30 @@ export class App extends LitElement {
     super()
 
     this.#loading = true;
-    initiateDb(this.#dbName, repositories).then(db => {
-      const repo = new SolarAccessRepository(db);
+    const db = initiateDb(this.#dbName, repositories);
+    const repo = new SolarAccessRepository(db);
       
-      return repo.get(KEY_REF).then(accessKey => {
+    repo.get(KEY_REF).then(accessKey => {
         this.#accessKey = accessKey?.key ?? null;
         this.#loading = false;
-      });
     }).catch((error) => {
-      console.error(error);
-      this.#error = "Something went wrong, try again later."
+        console.error(error);
+        this.#error = "Something went wrong, try again later."
     });
   }
 
   handleSave: (event: SaveEvent) => void = (event) => {
-    console.log(event);
     const { key } = event.data;
-    console.log(key);
-    initiateDb(this.#dbName, repositories).then(db => {
-      const repo = new SolarAccessRepository(db);
-      const solarAccess = { reference: KEY_REF, key };
+    const db = initiateDb(this.#dbName, repositories);
+    const repo = new SolarAccessRepository(db);
+    const solarAccess = { reference: KEY_REF, key };
 
-      return repo.create(solarAccess).then(() => {
+    repo.create(solarAccess).then(() => {
         this.#accessKey = key;
         this.#loading = false;
-      });
     }).catch((error) => {
-      console.error(error);
-      this.#error = "Something went wrong, try again later."
+        console.error(error);
+        this.#error = "Something went wrong, try again later."
     });
   }
 

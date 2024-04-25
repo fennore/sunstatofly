@@ -35,13 +35,10 @@ export class RequestKey extends LitElement {
     }
 
     #handleSave = (event: any): any => {
-        console.log('I submitted', event);
         event.stopPropagation();
         event.preventDefault();
         const target: HTMLFormElement = event.target;
         const data = Object.fromEntries(new FormData(target));
-
-        console.log(data);
 
         this.dispatchEvent(new SaveEvent('save', data ));
     }
@@ -57,5 +54,5 @@ export class RequestKey extends LitElement {
     }
 }
 
-// <key-icon-button slot="trailing-icon" /> cannot be combined with filled button due to duplicate declaration of custome element: how to fix?
+// TODO <key-icon-button slot="trailing-icon" /> cannot be combined with filled button due to duplicate declaration of custome element: how to fix?
 // 
