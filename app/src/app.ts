@@ -78,6 +78,6 @@ export class App extends LitElement {
       return html`${inject}<request-key @save=${this.handleSave}></request-key>`;
     }
 
-    return html`${inject}<chart-dashboard></chart-dashboard>`;
+    return html`${inject}<chart-dashboard authKey=${this.#accessKey}></chart-dashboard>`;
   }
 }
