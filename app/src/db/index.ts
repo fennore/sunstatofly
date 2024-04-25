@@ -45,12 +45,12 @@ export const initiateDb = (name: string, repositories: Array<RepositoryConstruct
     return db;
 }
 
-declare type SolarAccess = {
+declare type SolarPlant = {
     reference: string;
-    key: string;
+    plantUid: string;
 }
 
-export class SolarAccessRepository {
+export class SolarPlantRepository {
     #db: Dexie;
     #storeName: string = 'solar-access';
 
@@ -66,11 +66,11 @@ export class SolarAccessRepository {
         return "reference";
     } 
 
-    create(value: SolarAccess) : Promise<IndexableType> {
+    create(value: SolarPlant) : Promise<IndexableType> {
         return this.#db.table(this.#storeName).add(value);
     }
 
-    get(reference: string): Promise<SolarAccess> {
+    get(reference: string): Promise<SolarPlant> {
         return this.#db.table(this.#storeName).get(reference)
     }
 }

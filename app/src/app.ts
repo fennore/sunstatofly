@@ -1,7 +1,7 @@
 import {LitElement, html, nothing} from 'lit';
 import {customElement,  state} from 'lit/decorators';
 
-import {initiateDb, SolarAccessRepository} from './db/index.js';
+import {initiateDb, SolarPlantRepository} from './db/index.js';
 
 import '@material/web/dialog/dialog'
 
@@ -10,10 +10,10 @@ import './components/request-key/index.js';
 import './components/chart-dashboard/index.js'
 import { SaveEvent } from './components/request-key/index.js';
 
-const KEY_REF = "saj-solar-key";
+const KEY_REF = "saj-solar-plant-uid";
 
 const repositories = [
-  SolarAccessRepository
+  SolarPlantRepository
 ]
 
 @customElement('solar-app')
@@ -21,7 +21,7 @@ export class App extends LitElement {
   #dbName = 'SolarPowerStats';
 
   @state()
-  accessor #authKey: string | null = null;
+  accessor #plantUid: string | null = null;
 
   @state()
   accessor #loading: Boolean = false;
@@ -34,11 +34,11 @@ export class App extends LitElement {
 
     this.#loading = true;
     const db = initiateDb(this.#dbName, repositories);
-    const repo = new SolarAccessRepository(db);
+    const repo = new SolarPlantRepository(db);
       
-    repo.get(KEY_REF).then(authKey => {
-      console.log('got this thing', authKey)
-        this.#authKey = authKey?.key ?? null;
+    repo.get(KEY_REF).then(plant => {
+        console.log('got this thing', plant);
+        this.#plantUid = plant?.plantUid ?? null;
         this.#loading = false;
     }).catch((error) => {
         console.error(error);
@@ -47,13 +47,13 @@ export class App extends LitElement {
   }
 
   handleSave: (event: SaveEvent) => void = (event) => {
-    const { key } = event.data;
+    const { plantUid } = event.data;
     const db = initiateDb(this.#dbName, repositories);
-    const repo = new SolarAccessRepository(db);
-    const solarAccess = { reference: KEY_REF, key };
+    const repo = new SolarPlantRepository(db);
+    const solarAccess = { reference: KEY_REF, plantUid };
 
     repo.create(solarAccess).then(() => {
-        this.#authKey = key;
+        this.#plantUid = plantUid;
         this.#loading = false;
     }).catch((error) => {
         console.error(error);
@@ -75,12 +75,12 @@ export class App extends LitElement {
 
     const inject = html`${this.#error ? errorDialog : nothing}${loader}`
 
-    if(!this.#authKey) {
+    if(!this.#plantUid) {
       return html`${inject}<request-key @save=${this.handleSave}></request-key>`;
     }
 
-    console.log('we got it boys', this.#authKey);
+    console.log('we got it boys', this.#plantUid);
 
-    return html`${inject}<chart-dashboard authKey=${this.#authKey}></chart-dashboard>`;
+    return html`${inject}<chart-dashboard plantUid=${this.#plantUid}></chart-dashboard>`;
   }
 }

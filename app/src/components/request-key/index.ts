@@ -46,7 +46,7 @@ export class RequestKey extends LitElement {
     override render() {
         return html`<form @submit=${this.#handleSave}>
             <key-wrapper>
-                <md-outlined-text-field name="key" type="password" label="Toegangssleutel" placeholder="Geef de toegangssleutel in">
+                <md-outlined-text-field name="key" type="password" label="ID van de installatie" placeholder="Geef het ID in">
                 </md-outlined-text-field>
                 <md-filled-button type="submit">Naar dashboard</md-filled-button>
             </key-wrapper>
