@@ -14,11 +14,6 @@ export class DayProductionChart extends LitElement {
     }
   `;
 
-  constructor() {
-    super();
-    
-  }
-
   // Declare reactive properties
   @property()
   override accessor title: string = 'Productie vandaag';
