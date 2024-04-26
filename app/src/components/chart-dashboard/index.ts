@@ -17,7 +17,7 @@ const requestMap: Map<string, string> = new Map([
     // solar power this year
     ['year', `[domain]/bigScreen/getSinglePlantElecChart?${new URLSearchParams({plantuid: '[uid]', clientDate:'[today]', chartDateType: '3'})}`],
     // solar power compare years
-    ['compareYears', `bigScreen/getSinglePlantElecChart?${new URLSearchParams({plantuid: '[uid]', clientDate:'[today]', chartDateType: '4'})}`],
+    ['compareYears', `[domain]/bigScreen/getSinglePlantElecChart?${new URLSearchParams({plantuid: '[uid]', clientDate:'[today]', chartDateType: '4'})}`],
 ]);
 
 /**
@@ -77,9 +77,9 @@ export class ChartDashboard extends LitElement {
     getUrl: (url?:string) => URL = url => {
 
         const filledUrl = url?.replace('[domain]', DOMAIN)
-            .replace('[uid]', this.plantUid ?? '')
-            .replace('[today]', getToday())
-            .replace('[yesterday]', getYesterday());
+            .replace(encodeURIComponent('[uid]'), encodeURIComponent(this.plantUid ?? ''))
+            .replace(encodeURIComponent('[today]'), encodeURIComponent(getToday()))
+            .replace(encodeURIComponent('[yesterday]'), encodeURIComponent(getYesterday()));
 
         console.log('url', url, filledUrl);
         
