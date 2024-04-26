@@ -88,6 +88,11 @@ export class ChartDashboard extends LitElement {
 
     override render() {
         console.log('uid', this.plantUid);
-        return html`The dashboard`;
+        const stats = [
+            ['day', '09:00', '12:00', '15:00'],
+            ['today', 40, 80, 75],
+            ['yesterday', 30, 95, 45],
+        ]
+        return html`<day-production-chart stats=${stats}></day-production-chart>`;
     }
 }
