@@ -1,3 +1,4 @@
 /public/js/
 /app/node_modules/
 .env.*
+*-lock.json
