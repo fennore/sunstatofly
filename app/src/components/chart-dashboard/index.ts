@@ -65,7 +65,7 @@ export class ChartDashboard extends LitElement {
             fetch(this.getUrl(requestMap.get('compareDay'))),
             fetch(this.getUrl(requestMap.get('compareYears'))),
         ]).then(results => {
-            console.log(results)
+            console.log('all data', results)
         }).catch((error) => {
             console.error(error);
         });

@@ -1,46 +1,73 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators';
 import {RefOrCallback, ref} from 'lit/directives/ref';
-import { Chart } from 'chart.js';
+import { EChartsType, init } from 'echarts';
 
 @customElement('day-production-chart')
 export class DayProductionChart extends LitElement {
-  // #chart?: Chart;
+  #chart?: EChartsType;
 
-  // Define scoped styles right with your component, in plain CSS
-  static override styles = css`
-    :host {
-      color: blue;
+  static override styles=css`
+    div {
+      width: 100%;
+      height: 100%;
     }
   `;
 
+  constructor() {
+    super();
+
+    this.addEventListener('resize', () => {
+      this.#chart?.resize();
+    })
+  }
+
   // Declare reactive properties
   @property()
-  override accessor title: string = 'Productie vandaag';
+  accessor stats: Array<any> = [];
 
-  assignChart = (canvas?: Element & HTMLCanvasElement) => {
+  assignChart = (canvas?: HTMLCanvasElement) => {
     if(canvas) {
-      new Chart(canvas, {
-        type: 'bar',
-        data: {
-          labels: [],
-          datasets: [{
-            label: 'Productie vandaag',
-            data: [],
-            borderWidth: 1
-          }]
-        },
+      this.#chart = init(canvas);
+      this.#chart.setOption({
+        legend: {},
+        tooltip: {},
+        // Declare an x-axis (category axis).
+        // The category map the first column in the dataset by default.
+        xAxis: { type: 'category' },
+        // Declare a y-axis (value axis).
+        yAxis: {},
+        // Declare several 'bar' series,
+        // every series will auto-map to each column by default.
+        series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
       });
     }
   }
 
   // Render the UI as a function of component state
   override render() {
+
+    if(!this.stats) {
+      // Set loading
+      this.#chart?.showLoading();
+    } else {
+      // Set data
+      console.log('stats', this.stats);
+      this.#chart?.setOption({
+        dataset: {
+          source: this.stats
+        }
+      })
+      this.#chart?.hideLoading();
+    }
+  
     return html`
-      <p>${this.title}!</p>
-      <div>
-        <canvas ${ref(this.assignChart as RefOrCallback<Element>)} />
-      </div>
+        <div ${ref(this.assignChart as RefOrCallback<Element>)}></div>
     `;
+  }
+
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.#chart?.dispose();
   }
 }
