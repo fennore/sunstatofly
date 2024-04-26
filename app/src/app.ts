@@ -10,7 +10,7 @@ import './components/request-key/index.js';
 import './components/chart-dashboard/index.js'
 import { SaveEvent } from './components/request-key/index.js';
 
-const KEY_REF = "saj-solar-plant-uid";
+const KEY_REF = "saj-solar-plant";
 
 const repositories = [
   SolarPlantRepository
@@ -50,9 +50,10 @@ export class App extends LitElement {
     const { plantUid } = event.data;
     const db = initiateDb(this.#dbName, repositories);
     const repo = new SolarPlantRepository(db);
-    const solarAccess = { reference: KEY_REF, plantUid };
+    const solarPlant = { reference: KEY_REF, plantUid };
+    console.log('saving', solarPlant);
 
-    repo.create(solarAccess).then(() => {
+    repo.create(solarPlant).then(() => {
         this.#plantUid = plantUid;
         this.#loading = false;
     }).catch((error) => {
