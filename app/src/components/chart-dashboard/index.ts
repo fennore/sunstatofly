@@ -74,12 +74,17 @@ export class ChartDashboard extends LitElement {
     @property()
     accessor plantUid: string | null = null;
 
-    getUrl: (url?:string) => URL = url => new URL(
-        url?.replace('[domain]', DOMAIN)
+    getUrl: (url?:string) => URL = url => {
+
+        const filledUrl = url?.replace('[domain]', DOMAIN)
             .replace('[uid]', this.plantUid ?? '')
             .replace('[today]', getToday())
-            .replace('[yesterday]', getYesterday()) ?? ''
-        );
+            .replace('[yesterday]', getYesterday());
+
+        console.log('url', url, filledUrl);
+        
+        return new URL(filledUrl ?? '');
+    }
 
     override render() {
         console.log('uid', this.plantUid);
