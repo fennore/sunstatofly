@@ -37,7 +37,6 @@ export class App extends LitElement {
     const repo = new SolarPlantRepository(db);
       
     repo.get(KEY_REF).then(plant => {
-        console.log('got this thing', plant);
         this.#plantUid = plant?.plantUid ?? null;
         this.#loading = false;
     }).catch((error) => {
@@ -51,7 +50,6 @@ export class App extends LitElement {
     const db = initiateDb(this.#dbName, repositories);
     const repo = new SolarPlantRepository(db);
     const solarPlant = { reference: KEY_REF, plantUid };
-    console.log('saving', solarPlant);
 
     repo.create(solarPlant).then(() => {
         this.#plantUid = plantUid;
@@ -79,8 +77,6 @@ export class App extends LitElement {
     if(!this.#plantUid) {
       return html`${inject}<request-key @save=${this.handleSave}></request-key>`;
     }
-
-    console.log('we got it boys', this.#plantUid);
 
     return html`${inject}<chart-dashboard plantUid=${this.#plantUid}></chart-dashboard>`;
   }

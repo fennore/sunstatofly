@@ -1,5 +1,6 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators";
+import { Task } from 'lit/task';
 
 import '../charts/day-production-chart.js';
 
@@ -55,21 +56,40 @@ const getYesterday: (tz?: number) => string = (plantTZ = 2) => {
 
 @customElement('chart-dashboard')
 export class ChartDashboard extends LitElement {
-    constructor() {
-        super();
-        
-        Promise.all([
-            fetch(this.getUrl(requestMap.get('day'))),
-            fetch(this.getUrl(requestMap.get('month'))),
-            fetch(this.getUrl(requestMap.get('year'))),
-            fetch(this.getUrl(requestMap.get('compareDay'))),
-            fetch(this.getUrl(requestMap.get('compareYears'))),
-        ]).then(results => {
-            console.log('all data', results)
-        }).catch((error) => {
-            console.error(error);
-        });
-    }
+    private stats = new Task(
+        this,
+        {
+            task: async () => {
+                console.log('plant ID on task run', this.plantUid);
+                if(!this.plantUid) {
+                    return [];
+                }
+
+                try {
+                    const result = Promise.all([
+                        fetch(this.getUrl(requestMap.get('day'))),
+                        fetch(this.getUrl(requestMap.get('month'))),
+                        fetch(this.getUrl(requestMap.get('year'))),
+                        fetch(this.getUrl(requestMap.get('compareDay'))),
+                        fetch(this.getUrl(requestMap.get('compareYears'))),
+                    ]);
+
+                    // TODO day stats should run with a listener on timer, every 5 mins?)
+                    
+                    // TODO transform results
+                    console.log('all data', result);
+                    
+                    return result;
+                } catch(error) {
+                    console.error(error);
+                    // TODO show message when failed (might be offline ?)
+
+                    return [];
+                }
+            },
+            args: () => [this.plantUid]
+        }
+    );
     
     @property()
     accessor plantUid: string | null = null;
@@ -80,14 +100,12 @@ export class ChartDashboard extends LitElement {
             .replace(encodeURIComponent('[uid]'), encodeURIComponent(this.plantUid ?? ''))
             .replace(encodeURIComponent('[today]'), encodeURIComponent(getToday()))
             .replace(encodeURIComponent('[yesterday]'), encodeURIComponent(getYesterday()));
-
-        console.log('url', url, filledUrl);
         
         return new URL(filledUrl ?? '');
     }
 
     override render() {
-        console.log('uid', this.plantUid);
+        console.log('stats on render', this.stats.value);
         const stats = [
             ['day', '09:00', '12:00', '15:00'],
             ['today', 40, 80, 75],
