@@ -1,12 +1,12 @@
 # sunstatofly
 
-https://github.com/lit/lit/tree/main/packages/lit-starter-ts/src
-
-https://lit.dev/docs/getting-started/
+https://lit.dev/
 
 https://dexie.org
 
 https://echarts.apache.org/en/index.html
+
+https://esm.sh/#docs
 
 interesting stuff:
 

@@ -1,6 +1,6 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators";
-import { Task } from 'lit/task';
+import { Task } from "@lit/task";
 
 import '../charts/day-production-chart.js';
 
