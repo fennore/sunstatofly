@@ -66,7 +66,7 @@ export class ChartDashboard extends LitElement {
                 }
 
                 try {
-                    const result = Promise.all([
+                    const result = await Promise.all([
                         fetch(this.getUrl(requestMap.get('day'))),
                         fetch(this.getUrl(requestMap.get('month'))),
                         fetch(this.getUrl(requestMap.get('year'))),
