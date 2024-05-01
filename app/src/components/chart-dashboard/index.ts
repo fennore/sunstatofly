@@ -26,7 +26,7 @@ const requestMap: Map<string, string> = new Map([
  */
 const getPlantDate: (tz: number, date: Date) => Date = (plantTZ = 2, date) => {
     const plantDate = new Date(date);
-    plantDate.setHours(date.getHours() - date.getTimezoneOffset() + plantTZ);
+    plantDate.setHours(date.getHours() + Math.round(date.getTimezoneOffset()/60) + plantTZ);
 
     return plantDate;
 }
