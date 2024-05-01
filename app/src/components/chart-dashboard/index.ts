@@ -67,17 +67,18 @@ export class ChartDashboard extends LitElement {
 
                 try {
                     const result = await Promise.all([
-                        fetch(this.getUrl(requestMap.get('day'))).then(response => response.json()),
-                        fetch(this.getUrl(requestMap.get('month'))).then(response => response.json()),
-                        fetch(this.getUrl(requestMap.get('year'))).then(response => response.json()),
-                        fetch(this.getUrl(requestMap.get('compareDay'))).then(response => response.json()),
-                        fetch(this.getUrl(requestMap.get('compareYears'))).then(response => response.json()),
+                        this.getStats('day'),
+                        this.getStats('month'),
+                        this.getStats('year'),
+                        this.getStats('compareDay'),
+                        this.getStats('compareYears'),
                     ]);
 
-                    // TODO day stats should run with a listener on timer, every 5 mins?)
+                    // TODO day stats should run with a listener on timer (every 5 mins?)
+
+                    // TODO month stats should run with a listener on timer (every 30 mins?)
                     
                     // TODO transform results
-                    console.log('all data', result);
                     
                     return result;
                 } catch(error) {
@@ -103,6 +104,14 @@ export class ChartDashboard extends LitElement {
         
         return new URL(filledUrl ?? '');
     }
+
+    getStats: (type: string) => JSON = type => fetch(this.getUrl(requestMap.get(type))).then(response => {
+        if(response.ok) {
+            return response.json();
+        }
+
+        return Promise.resolve([]);
+    })
 
     override render() {
         console.log('stats on render', this.stats.value);
