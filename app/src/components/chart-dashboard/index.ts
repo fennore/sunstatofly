@@ -67,11 +67,11 @@ export class ChartDashboard extends LitElement {
 
                 try {
                     const result = await Promise.all([
-                        fetch(this.getUrl(requestMap.get('day'))),
-                        fetch(this.getUrl(requestMap.get('month'))),
-                        fetch(this.getUrl(requestMap.get('year'))),
-                        fetch(this.getUrl(requestMap.get('compareDay'))),
-                        fetch(this.getUrl(requestMap.get('compareYears'))),
+                        fetch(this.getUrl(requestMap.get('day'))).then(response => response.json()),
+                        fetch(this.getUrl(requestMap.get('month'))).then(response => response.json()),
+                        fetch(this.getUrl(requestMap.get('year'))).then(response => response.json()),
+                        fetch(this.getUrl(requestMap.get('compareDay'))).then(response => response.json()),
+                        fetch(this.getUrl(requestMap.get('compareYears'))).then(response => response.json()),
                     ]);
 
                     // TODO day stats should run with a listener on timer, every 5 mins?)
