@@ -6,7 +6,7 @@ import '../charts/day-production-chart.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
 
-const DOMAIN = 'https://fop.saj-electric.com';
+const DOMAIN = 'https://saj-api-proxy.fennore.workers.dev/?https://fop.saj-electric.com';
 
 const requestMap: Map<string, string> = new Map([
     // solar power today
