@@ -3,11 +3,10 @@ import { customElement, property } from "lit/decorators";
 import { RefOrCallback, ref } from "lit/directives/ref";
 import * as echarts from "echarts";
 
-type EChartsOption = echarts.EChartsOption;
+type EChartsType = echarts.EChartsType;
 
 @customElement("day-production-chart")
 export class DayProductionChart extends LitElement {
-  #wrapper?: HTMLElement;
   #chart?: EChartsType;
 
   static override styles = css`
@@ -33,7 +32,6 @@ export class DayProductionChart extends LitElement {
   accessor stats: Array<any> | null = null;
 
   assignChart = (element: HTMLElement) => {
-    this.#wrapper = element;
     console.log("assigning", element);
 
     if (element) {
