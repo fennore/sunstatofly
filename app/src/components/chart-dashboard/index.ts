@@ -154,6 +154,6 @@ export class ChartDashboard extends LitElement {
     override render() {
         console.log('stats on render', this.stats.value);
         
-        return html`<day-production-chart .stats=${this.stats.value?.day ?? []}></day-production-chart>`;
+        return html`<day-production-chart .stats=${this.stats.value?.day ?? null}></day-production-chart>`;
     }
 }
