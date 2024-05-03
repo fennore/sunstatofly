@@ -36,10 +36,10 @@ export class DayProductionChart extends LitElement {
         tooltip: {},
         dataset: {
           source: [
-            ['time', 'today', 'yesterday']
-            ['test', 10, 20]
-            ['test2', 15, 18]
-            ['test3', 22, 8]
+            ['time', 'today', 'yesterday'],
+            ['test', 10, 20],
+            ['test2', 15, 18],
+            ['test3', 22, 8],
             ['test4', 18, 12]
           ]
         },
