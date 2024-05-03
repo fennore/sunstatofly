@@ -12,7 +12,7 @@ declare type timeDataToStats<K, V> = (data: TimeDataList<K, V>, compareData?: Ti
  */
 export const timeDataToStats: timeDataToStats<string, number> = (
     { dataCountList, dataTimeList }, 
-    { dataCountList: compareCountList, dataTimeList: compareTimeList }
+    { dataCountList: compareCountList, dataTimeList: compareTimeList } = {}
 ) => {
 
     const stats = new Map();
