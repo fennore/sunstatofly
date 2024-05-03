@@ -3,6 +3,7 @@ import { customElement, property } from "lit/decorators";
 import { Task } from "@lit/task";
 
 import '../charts/day-production-chart.js';
+import './transform.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
 
@@ -78,9 +79,7 @@ export class ChartDashboard extends LitElement {
 
                     // TODO month stats should run with a listener on timer (every 30 mins?)
                     
-                    // TODO transform results
-                    
-                    return result;
+                    return timeDataToStats(result);
                 } catch(error) {
                     console.error(error);
                     // TODO show message when failed (might be offline ?)
@@ -105,7 +104,7 @@ export class ChartDashboard extends LitElement {
         return new URL(filledUrl ?? '');
     }
 
-    getStats: (type: string) => JSON = type => fetch(this.getUrl(requestMap.get(type))).then(response => {
+    getStats: (type: string) => any = type => fetch(this.getUrl(requestMap.get(type))).then(response => {
         if(response.ok) {
             return response.json();
         }
