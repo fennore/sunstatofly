@@ -72,6 +72,8 @@ export class DayProductionChart extends LitElement {
   }
 
   override connectedCallback(): void {
+    super.connectedCallback();
+
     console.log("connect", this.#wrapper);
     if (this.#wrapper) {
       this.#chart = init(this.#wrapper);
@@ -105,10 +107,13 @@ export class DayProductionChart extends LitElement {
 
   override disconnectedCallback(): void {
     super.disconnectedCallback();
+
     this.#chart?.dispose();
   }
 
   override updated(changedProperties: Map<string, any>) {
+    super.updated();
+
     if (changedProperties.has("stats")) {
       console.log("stats updated");
       if (!this.stats) {
