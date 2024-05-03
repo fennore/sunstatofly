@@ -3,7 +3,7 @@ export declare type TimeDataList<K, V> = {
     dataCountList: Array<V>;
 }
 
-declare type timeDataToStats<K, V> = (data: TimeDataList<K, V>, compareData?: TimeDataList<K, V> | void) => Array<Array<string | number>>
+declare type timeDataToStats<K, V> = (data: TimeDataList<K, V>, compareData?: TimeDataList<K, V>) => Array<Array<string | number>>;
 
 /**
  * Convert API data to usable data for datasets
@@ -12,9 +12,9 @@ declare type timeDataToStats<K, V> = (data: TimeDataList<K, V>, compareData?: Ti
  */
 export const timeDataToStats: timeDataToStats<string, number> = (
     { dataCountList, dataTimeList }, 
-    { dataCountList: compareCountList, dataTimeList: compareTimeList } = {}
+    compareData
 ) => {
-
+    const { dataCountList: compareCountList, dataTimeList: compareTimeList } = compareData ?? {}
     const stats = new Map();
 
     dataTimeList.forEach((time, index) => {
