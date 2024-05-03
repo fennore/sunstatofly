@@ -28,7 +28,7 @@ export const timeDataToStats: timeDataToStats<string, number> = (
     compareTimeList?.forEach((time: string, index: number) => {
         const timeStat = stats.get(time) ?? new Map();
 
-        timeStat.set('compare', compareCountList[index]);
+        timeStat.set('compare', compareCountList?.[index]);
 
         stats.set(time, timeStat);
     });
