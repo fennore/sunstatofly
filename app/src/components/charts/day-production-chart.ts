@@ -39,7 +39,7 @@ export class DayProductionChart extends LitElement {
         yAxis: {},
         // Declare several 'bar' series,
         // every series will auto-map to each column by default.
-        series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+        series: [{ type: 'bar' }, { type: 'bar' }]
       });
     }
   }
@@ -52,7 +52,7 @@ export class DayProductionChart extends LitElement {
       this.#chart?.showLoading();
     } else {
       // Set data
-      console.log('stats', this.stats);
+      console.log('day prod stats', this.stats);
       this.#chart?.setOption({
         dataset: {
           source: this.stats

@@ -3,7 +3,7 @@ import { customElement, property } from "lit/decorators";
 import { Task } from "@lit/task";
 
 import '../charts/day-production-chart.js';
-import './transform.js';
+import { timeDataToStats } from './transform.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
 
@@ -61,7 +61,6 @@ export class ChartDashboard extends LitElement {
         this,
         {
             task: async () => {
-                console.log('plant ID on task run', this.plantUid);
                 if(!this.plantUid) {
                     return [];
                 }
@@ -79,7 +78,7 @@ export class ChartDashboard extends LitElement {
 
                     // TODO month stats should run with a listener on timer (every 30 mins?)
                     
-                    return timeDataToStats(result);
+                    return result;
                 } catch(error) {
                     console.error(error);
                     // TODO show message when failed (might be offline ?)
@@ -106,7 +105,7 @@ export class ChartDashboard extends LitElement {
 
     getStats: (type: string) => any = type => fetch(this.getUrl(requestMap.get(type))).then(response => {
         if(response.ok) {
-            return response.json();
+            return timeDataToStats(response.json());
         }
 
         return Promise.resolve([]);
@@ -115,9 +114,10 @@ export class ChartDashboard extends LitElement {
     override render() {
         console.log('stats on render', this.stats.value);
         const stats = [
-            ['day', '09:00', '12:00', '15:00'],
-            ['today', 40, 80, 75],
-            ['yesterday', 30, 95, 45],
+            ['time', 'today', 'yesterday'],
+            ['09:00', 40, 30],
+            ['12:00', 80, 90],
+            ['15:00', 95, 105],
         ]
         return html`<day-production-chart stats=${stats}></day-production-chart>`;
     }

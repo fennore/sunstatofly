@@ -3,7 +3,7 @@ declare type TimeDataList<K, V> = {
     dataCountList: Array<V>;
 }
 
-declare type timeDataToStats<K, V> = (data: TimeDataList<K, V>, compareData: TimeDataList<K, V>) => Map<K, Map<'data' | 'compare', V>>
+declare type timeDataToStats<K, V> = (data: TimeDataList<K, V>, compareData: TimeDataList<K, V>) => Array<Array<string | number>>
 
 /**
  * Convert API data to usable data for datasets
