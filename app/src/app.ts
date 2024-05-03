@@ -10,6 +10,8 @@ import './components/request-key/index.js';
 import './components/chart-dashboard/index.js'
 import { SaveEvent } from './components/request-key/index.js';
 
+// TODO build and use rollup instead of dns + import map (is way too slow!)
+
 const KEY_REF = "saj-solar-plant";
 
 const repositories = [

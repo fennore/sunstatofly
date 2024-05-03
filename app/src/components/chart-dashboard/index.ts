@@ -108,7 +108,7 @@ export class ChartDashboard extends LitElement {
                     // TODO save static data to indexDB and only fetch it when it is not available for current date
                     
                     return {
-                        day: timeDataToStats(results[0], results[3]),
+                        day: timeDataToStats(results?.[0], results[3]),
                         month: timeDataToStats(results[1], results[4]),
                         year: timeDataToStats(results[2], results[5]),
                         years: timeDataToStats(results[6])
@@ -139,12 +139,15 @@ export class ChartDashboard extends LitElement {
         return new URL(filledUrl ?? '');
     }
 
-    getStats: (type: string) => Promise<TimeDataList<string, number> | void> = type => fetch(this.getUrl(requestMap.get(type))).then(response => {
+    getStats: (type: string) => Promise<TimeDataList<string, number>> = type => fetch(this.getUrl(requestMap.get(type))).then(response => {
         if(response.ok) {
             return response.json();
         }
 
-        return Promise.resolve();
+        return Promise.resolve({
+            dataCountList: [],
+            dataTimeList: []
+        });
     })
 
     override render() {
