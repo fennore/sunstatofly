@@ -35,7 +35,7 @@ export class DayProductionChart extends LitElement {
 
     if (element && false) {
       this.#chart = init(element);
-      this.#chart.setOption({
+      this.#chart?.setOption({
         legend: {},
         tooltip: {},
         dataset: {
@@ -78,7 +78,7 @@ export class DayProductionChart extends LitElement {
     if (this.#wrapper) {
       this.#chart = init(this.#wrapper);
       this.#chart?.showLoading();
-      this.#chart.setOption({
+      this.#chart?.setOption({
         legend: {},
         tooltip: {},
         dataset: {
