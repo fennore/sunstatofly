@@ -8,7 +8,7 @@ export class DayProductionChart extends LitElement {
   #chart?: EChartsType;
 
   static override styles=css`
-    div {
+    div.chart-wrapper {
       width: 100%;
       height: 100%;
       min-height: 250px;
@@ -34,6 +34,15 @@ export class DayProductionChart extends LitElement {
       this.#chart.setOption({
         legend: {},
         tooltip: {},
+        dataset: {
+          source: [
+            ['time', 'today', 'yesterday']
+            ['test', 10, 20]
+            ['test2', 15, 18]
+            ['test3', 22, 8]
+            ['test4', 18, 12]
+          ]
+        },
         // Declare an x-axis (category axis).
         // The category map the first column in the dataset by default.
         xAxis: { type: 'category' },
@@ -41,7 +50,7 @@ export class DayProductionChart extends LitElement {
         yAxis: {},
         // Declare several 'bar' series,
         // every series will auto-map to each column by default.
-        series: [{ type: 'bar' }, { type: 'bar' }]
+        series: [{ type: 'line', areaStyle: {} }, { type: 'line', areaStyle: {} }]
       });
     }
   }
@@ -62,9 +71,11 @@ export class DayProductionChart extends LitElement {
       })
       this.#chart?.hideLoading();
     }
+
+    console.log(this.#chart?.getOption());
   
     return html`
-        <div ${ref(this.assignChart as RefOrCallback<Element>)}></div>
+        <div class="chart-wrapper" ${ref(this.assignChart as RefOrCallback<Element>)}></div>
     `;
   }
 
