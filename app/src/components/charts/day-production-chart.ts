@@ -65,11 +65,9 @@ export class DayProductionChart extends LitElement {
   // Render the UI as a function of component state
   override render() {
     console.log("rendering", this.stats);
+    
     return html`
-      <div
-        class="chart-wrapper"
-        ${ref(this.assignChart as RefOrCallback<Element>)}
-      ></div>
+      <div class="chart-wrapper" ${ref(this.assignChart as RefOrCallback<Element>)}></div>
     `;
   }
 

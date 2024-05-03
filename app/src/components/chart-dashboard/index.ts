@@ -1,4 +1,4 @@
-import { LitElement, html } from "lit";
+import { LitElement, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators";
 import { Task } from "@lit/task";
 
@@ -152,8 +152,8 @@ export class ChartDashboard extends LitElement {
     })
 
     override render() {
-        console.log('stats on render', this.stats.value);
+        console.log('stats on render', this.stats.value?.day);
         
-        return html`<day-production-chart .stats=${this.stats.value?.day ?? null}></day-production-chart>`;
+        return html`<day-production-chart .stats=${this.stats.value?.day ?? nothing}></day-production-chart>`;
     }
 }
