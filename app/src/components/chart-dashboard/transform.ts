@@ -1,4 +1,4 @@
-declare type TimeDataList<K, V> = {
+export declare type TimeDataList<K, V> = {
     dataTimeList: Array<K>;
     dataCountList: Array<V>;
 }

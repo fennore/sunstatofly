@@ -3,7 +3,7 @@ import { customElement, property } from "lit/decorators";
 import { Task } from "@lit/task";
 
 import '../charts/day-production-chart.js';
-import { timeDataToStats } from './transform.js';
+import { TimeDataList, timeDataToStats } from './transform.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
 
@@ -72,7 +72,7 @@ export class ChartDashboard extends LitElement {
                         this.getStats('year'),
                         this.getStats('compareDay'),
                         this.getStats('compareYears'),
-                    ]);
+                    ]).then(results => results.map(timeDataToStats));
 
                     // TODO day stats should run with a listener on timer (every 5 mins?)
 
@@ -103,9 +103,9 @@ export class ChartDashboard extends LitElement {
         return new URL(filledUrl ?? '');
     }
 
-    getStats: (type: string) => any = type => fetch(this.getUrl(requestMap.get(type))).then(response => {
+    getStats: (type: string) => TimeDataList<string, number> = type => fetch(this.getUrl(requestMap.get(type))).then(response => {
         if(response.ok) {
-            return timeDataToStats(response.json());
+            return response.json();
         }
 
         return Promise.resolve([]);
