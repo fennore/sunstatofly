@@ -152,12 +152,7 @@ export class ChartDashboard extends LitElement {
 
     override render() {
         console.log('stats on render', this.stats.value);
-        const stats = [
-            ['time', 'today', 'yesterday'],
-            ['09:00', 40, 30],
-            ['12:00', 80, 90],
-            ['15:00', 95, 105],
-        ]
-        return html`<day-production-chart stats=${stats}></day-production-chart>`;
+        
+        return html`<day-production-chart .stats=${this.stats.value.day}></day-production-chart>`;
     }
 }
