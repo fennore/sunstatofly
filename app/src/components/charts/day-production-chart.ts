@@ -29,7 +29,7 @@ export class DayProductionChart extends LitElement {
   @property()
   accessor stats: Array<any> | null = null;
 
-  assignChart = (element?: HTMLElement) => {
+  assignChart = (element: HTMLElement) => {
     this.#wrapper = element;
     console.log('assigning', element);
     if(element && false) {
