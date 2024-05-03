@@ -112,7 +112,7 @@ export class DayProductionChart extends LitElement {
   }
 
   override updated(changedProperties: Map<string, any>) {
-    super.updated();
+    super.updated(changedProperties);
 
     if (changedProperties.has("stats")) {
       console.log("stats updated");
