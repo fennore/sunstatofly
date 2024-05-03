@@ -82,7 +82,7 @@ const getLastYear: (tz?: number) => string = (plantTZ = 2) => {
 
 @customElement('chart-dashboard')
 export class ChartDashboard extends LitElement {
-    private stats = new Task(
+    private stats?: any = new Task(
         this,
         {
             task: async () => {
