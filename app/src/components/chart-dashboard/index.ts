@@ -3,6 +3,9 @@ import { customElement, property } from "lit/decorators";
 import { Task } from "@lit/task";
 
 import '../charts/day-production-chart.js';
+import '../charts/month-production-chart.js';
+import '../charts/year-production-chart.js';
+import '../charts/all-production-chart.js';
 import { TimeDataList, timeDataToStats } from './transform.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
@@ -112,7 +115,7 @@ export class ChartDashboard extends LitElement {
                         day: timeDataToStats(results?.[0], results[3]),
                         month: timeDataToStats(results[1], results[4]),
                         year: timeDataToStats(results[2], results[5]),
-                        years: timeDataToStats(results[6])
+                        all: timeDataToStats(results[6])
                     };
                 } catch(error) {
                     console.error(error);
@@ -151,9 +154,12 @@ export class ChartDashboard extends LitElement {
         });
     })
 
-    override render() {
-        console.log('stats on render', this.stats.value?.day);
-        
-        return html`<day-production-chart .stats=${this.stats.value?.day ?? nothing}></day-production-chart>`;
+    override render() {       
+        return html`
+            <day-production-chart .stats=${this.stats.value?.day ?? nothing}></day-production-chart>
+            <month-production-chart .stats=${this.stats.value?.month ?? nothing}></month-production-chart>
+            <year-production-chart .stats=${this.stats.value?.year ?? nothing}></year-production-chart>
+            <all-production-chart .stats=${this.stats.value?.all ?? nothing}></all-production-chart>
+        `;
     }
 }

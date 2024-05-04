@@ -11,11 +11,7 @@ export class DayProductionChart extends LitElement {
 
   static override styles = css`
     div.chart-wrapper {
-      display: block;
-      width: 100%;
-      height: 100%;
-      min-height: 250px;
-      min-width: 350px;
+      display: inline-block;
     }
   `;
 
@@ -32,8 +28,6 @@ export class DayProductionChart extends LitElement {
   accessor stats: Array<any> | null = null;
 
   assignChart = (element: HTMLElement) => {
-    console.log("assigning", element);
-
     if (element) {
       this.#chart = echarts.init(element, null, {
         width: 900,
@@ -67,13 +61,11 @@ export class DayProductionChart extends LitElement {
     super.updated(changedProperties);
 
     if (changedProperties.has("stats")) {
-      console.log("stats updated");
       if (!this.stats) {
         // Set loading
         this.#chart?.showLoading();
       } else {
         // Set data
-        console.log("day prod stats", this.stats);
         this.#chart?.setOption({
           dataset: {
             source: this.stats
@@ -86,7 +78,6 @@ export class DayProductionChart extends LitElement {
 
   // Render the UI as a function of component state
   override render() {
-    console.log("rendering", this.stats);
     
     return html`
       <div class="chart-wrapper" ${ref(this.assignChart as RefOrCallback<Element>)}></div>
