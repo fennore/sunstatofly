@@ -5,8 +5,8 @@ import * as echarts from "echarts";
 
 type EChartsType = echarts.EChartsType;
 
-@customElement("day-production-chart")
-export class DayProductionChart extends LitElement {
+@customElement("year-production-chart")
+export class YearProductionChart extends LitElement {
   #chart?: EChartsType;
 
   static override styles = css`
