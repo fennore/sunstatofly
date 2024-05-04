@@ -59,7 +59,7 @@ export class YearProductionChart extends LitElement {
         date.setMonth(index);
         const monthName = date.toLocaleString('nl', { month: 'long' }); // 'en' for language, 'long' for full month name
 
-        return [monthName, ...statsMap.get(String(index + 1).padStart(2, '0'))];
+        return [monthName, ...(statsMap.get(String(index + 1).padStart(2, '0')) ?? [])];
     });
 
     // Replace label row
