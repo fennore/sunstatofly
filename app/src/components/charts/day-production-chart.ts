@@ -36,21 +36,12 @@ export class DayProductionChart extends LitElement {
 
     if (element) {
       this.#chart = echarts.init(element, null, {
-        width: 600,
-        height: 400
+        width: 900,
+        height: 600
       });
       this.#chart?.setOption({
         legend: {},
         tooltip: {},
-        dataset: {
-          source: [
-            ["time", "today", "yesterday"],
-            ["test", 10, 20],
-            ["test2", 15, 18],
-            ["test3", 22, 8],
-            ["test4", 18, 12]
-          ]
-        },
         // Declare an x-axis (category axis).
         // The category map the first column in the dataset by default.
         xAxis: { type: "category" },

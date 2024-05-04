@@ -35,5 +35,5 @@ export const timeDataToStats: timeDataToStats<string, number> = (
 
     return [
         ['time', 'data', 'compare']
-    ].concat(Array.from(stats, ([timeKey, map]) => [timeKey, map.get('data') ?? 0, map.get('compare') ?? 0]));
+    ].concat(Array.from(stats, ([timeKey, map]) => [timeKey, map.get('data') ?? 0, map.get('compare')]));
 }
