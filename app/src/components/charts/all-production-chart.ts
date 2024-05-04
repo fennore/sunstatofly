@@ -51,6 +51,16 @@ export class AllProductionChart extends LitElement {
     }
   };
 
+  prepareStats: (stats: Array<Array<string | number>>) => Array<Array<string | number>> = stats => {
+    const cleanStats = [...stats];
+    // Replace label row
+    cleanStats.shift();
+    cleanStats.unshift(['Jaar', 'kW']);
+
+    // Extract compare values
+    return cleanStats.map(([label, value]) => [label, value]);
+  }
+
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 

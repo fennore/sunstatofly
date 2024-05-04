@@ -51,6 +51,15 @@ export class DayProductionChart extends LitElement {
     }
   };
 
+  prepareStats: (stats: Array<Array<string | number>>) => Array<Array<string | number>> = stats => {
+    const cleanStats = [...stats];
+    // Replace label row
+    cleanStats.shift();
+    cleanStats.unshift(['Tijdstip', 'Vandaag', 'Gisteren']);
+    // Filter out undefined
+    return cleanStats.filter(([, data, compare]) => typeof data !== 'undefined' && typeof compare !== 'undefined')
+  }
+
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 
@@ -68,7 +77,7 @@ export class DayProductionChart extends LitElement {
         // Set data
         this.#chart?.setOption({
           dataset: {
-            source: this.stats
+            source: this.prepareStats(this.stats)
           }
         });
         this.#chart?.hideLoading();

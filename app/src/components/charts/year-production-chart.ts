@@ -51,6 +51,15 @@ export class YearProductionChart extends LitElement {
     }
   };
 
+  prepareStats: (stats: Array<Array<string | number>>) => Array<Array<string | number>> = stats => {
+    const cleanStats = [...stats];
+    // Replace label row
+    cleanStats.shift();
+    cleanStats.unshift(['Maand', 'Dit jaar', 'Vorig jaar']);
+
+    return cleanStats;
+  }
+
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 
