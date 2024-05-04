@@ -77,7 +77,7 @@ export class MonthProductionChart extends LitElement {
         // Set data
         this.#chart?.setOption({
           dataset: {
-            source: this.stats
+            source: this.prepareStats(this.stats)
           }
         });
         this.#chart?.hideLoading();

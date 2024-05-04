@@ -57,7 +57,14 @@ export class DayProductionChart extends LitElement {
     cleanStats.shift();
     cleanStats.unshift(['Tijdstip', 'Vandaag', 'Gisteren']);
     // Filter out undefined
-    return cleanStats.filter(([, data, compare]) => typeof data !== 'undefined' && typeof compare !== 'undefined')
+    return cleanStats.filter(([timeString, data, compare]) => {
+      const [hour, minute, seconds] = timeString.split(':');
+      const statDate = new Date();
+
+      statDate.setHours(Number(hours), Number(minutes), Number(seconds), 0);
+
+      return (typeof data !== 'undefined' || statDate.getTime() > Date.now) && typeof compare !== 'undefined'
+    })
   }
 
   override disconnectedCallback(): void {
