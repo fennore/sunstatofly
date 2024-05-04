@@ -44,8 +44,8 @@ export class MonthProductionChart extends LitElement {
         // Declare several 'bar' series,
         // every series will auto-map to each column by default.
         series: [
-          { type: "block" },
-          { type: "block" }
+          { type: "bar" },
+          { type: "bar" }
         ]
       });
     }
