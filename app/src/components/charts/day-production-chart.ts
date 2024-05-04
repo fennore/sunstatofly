@@ -35,7 +35,10 @@ export class DayProductionChart extends LitElement {
     console.log("assigning", element);
 
     if (element) {
-      this.#chart = echarts.init(element);
+      this.#chart = echarts.init(element, null, {
+        width: 600,
+        height: 400
+      });
       this.#chart?.setOption({
         legend: {},
         tooltip: {},
