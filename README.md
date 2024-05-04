@@ -17,11 +17,13 @@ https://www.troyhunt.com/serverless-to-the-max-doing-big-things-for-small-dollar
 
 TODO
 
+- Use 1 echart and rotate data on timer to show different stats
+- show a rotation bar to see which stats are rotating and current position
+- show title on top
 - show stats for day + compare yesterday
 - show stats for month by day + compare previous month
 - show stats for year by month + compare previous year
 - show stats for years
-- circular layout for stats, rotating on timer?
 - show some mascot looking at highlighted stat
 - add extra information about the current highlighted stat
 - todo sun avatar

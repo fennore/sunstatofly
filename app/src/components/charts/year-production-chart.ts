@@ -52,7 +52,16 @@ export class YearProductionChart extends LitElement {
   };
 
   prepareStats: (stats: Array<Array<string | number>>) => Array<Array<string | number>> = stats => {
-    const cleanStats = [...stats];
+    const monthsInYear = new Array(12).fill(null);
+    const statsMap = new Map(stats.map(([label, data, compare]) => [label, [data, compare]]));
+    const cleanStats = monthsInYear.map((_, index) => {
+        const date = new Date();
+        date.setMonth(index);
+        const monthName = date.toLocaleString('nl', { month: 'long' }); // 'en' for language, 'long' for full month name
+
+        return [monthName, ...statsMap.get(String(index + 1).padStart(2, '0'))];
+    });
+
     // Replace label row
     cleanStats.shift();
     cleanStats.unshift(['Maand', 'Dit jaar', 'Vorig jaar']);
