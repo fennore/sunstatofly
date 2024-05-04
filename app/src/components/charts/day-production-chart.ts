@@ -58,7 +58,7 @@ export class DayProductionChart extends LitElement {
     cleanStats.unshift(['Tijdstip', 'Vandaag', 'Gisteren']);
     // Filter out undefined
     return cleanStats.filter(([timeString, data, compare]) => {
-      const [hour, minute, seconds] = timeString.split(':');
+      const [hours, minutes, seconds] = timeString.split(':');
       const statDate = new Date();
 
       statDate.setHours(Number(hours), Number(minutes), Number(seconds), 0);
