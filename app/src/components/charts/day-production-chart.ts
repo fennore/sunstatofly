@@ -30,8 +30,8 @@ export class DayProductionChart extends LitElement {
   assignChart = (element: HTMLElement) => {
     if (element) {
       this.#chart = echarts.init(element, null, {
-        width: 900,
-        height: 600
+        width: 1800,
+        height: 800
       });
       this.#chart?.setOption({
         legend: {},
