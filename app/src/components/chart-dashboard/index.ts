@@ -1,11 +1,12 @@
 import { LitElement, html, nothing } from "lit";
-import { customElement, property } from "lit/decorators";
+import { customElement, property, state } from "lit/decorators";
 import { Task } from "@lit/task";
 
-import '../charts/day-production-chart.js';
-import '../charts/month-production-chart.js';
-import '../charts/year-production-chart.js';
-import '../charts/all-production-chart.js';
+// import '../charts/day-production-chart.js';
+// import '../charts/month-production-chart.js';
+// import '../charts/year-production-chart.js';
+// import '../charts/all-production-chart.js';
+import '../charts/rotation-chart.js';
 import { TimeDataList, timeDataToStats } from './transform.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
@@ -85,6 +86,20 @@ const getLastYear: (tz?: number) => string = (plantTZ = 2) => {
 
 @customElement('chart-dashboard')
 export class ChartDashboard extends LitElement {
+    #rotationList: Map<string, string> = new Map([
+        ['day', 'Vandaag'],
+        ['month', 'Deze maand'],
+        ['year', 'Dit jaar'],
+        ['all', 'Totaal per jaar']
+    ]);
+
+    #rotationTimer?: string;
+    #dayTimer?: string;
+    #monthTimer?: string;
+
+    @state()
+    #showStats = 'day';
+
     // TODO set proper specific type
     private stats?: any = new Task(
         this,
@@ -95,6 +110,8 @@ export class ChartDashboard extends LitElement {
                 }
 
                 try {
+                    clearInterval(this.#rotationTimer);
+
                     const results = await Promise.all([
                         this.getStats('day'),
                         this.getStats('month'),
@@ -104,6 +121,17 @@ export class ChartDashboard extends LitElement {
                         this.getStats('compareYear'),
                         this.getStats('years'),
                     ]);
+
+                    this.#rotationTimer = setInterval(() => {
+                        const keyList = Array.from(this.#rotationList.values());
+                        const currentIndex = keyList.findIndex(key => key === this.#showStats);
+
+                        if(currentIndex >= this.#rotationList.size - 1) {
+                            this.#showStats = keyList[0];
+                        } else {
+                            this.#showStats = keyList[currentIndex + 1];
+                        }
+                    }, 20e3);
 
                     // TODO current day stats should run with a listener on timer (every 5 mins?)
 
@@ -156,10 +184,11 @@ export class ChartDashboard extends LitElement {
 
     override render() {       
         return html`
-            <day-production-chart .stats=${this.stats.value?.day ?? nothing}></day-production-chart>
-            <month-production-chart .stats=${this.stats.value?.month ?? nothing}></month-production-chart>
-            <year-production-chart .stats=${this.stats.value?.year ?? nothing}></year-production-chart>
-            <all-production-chart .stats=${this.stats.value?.all ?? nothing}></all-production-chart>
+            <rotation-chart .stats=${this.stats.value?.[this.#showStats] ?? nothing} .type=${this.#showStats}></rotation-chart>
         `;
+           // <day-production-chart .stats=${this.stats.value?.day ?? nothing}></day-production-chart>
+           // <month-production-chart .stats=${this.stats.value?.month ?? nothing}></month-production-chart>
+           // <year-production-chart .stats=${this.stats.value?.year ?? nothing}></year-production-chart>
+           // <all-production-chart .stats=${this.stats.value?.all ?? nothing}></all-production-chart>
     }
 }
