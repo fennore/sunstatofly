@@ -24,7 +24,7 @@ export class RotationChart extends LitElement {
   constructor() {
     super();
 
-    this.addEventListener("resize", () => {
+    window.addEventListener("resize", () => {
       this.#chart?.resize();
     });
   }
