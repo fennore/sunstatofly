@@ -7,7 +7,7 @@ declare type EChartsType = echarts.EChartsType;
 declare type EChartsOption = echarts.EChartsOption;
 declare type StatsConverter = (
   stats: Array<Array<number | string>>
-) => EChartsOption["dataset"];
+) => echarts.DatasetComponentOption["source"];
 
 @customElement("day-production-chart")
 export class DayProductionChart extends LitElement {
@@ -65,7 +65,7 @@ export class DayProductionChart extends LitElement {
     };
 
     if (this.type === "day") {
-      options.dataset = this.prepareDay(this.stats);
+      options.dataset = { source: this.prepareDay(this.stats) };
       options.series = [
         { type: "line", areaStyle: {} },
         { type: "line", areaStyle: {} }
@@ -73,19 +73,21 @@ export class DayProductionChart extends LitElement {
     }
 
     if (this.type === "month") {
-      options.dataset = this.prepareMonth(this.stats);
+      options.dataset = { source: this.prepareMonth(this.stats) };
       options.series = [{ type: "bar" }, { type: "bar" }];
     }
 
     if (this.type === "year") {
-      options.dataset = this.prepareYear(this.stats);
+      options.dataset = { source: this.prepareYear(this.stats) };
       options.series = [{ type: "bar" }, { type: "bar" }];
     }
 
     if (this.type === "all") {
-      options.dataset = this.prepareAll(this.stats);
+      options.dataset = { source: this.prepareAll(this.stats) };
       options.series = [{ type: "bar" }];
     }
+
+    console.log('updated options', options);
 
     this.#chart?.setOption(options);
   };
@@ -106,7 +108,7 @@ export class DayProductionChart extends LitElement {
         (typeof data !== "undefined" || statDate.getTime() > Date.now()) &&
         typeof compare !== "undefined"
       );
-    }) as EChartsOption['dataset'];
+    });
   };
 
   prepareMonth: StatsConverter = ([...cleanStats]) => {
@@ -114,7 +116,7 @@ export class DayProductionChart extends LitElement {
     cleanStats.shift();
     cleanStats.unshift(["Dag", "Deze maand", "Vorige maand"]);
 
-    return cleanStats as EChartsOption['dataset'];
+    return cleanStats;
   };
 
   prepareYear: StatsConverter = stats => {
@@ -137,7 +139,7 @@ export class DayProductionChart extends LitElement {
     cleanStats.shift();
     cleanStats.unshift(["Maand", "Dit jaar", "Vorig jaar"]);
 
-    return cleanStats as EChartsOption['dataset'];
+    return cleanStats;
   };
 
   prepareAll: StatsConverter = ([...cleanStats]) => {
@@ -146,7 +148,7 @@ export class DayProductionChart extends LitElement {
     cleanStats.unshift(["Jaar", "kW"]);
 
     // Extract compare values
-    return cleanStats.map(([label, value]) => [label, value]) as EChartsOption['dataset'];
+    return cleanStats.map(([label, value]) => [label, value]);
   };
 
   override disconnectedCallback(): void {
