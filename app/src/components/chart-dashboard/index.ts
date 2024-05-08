@@ -11,6 +11,8 @@ import { TimeDataList, timeDataToStats } from './transform.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
 
+declare type StatType = 'day' | 'month' | 'year' | 'all';
+
 const DOMAIN = 'https://saj-api-proxy.fennore.workers.dev/?https://fop.saj-electric.com';
 
 const requestMap: Map<string, string> = new Map([
@@ -93,12 +95,12 @@ export class ChartDashboard extends LitElement {
         ['all', 'Totaal per jaar']
     ]);
 
-    #rotationTimer?: string;
-    #dayTimer?: string;
-    #monthTimer?: string;
+    #rotationTimer?: number;
+    #dayTimer?: number;
+    #monthTimer?: number;
 
     @state()
-    #showStats = 'day';
+    accessor #showStats: StatType = 'day';
 
     // TODO set proper specific type
     private stats?: any = new Task(
@@ -110,7 +112,7 @@ export class ChartDashboard extends LitElement {
                 }
 
                 try {
-                    clearInterval(this.#rotationTimer);
+                    this.clearIntervals();
 
                     const results = await Promise.all([
                         this.getStats('day'),
@@ -181,6 +183,23 @@ export class ChartDashboard extends LitElement {
             dataTimeList: []
         });
     })
+
+    clearIntervals = () => {
+        if(this.#rotationTimer) {
+            clearInterval(this.#rotationTimer);
+            this.#rotationTimer = null;
+        }
+
+        if(this.#dayTimer) {
+            clearInterval(this.#dayTimer);
+            this.#dayTimer = null;
+        }
+
+        if(this.#dayTimer) {
+            clearInterval(this.#monthTimer);
+            this.#monthTimer = null;
+        }
+    }
 
     override render() {       
         return html`
