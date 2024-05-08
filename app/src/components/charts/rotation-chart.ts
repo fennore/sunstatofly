@@ -50,10 +50,7 @@ export class RotationChart extends LitElement {
         yAxis: { type: "value" },
         // Declare several 'bar' series,
         // every series will auto-map to each column by default.
-        series: [
-          { type: "line", areaStyle: {} },
-          { type: "line", areaStyle: {} }
-        ]
+        series: []
       });
     }
   };
@@ -89,7 +86,9 @@ export class RotationChart extends LitElement {
 
     console.log('updated options', options);
 
-    this.#chart?.setOption(options);
+    this.#chart?.setOption(options, {
+      replaceMerge: ['dataset', 'series']
+    });
   };
 
   prepareDay: StatsConverter = ([...cleanStats]) => {
