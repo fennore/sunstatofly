@@ -16,6 +16,8 @@ export class RotationChart extends LitElement {
   static override styles = css`
     div.chart-wrapper {
       display: inline-block;
+      width: 75vw;
+      height: 75vh;
     }
   `;
 
@@ -36,10 +38,7 @@ export class RotationChart extends LitElement {
 
   assignChart = (element: HTMLElement) => {
     if (element) {
-      this.#chart = echarts.init(element, null, {
-        width: 1800,
-        height: 800
-      });
+      this.#chart = echarts.init(element);
       this.#chart?.setOption({
         legend: {},
         tooltip: {},
@@ -86,6 +85,7 @@ export class RotationChart extends LitElement {
 
     console.log('updated options', options);
 
+    this.#chart?.resize();
     this.#chart?.setOption(options, {
       replaceMerge: ['dataset', 'series']
     });
