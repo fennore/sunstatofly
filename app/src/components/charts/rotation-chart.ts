@@ -9,8 +9,8 @@ declare type StatsConverter = (
   stats: Array<Array<number | string>>
 ) => echarts.DatasetComponentOption["source"];
 
-@customElement("day-production-chart")
-export class DayProductionChart extends LitElement {
+@customElement("rotation-chart")
+export class RotationChart extends LitElement {
   #chart?: EChartsType;
 
   static override styles = css`
