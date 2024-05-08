@@ -88,7 +88,7 @@ const getLastYear: (tz?: number) => string = (plantTZ = 2) => {
 
 @customElement('chart-dashboard')
 export class ChartDashboard extends LitElement {
-    #rotationList: Map<string, string> = new Map([
+    #rotationList: Map<StatType, string> = new Map([
         ['day', 'Vandaag'],
         ['month', 'Deze maand'],
         ['year', 'Dit jaar'],
@@ -125,7 +125,7 @@ export class ChartDashboard extends LitElement {
                     ]);
 
                     this.#rotationTimer = setInterval(() => {
-                        const keyList = Array.from(this.#rotationList.values());
+                        const keyList = Array.from(this.#rotationList.keys());
                         const currentIndex = keyList.findIndex(key => key === this.#showStats);
 
                         if(currentIndex >= this.#rotationList.size - 1) {
@@ -185,29 +185,21 @@ export class ChartDashboard extends LitElement {
     })
 
     clearIntervals = () => {
-        if(this.#rotationTimer) {
-            clearInterval(this.#rotationTimer);
-            this.#rotationTimer = null;
-        }
+        clearInterval(this.#rotationTimer);
 
-        if(this.#dayTimer) {
-            clearInterval(this.#dayTimer);
-            this.#dayTimer = null;
-        }
+        clearInterval(this.#dayTimer);
 
-        if(this.#dayTimer) {
-            clearInterval(this.#monthTimer);
-            this.#monthTimer = null;
-        }
+        clearInterval(this.#monthTimer);
     }
 
     override render() {       
         return html`
             <rotation-chart .stats=${this.stats.value?.[this.#showStats] ?? nothing} .type=${this.#showStats}></rotation-chart>
         `;
-           // <day-production-chart .stats=${this.stats.value?.day ?? nothing}></day-production-chart>
-           // <month-production-chart .stats=${this.stats.value?.month ?? nothing}></month-production-chart>
-           // <year-production-chart .stats=${this.stats.value?.year ?? nothing}></year-production-chart>
-           // <all-production-chart .stats=${this.stats.value?.all ?? nothing}></all-production-chart>
+        
+        // <day-production-chart .stats=${this.stats.value?.day ?? nothing}></day-production-chart>
+        // <month-production-chart .stats=${this.stats.value?.month ?? nothing}></month-production-chart>
+        // <year-production-chart .stats=${this.stats.value?.year ?? nothing}></year-production-chart>
+        // <all-production-chart .stats=${this.stats.value?.all ?? nothing}></all-production-chart>
     }
 }
