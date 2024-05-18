@@ -17,8 +17,6 @@ declare type StatType = 'day' | 'month' | 'year' | 'all';
 const DOMAIN = 'https://saj-api-proxy.fennore.workers.dev/?https://fop.saj-electric.com';
 
 const requestMap: Map<string, string> = new Map([
-    // generic
-    ['plantDetail', `[domain]/bigScreen/getBigScreenPlantDetail`],
     // solar power today
     ['day', `[domain]/bigScreen/getSinglePlantElecChart?${new URLSearchParams({plantuid: '[uid]', clientDate:'[today]', chartDateType: '1'})}`],
     // solar power yesterday
@@ -33,6 +31,10 @@ const requestMap: Map<string, string> = new Map([
     ['compareYear', `[domain]/bigScreen/getSinglePlantElecChart?${new URLSearchParams({plantuid: '[uid]', clientDate:'[lastyear]', chartDateType: '3'})}`],
     // solar power compare years
     ['years', `[domain]/bigScreen/getSinglePlantElecChart?${new URLSearchParams({plantuid: '[uid]', clientDate:'[today]', chartDateType: '4'})}`],
+    // generic
+    ['plantDetail', `[domain]/bigScreen/getBigScreenPlantDetail`],
+    // weather
+    ['weather', `[domain]/plant/getWeatherNew`],
 ]);
 
 /**
@@ -122,10 +124,6 @@ export class ChartDashboard extends LitElement {
                     this.clearIntervals();
 
                     const results = await Promise.all([
-                        this.getStats('plantDetail', {
-                            method: 'POST',
-                            body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}&clientDate=${encodeURIComponent(getToday())}&lang=en`
-                        }),
                         this.getStats('day'),
                         this.getStats('month'),
                         this.getStats('year'),
@@ -133,6 +131,20 @@ export class ChartDashboard extends LitElement {
                         this.getStats('compareMonth'),
                         this.getStats('compareYear'),
                         this.getStats('years'),
+                        this.getStats('plantDetail', {
+                            method: 'POST',
+                            headers: {
+                                "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+                            },
+                            body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}&clientDate=${encodeURIComponent(getToday())}`
+                        }),
+                        this.getStats('weather', {
+                            method: 'POST',
+                            headers: {
+                                "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+                            },
+                            body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}`
+                        })
                     ]);
 
                     this.#rotationTimer = setInterval(() => {
@@ -150,7 +162,8 @@ export class ChartDashboard extends LitElement {
                         day: timeDataToStats(results?.[0], results[3]),
                         month: timeDataToStats(results[1], results[4]),
                         year: timeDataToStats(results[2], results[5]),
-                        all: timeDataToStats(results[6])
+                        all: timeDataToStats(results[6]),
+                        plantDetails: timeDataToStats(results[7])
                     };
 
                     // TODO current day stats should run with a listener on timer (every 5 mins?)
