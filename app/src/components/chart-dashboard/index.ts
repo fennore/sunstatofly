@@ -6,6 +6,7 @@ import { Task } from "@lit/task";
 // import '../charts/month-production-chart.js';
 // import '../charts/year-production-chart.js';
 // import '../charts/all-production-chart.js';
+import '../rotation-steps/index.js';
 import '../charts/rotation-chart.js';
 import { TimeDataList, timeDataToStats } from './transform.js';
 
@@ -16,6 +17,8 @@ declare type StatType = 'day' | 'month' | 'year' | 'all';
 const DOMAIN = 'https://saj-api-proxy.fennore.workers.dev/?https://fop.saj-electric.com';
 
 const requestMap: Map<string, string> = new Map([
+    // generic
+    ['plantDetail', `[domain]/bigScreen/getBigScreenPlantDetail`],
     // solar power today
     ['day', `[domain]/bigScreen/getSinglePlantElecChart?${new URLSearchParams({plantuid: '[uid]', clientDate:'[today]', chartDateType: '1'})}`],
     // solar power yesterday
@@ -102,8 +105,12 @@ export class ChartDashboard extends LitElement {
     @state()
     accessor #showStats: StatType = 'day';
 
+    @state()
+    // accessor #stats: Record<StatType, Array<Array<string | number>> | undefined> | null = null;
+    accessor #stats: any = null;
+
     // TODO set proper specific type
-    private stats?: any = new Task(
+    private ranStats: Task<Array<string>, any> = new Task(
         this,
         {
             task: async () => {
@@ -115,6 +122,10 @@ export class ChartDashboard extends LitElement {
                     this.clearIntervals();
 
                     const results = await Promise.all([
+                        this.getStats('plantDetail', {
+                            method: 'POST',
+                            body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}&clientDate=${encodeURIComponent(getToday())}&lang=en`
+                        }),
                         this.getStats('day'),
                         this.getStats('month'),
                         this.getStats('year'),
@@ -135,18 +146,46 @@ export class ChartDashboard extends LitElement {
                         }
                     }, 20e3);
 
-                    // TODO current day stats should run with a listener on timer (every 5 mins?)
-
-                    // TODO current month stats should run with a listener on timer (every 60 mins?)
-
-                    // TODO save static data to indexDB and only fetch it when it is not available for current date
-                    
-                    return {
+                    this.#stats = {
                         day: timeDataToStats(results?.[0], results[3]),
                         month: timeDataToStats(results[1], results[4]),
                         year: timeDataToStats(results[2], results[5]),
                         all: timeDataToStats(results[6])
                     };
+
+                    // TODO current day stats should run with a listener on timer (every 5 mins?)
+                    this.#dayTimer = setInterval(() => {
+                        const plantHour = getPlantDate(2, new Date()).getHours();
+
+                        if(plantHour > 6 && plantHour < 22) {
+                            this.getStats('day').then(dayStats => {
+                                const day = timeDataToStats(dayStats, results[3]);
+                                this.#stats = {
+                                    ...this.#stats,
+                                    day
+                                };
+                            }).catch(console.error);
+                        }
+                    }, 5*6e4);
+                    
+                    // TODO current month stats should run with a listener on timer (every 60 mins?)
+                    this.#monthTimer = setInterval(() => {
+                        const plantHour = getPlantDate(2, new Date()).getHours();
+
+                        if(plantHour > 6 && plantHour < 22) {
+                            this.getStats('month').then(monthStats => {
+                                const month = timeDataToStats(monthStats, results[4]);
+                                this.#stats = {
+                                    ...this.#stats,
+                                    month
+                                };
+                            }).catch(console.error);
+                        }
+                    }, 6*6e5);
+
+                    // TODO save static data to indexDB and only fetch it when it is not available for current date
+                    
+                    return true;
                 } catch(error) {
                     console.error(error);
                     // TODO show message when failed (might be offline ?)
@@ -173,30 +212,38 @@ export class ChartDashboard extends LitElement {
         return new URL(filledUrl ?? '');
     }
 
-    getStats: (type: string) => Promise<TimeDataList<string, number>> = type => fetch(this.getUrl(requestMap.get(type))).then(response => {
-        if(response.ok) {
-            return response.json();
-        }
+    getStats: (type: string, options?: RequestInit) => Promise<TimeDataList<string, number>> 
+        = (type, options) => fetch(this.getUrl(requestMap.get(type)), options).then(response => {
+            if(response.ok) {
+                return response.json();
+            }
 
-        return Promise.resolve({
-            dataCountList: [],
-            dataTimeList: []
-        });
-    })
+            return Promise.resolve({
+                dataCountList: [],
+                dataTimeList: []
+            });
+        })
 
     clearIntervals = () => {
-        clearInterval(this.#rotationTimer);
-
-        clearInterval(this.#dayTimer);
-
-        clearInterval(this.#monthTimer);
+        if(this.ranStats) {
+            clearInterval(this.#rotationTimer);
+            clearInterval(this.#dayTimer);
+            clearInterval(this.#monthTimer);
+        }
     }
 
-    override render() {       
+    override disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        this.clearIntervals();
+    }
+
+    override render() {    
         return html`
-            <rotation-chart .stats=${this.stats.value?.[this.#showStats] ?? nothing} .type=${this.#showStats}></rotation-chart>
+            <rotation-steps .steps=${this.#rotationList} activeStep=${this.#showStats}></rotation-steps>
+            <rotation-chart .stats=${this.#stats?.[this.#showStats] ?? nothing} .type=${this.#showStats}></rotation-chart>
         `;
-        
+
         // <day-production-chart .stats=${this.stats.value?.day ?? nothing}></day-production-chart>
         // <month-production-chart .stats=${this.stats.value?.month ?? nothing}></month-production-chart>
         // <year-production-chart .stats=${this.stats.value?.year ?? nothing}></year-production-chart>
