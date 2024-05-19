@@ -24,7 +24,7 @@ export class RotationSteps extends LitElement {
         });
 
         return html`<md-tabs>
-            ${tabs.join('')}
+            ${tabs}
         </md-tabs>`;
     }
 }
