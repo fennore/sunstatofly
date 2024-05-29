@@ -163,7 +163,8 @@ export class ChartDashboard extends LitElement {
                         month: timeDataToStats(results[1], results[4]),
                         year: timeDataToStats(results[2], results[5]),
                         all: timeDataToStats(results[6]),
-                        plantDetails: timeDataToStats(results[7])
+                        // plantDetails: timeDataToStats(results[7]),
+                        // weather: timeDataToStats(results[8])
                     };
 
                     // TODO current day stats should run with a listener on timer (every 5 mins?)
