@@ -8,7 +8,7 @@ import { Task } from "@lit/task";
 // import '../charts/all-production-chart.js';
 import '../rotation-steps/index.js';
 import '../charts/rotation-chart.js';
-import { TimeDataList, timeDataToStats } from './transform.js';
+import { PlantDetail, TimeDataList, Weather, timeDataToStats } from './transform.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
 
@@ -159,11 +159,12 @@ export class ChartDashboard extends LitElement {
                     }, 20e3);
 
                     this.#stats = {
-                        day: timeDataToStats(results?.[0], results[3]),
-                        month: timeDataToStats(results[1], results[4]),
-                        year: timeDataToStats(results[2], results[5]),
-                        all: timeDataToStats(results[6]),
-                        plantDetails: timeDataToStats(results[7])
+                        day: timeDataToStats(results?.[0] as TimeDataList<string, number>, results[3] as TimeDataList<string, number>),
+                        month: timeDataToStats(results[1] as TimeDataList<string, number>, results[4] as TimeDataList<string, number>),
+                        year: timeDataToStats(results[2] as TimeDataList<string, number>, results[5] as TimeDataList<string, number>),
+                        all: timeDataToStats(results[6] as TimeDataList<string, number>),
+                        plantDetails: results[7]?.plantDetail as PlantDetail,
+                        weather: results[8]?.weather as Weather
                     };
 
                     // TODO current day stats should run with a listener on timer (every 5 mins?)
@@ -225,16 +226,13 @@ export class ChartDashboard extends LitElement {
         return new URL(filledUrl ?? '');
     }
 
-    getStats: (type: string, options?: RequestInit) => Promise<TimeDataList<string, number>> 
+    getStats: (type: string, options?: RequestInit) => Promise<any> 
         = (type, options) => fetch(this.getUrl(requestMap.get(type)), options).then(response => {
             if(response.ok) {
                 return response.json();
             }
 
-            return Promise.resolve({
-                dataCountList: [],
-                dataTimeList: []
-            });
+            return Promise.resolve({});
         })
 
     clearIntervals = () => {

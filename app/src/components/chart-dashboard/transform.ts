@@ -3,6 +3,28 @@ export declare type TimeDataList<K, V> = {
     dataCountList: Array<V>;
 }
 
+export declare type PlantDetail = { 
+    plantDetail: { 
+        monthElectricity: number, 
+        yearElectricity: number, 
+        totalElectricity: number, 
+        income: number, 
+        totalPlantTreeNum: number, 
+        totalReduceCo2: number
+    } 
+}
+
+export declare type Weather = { 
+    weather: {
+        temp: number, 
+        humidity: number, 
+        precip: number, 
+        winddir: number, 
+        windspeed: number, 
+        solarradiation: number
+    } 
+}
+
 declare type timeDataToStats<K, V> = (data: TimeDataList<K, V>, compareData?: TimeDataList<K, V>) => Array<Array<string | number>>;
 
 /**
