@@ -5,7 +5,7 @@
     "start": "web-dev-server --open public/ --node-resolve --watch"
   },
   "dependencies": {
-    "@material/web": "^1.4.1",
+    "@material/web": "^1.5.1",
     "dexie": "^4.0.4",
     "echarts": "^5.5.0",
     "lit": "^3.1.3",
