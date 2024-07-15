@@ -14,7 +14,7 @@
   "devDependencies": {
     "@typescript-eslint/parser": "^7.7.1",
     "@web/dev-server": "^0.4.4",
-    "eslint": "^9.0.0",
+    "eslint": "^9.7.0",
     "lit-analyzer": "^2.0.3",
     "prettier": "^3.2.5",
     "prettier-eslint": "^16.3.0",
