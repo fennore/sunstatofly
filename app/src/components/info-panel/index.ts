@@ -1,7 +1,7 @@
 import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators";
 
-@customElement('chart-dashboard')
+@customElement('info-panel')
 export class InfoPanel extends LitElement {
     static override styles = css`
         .info-panel {
