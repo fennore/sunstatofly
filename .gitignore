@@ -5,3 +5,4 @@
 /public/*.js.map
 /public/index.html
 .parcel-cache
+dist/
