@@ -11,7 +11,7 @@ export declare type PlantDetail = {
         income: number, 
         totalPlantTreeNum: number, 
         totalReduceCo2: number
-    } 
+    }
 }
 
 export declare type Weather = { 

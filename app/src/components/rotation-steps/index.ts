@@ -1,6 +1,9 @@
 import { LitElement, TemplateResult, css, html } from "lit";
 import { customElement, property } from "lit/decorators";
 
+import '@material/web/tabs/tabs'
+import '@material/web/tabs/primary-tab'
+
 @customElement('rotation-steps')
 export class RotationSteps extends LitElement {
     static override styles = css`

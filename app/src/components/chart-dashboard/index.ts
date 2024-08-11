@@ -1,4 +1,4 @@
-import { LitElement, html, nothing } from "lit";
+import { LitElement, css, html, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import { Task } from "@lit/task";
 
@@ -8,6 +8,8 @@ import { Task } from "@lit/task";
 // import '../charts/all-production-chart.js';
 import '../rotation-steps/index.js';
 import '../charts/rotation-chart.js';
+import '../rotation-stats/index.js';
+import '../info-panel/index.js';
 import { PlantDetail, TimeDataList, Weather, timeDataToStats } from './transform.js';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
@@ -93,6 +95,18 @@ const getLastYear: (tz?: number) => string = (plantTZ = 2) => {
 
 @customElement('chart-dashboard')
 export class ChartDashboard extends LitElement {
+    static override styles = css`
+        .dashboard {
+            display:grid;
+        }
+        info-panel {
+            order: 1;
+        }
+        rotation-stats {
+            order: 2;
+        }
+    `;
+
     #rotationList: Map<StatType, string> = new Map([
         ['day', 'Vandaag'],
         ['month', 'Deze maand'],
@@ -163,7 +177,7 @@ export class ChartDashboard extends LitElement {
                         month: timeDataToStats(results[1] as TimeDataList<string, number>, results[4] as TimeDataList<string, number>),
                         year: timeDataToStats(results[2] as TimeDataList<string, number>, results[5] as TimeDataList<string, number>),
                         all: timeDataToStats(results[6] as TimeDataList<string, number>),
-                        plantDetails: results[7]?.plantDetail as PlantDetail,
+                        plantDetail: results[7]?.plantDetail as PlantDetail,
                         weather: results[8]?.weather as Weather
                     };
 
@@ -179,22 +193,51 @@ export class ChartDashboard extends LitElement {
                                     day
                                 };
                             }).catch(console.error);
+
                         }
                     }, 5*6e4);
                     
                     // TODO current month stats should run with a listener on timer (every 60 mins?)
                     this.#monthTimer = setInterval(() => {
                         const plantHour = getPlantDate(2, new Date()).getHours();
+                        const promises = [];
 
                         if(plantHour > 6 && plantHour < 22) {
-                            this.getStats('month').then(monthStats => {
-                                const month = timeDataToStats(monthStats, results[4]);
-                                this.#stats = {
-                                    ...this.#stats,
-                                    month
-                                };
-                            }).catch(console.error);
+                            promises.push(this.getStats('month'));
+                        } else {
+                            promises.push(Promise.resolve(this.#stats.month));
                         }
+
+                        if([1,8,12].includes(plantHour)) {
+                            promises.push(this.getStats('plantDetail', {
+                                method: 'POST',
+                                headers: {
+                                    "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+                                },
+                                body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}&clientDate=${encodeURIComponent(getToday())}`
+                            }));
+                            promises.push(this.getStats('weather', {
+                                method: 'POST',
+                                headers: {
+                                    "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+                                },
+                                body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}`
+                            }));
+                        } else {
+                            promises.push(Promise.resolve(this.#stats.plantDetail));
+                            promises.push(Promise.resolve(this.#stats.weather));
+                        }
+
+                        Promise.all(promises).then(([monthStats, plantDetail, weather]) => {
+                            // TODO check if data conversion is necessary
+                            const month = timeDataToStats(monthStats, results[4]);
+                            this.#stats = {
+                                ...this.#stats,
+                                month,
+                                plantDetail,
+                                weather
+                            };
+                        }).catch(console.error);
                     }, 6*6e5);
 
                     // TODO save static data to indexDB and only fetch it when it is not available for current date
@@ -250,14 +293,11 @@ export class ChartDashboard extends LitElement {
     }
 
     override render() {    
-        return html`
+        return html`<div class="dashboard">
+            <info-panel type={this.#showStats}></info-panel>
             <rotation-steps .steps=${this.#rotationList} activeStep=${this.#showStats}></rotation-steps>
             <rotation-chart .stats=${this.#stats?.[this.#showStats] ?? nothing} .type=${this.#showStats}></rotation-chart>
-        `;
-
-        // <day-production-chart .stats=${this.stats.value?.day ?? nothing}></day-production-chart>
-        // <month-production-chart .stats=${this.stats.value?.month ?? nothing}></month-production-chart>
-        // <year-production-chart .stats=${this.stats.value?.year ?? nothing}></year-production-chart>
-        // <all-production-chart .stats=${this.stats.value?.all ?? nothing}></all-production-chart>
+            <rotation-stats .stats=${this.#stats} type={this.#showStats}></rotation-stats>
+        </div>`;
     }
 }
