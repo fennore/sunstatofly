@@ -96,8 +96,19 @@ const getLastYear: (tz?: number) => string = (plantTZ = 2) => {
 @customElement('chart-dashboard')
 export class ChartDashboard extends LitElement {
     static override styles = css`
-        .dashboard {
+        :host {
+            width: 100vw;
+            height: 100vh;
+            min-width: 900px;
+            min-height: 600px;
             display:grid;
+            grid-template-columns: 3fr minmax(1fr, 320px);
+            grid-template-rows: 60px 4fr minmax(1r, 150px);
+            grid-template-areas:
+                "steps steps"
+                "chart info"
+                "stats info"
+            ;
         }
         info-panel {
             order: 1;
@@ -293,11 +304,11 @@ export class ChartDashboard extends LitElement {
     }
 
     override render() {    
-        return html`<div class="dashboard">
+        return html`
             <info-panel type={this.#showStats}></info-panel>
             <rotation-steps .steps=${this.#rotationList} activeStep=${this.#showStats}></rotation-steps>
             <rotation-chart .stats=${this.#stats?.[this.#showStats] ?? nothing} .type=${this.#showStats}></rotation-chart>
             <rotation-stats .stats=${this.#stats} type={this.#showStats}></rotation-stats>
-        </div>`;
+        `;
     }
 }

@@ -4,7 +4,11 @@ import { customElement, property } from "lit/decorators";
 @customElement('rotation-stats')
 export class RotationStats extends LitElement {
     static override styles = css`
-        dl{}
+        :host {
+            grid-area: stats;
+        }
+        dl {
+        }
     `;
 
     @property()
@@ -16,9 +20,9 @@ export class RotationStats extends LitElement {
     override render() {
         return html`<div class="stats">
                 <dl>
-                    <dt>Inkom</dt>
-                    <dd>${this.stats.plantDetail.income}</dd>
-                    <dt>Bomen gepland</dt>
+                    <dt>Opbrengst</dt>
+                    <dd>€&nbsp;${this.stats.plantDetail.income}</dd>
+                    <dt>Bomen geplant</dt>
                     <dd>${this.stats.plantDetail.totalPlantTreeNum}</dd>
                     <dt>CO2 uitstoot vermeden</dt>
                     <dd>${this.stats.plantDetail.totalReduceCo2}</dd>

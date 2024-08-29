@@ -4,20 +4,30 @@ import { customElement } from "lit/decorators";
 @customElement('info-panel')
 export class InfoPanel extends LitElement {
     static override styles = css`
-        .info-panel {
+        :host {
+            grid-area: info;
             display: flex;
-            flex-direction: row;
-            align-items: space-between;
+            flex-direction: column;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
         }
-        .info-panel:after {
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        p {
+            flex-grow: 1;
+            font-size: 2rem;
+        }
+        
+        :host:after {
             display:block;
-            content: '/img/owl.svg';
-            float: left;
+            content: url(./img/owl.svg);
         }
     `;
 
     override render() {
-        return html`<div class="info-panel">
+        return html`<div class="txt-balloon">
             <h1>Info</h1>
             <p>Info</p>
         </div>`;

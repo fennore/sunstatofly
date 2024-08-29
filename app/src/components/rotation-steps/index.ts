@@ -7,9 +7,8 @@ import '@material/web/tabs/primary-tab'
 @customElement('rotation-steps')
 export class RotationSteps extends LitElement {
     static override styles = css`
-        md-tabs {
-            max-width: 75vw;
-            margin-bottom: 1rem;
+        :host {
+            grid-area: steps;
         }
     `;
 

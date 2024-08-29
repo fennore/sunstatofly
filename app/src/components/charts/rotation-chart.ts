@@ -14,10 +14,8 @@ export class RotationChart extends LitElement {
   #chart?: EChartsType;
 
   static override styles = css`
-    div.chart-wrapper {
-      display: inline-block;
-      width: 75vw;
-      height: 75vh;
+    :host {
+      grid-area: chart
     }
   `;
 
