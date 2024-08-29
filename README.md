@@ -28,3 +28,4 @@ TODO
 - todo text balloon for information
 - todo add installation data highlighting into stats rotation + information balloon
 - separate css into css files and load them in somehow? (cfr. css modules) https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules but not yet supported...
+- replace all # props with private instead?

@@ -18,6 +18,10 @@ export class RotationStats extends LitElement {
     accessor type: "day" | "month" | "year" | "all" = 'day';
 
     override render() {
+        if(!this.stats) {
+            return null;
+        }
+        
         return html`<div class="stats">
             <dl>
                 <dt>Opbrengst</dt>
