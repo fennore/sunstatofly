@@ -15,22 +15,22 @@ export class RotationStats extends LitElement {
     accessor stats: any;
 
     @property()
-    accessor type: string = 'day';
+    accessor type: "day" | "month" | "year" | "all" = 'day';
 
     override render() {
         return html`<div class="stats">
-                <dl>
-                    <dt>Opbrengst</dt>
-                    <dd>€&nbsp;${this.stats.plantDetail.income}</dd>
-                    <dt>Bomen geplant</dt>
-                    <dd>${this.stats.plantDetail.totalPlantTreeNum}</dd>
-                    <dt>CO2 uitstoot vermeden</dt>
-                    <dd>${this.stats.plantDetail.totalReduceCo2}</dd>
-                    <dt>Geproduceerd vandaag</dt>
-                    <dd>${this.stats.plantDetail.todayElectricity}</dd>
-                    <dt>Huidig wattage</dt>
-                    <dd>${this.stats.plantDetail.nowPower}</dd>
-                </dl>
-            </div>`;
+            <dl>
+                <dt>Opbrengst</dt>
+                <dd>€&nbsp;${this.stats.plantDetail.income}</dd>
+                <dt>Bomen geplant</dt>
+                <dd>${this.stats.plantDetail.totalPlantTreeNum}</dd>
+                <dt>CO2 uitstoot vermeden</dt>
+                <dd>${this.stats.plantDetail.totalReduceCo2}</dd>
+                <dt>Geproduceerd vandaag</dt>
+                <dd>${this.stats.plantDetail.todayElectricity}</dd>
+                <dt>Huidig wattage</dt>
+                <dd>${this.stats.plantDetail.nowPower}</dd>
+            </dl>
+        </div>`;
     }
 }

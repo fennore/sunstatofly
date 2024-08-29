@@ -15,7 +15,11 @@ export class RotationChart extends LitElement {
 
   static override styles = css`
     :host {
-      grid-area: chart
+      grid-area: chart;
+    }
+
+    .chart-wrapper {
+      height: 100%;
     }
   `;
 
@@ -80,8 +84,6 @@ export class RotationChart extends LitElement {
       options.dataset = { source: this.prepareAll(this.stats) };
       options.series = [{ type: "bar" }];
     }
-
-    console.log('updated options', options);
 
     this.#chart?.resize();
     this.#chart?.setOption(options, {

@@ -103,7 +103,7 @@ export class ChartDashboard extends LitElement {
             min-height: 600px;
             display:grid;
             grid-template-columns: 3fr minmax(1fr, 320px);
-            grid-template-rows: 60px 4fr minmax(1r, 150px);
+            grid-template-rows: 60px 4fr minmax(1fr, 150px);
             grid-template-areas:
                 "steps steps"
                 "chart info"
@@ -305,10 +305,10 @@ export class ChartDashboard extends LitElement {
 
     override render() {    
         return html`
-            <info-panel type={this.#showStats}></info-panel>
+            <info-panel type=${this.#showStats}></info-panel>
             <rotation-steps .steps=${this.#rotationList} activeStep=${this.#showStats}></rotation-steps>
-            <rotation-chart .stats=${this.#stats?.[this.#showStats] ?? nothing} .type=${this.#showStats}></rotation-chart>
-            <rotation-stats .stats=${this.#stats} type={this.#showStats}></rotation-stats>
+            <rotation-chart .stats=${this.#stats?.[this.#showStats] ?? nothing} type=${this.#showStats}></rotation-chart>
+            <rotation-stats .stats=${this.#stats} type=${this.#showStats}></rotation-stats>
         `;
     }
 }

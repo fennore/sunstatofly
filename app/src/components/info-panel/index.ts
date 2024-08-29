@@ -1,5 +1,20 @@
 import { css, html, LitElement } from "lit";
-import { customElement } from "lit/decorators";
+import { customElement, property } from "lit/decorators";
+
+import day from './text/day';
+
+const TEXT = new Map([
+    ['day', html`${day}`],
+    ['month', html`
+        <p>Maandgrafiek</p>
+    `],
+    ['year', html`
+        <p>Jaargrafiek</p>
+    `],
+    ['all', html`
+        <p>Totaalgrafiek</p>
+    `]
+])
 
 @customElement('info-panel')
 export class InfoPanel extends LitElement {
@@ -16,20 +31,27 @@ export class InfoPanel extends LitElement {
         }
 
         p {
-            flex-grow: 1;
             font-size: 2rem;
+        }
+
+        .txt-balloon {
+            flex-grow: 1;
         }
         
         :host:after {
             display:block;
             content: url(./img/owl.svg);
+            width: 50%;
+            align-self: end;
         }
     `;
 
+    @property()
+    accessor type: "day" | "month" | "year" | "all" = 'day';
+
     override render() {
         return html`<div class="txt-balloon">
-            <h1>Info</h1>
-            <p>Info</p>
+            ${TEXT.get(this.type)}
         </div>`;
     }
 }
