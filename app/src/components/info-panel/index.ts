@@ -41,7 +41,7 @@ export class InfoPanel extends LitElement {
         :host:after {
             display:block;
             content: url(./img/owl.svg);
-            width: 50%;
+            width: 66%;
             align-self: end;
         }
     `;

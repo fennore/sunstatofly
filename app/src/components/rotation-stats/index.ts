@@ -8,6 +8,24 @@ export class RotationStats extends LitElement {
             grid-area: stats;
         }
         dl {
+            width: 100%;
+            height: 100%;
+            display:flex;
+            flex-flow: column wrap;
+        }
+        
+        dt,dd {
+            width: 20%;
+        }
+        
+        dt {
+            align-self: flex-end;
+            height: 2rem;
+        }
+
+        dd {
+            align-self: flex-start;
+            height: calc(100% - 2rem);
         }
     `;
 

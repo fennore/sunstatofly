@@ -102,8 +102,9 @@ export class ChartDashboard extends LitElement {
             min-width: 900px;
             min-height: 600px;
             display:grid;
-            grid-template-columns: minmax(75%, 3fr) minmax(25%, 320px);
-            grid-template-rows: 60px minmax(calc(80% - 48px), 4fr) minmax(calc(25% - 12px), 150px);
+            grid-gap: 20px;
+            grid-template-columns: 75% calc(25% - 20px);
+            grid-template-rows: 60px calc(80% - 68px) calc(20% - 32px);
             grid-template-areas:
                 "steps steps"
                 "chart info"

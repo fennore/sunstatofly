@@ -21,6 +21,8 @@ export class RotationSteps extends LitElement {
     override render() {
         const tabs: Array<TemplateResult> = [];
 
+        console.log(this.steps);
+
         this.steps.forEach((label, key) => {
             tabs.push(html`<md-primary-tab${key === this.activeStep ? ' active' : ''}>${label}</md-primary-tab>`);
         });
