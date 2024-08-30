@@ -10,6 +10,16 @@ export class RotationSteps extends LitElement {
         :host {
             grid-area: steps;
         }
+
+        md-tabs {
+            height: 100%;
+            text-align: center;
+        }
+
+        md-primary-tab {
+            height: 100%;
+            align-content: center;
+        }
     `;
 
     @property()
@@ -21,10 +31,8 @@ export class RotationSteps extends LitElement {
     override render() {
         const tabs: Array<TemplateResult> = [];
 
-        console.log(this.steps);
-
         this.steps.forEach((label, key) => {
-            tabs.push(html`<md-primary-tab${key === this.activeStep ? ' active' : ''}>${label}</md-primary-tab>`);
+            tabs.push(html`<md-primary-tab active=${key === this.activeStep}>${label}</md-primary-tab>`);
         });
 
         return html`<md-tabs>

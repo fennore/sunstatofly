@@ -10,22 +10,26 @@ export class RotationStats extends LitElement {
         dl {
             width: 100%;
             height: 100%;
-            display:flex;
-            flex-flow: column wrap;
+            margin: 0;
+            display: flex;
+            flex-flow: column-reverse wrap;
+            text-align: center;
         }
         
         dt,dd {
             width: 20%;
+            margin: 0;
         }
         
         dt {
-            align-self: flex-end;
             height: 2rem;
         }
 
         dd {
-            align-self: flex-start;
             height: calc(100% - 2rem);
+            align-content: center;
+            font-size: 2.8rem;
+            color: rgb(85, 136, 170);
         }
     `;
 
@@ -40,19 +44,17 @@ export class RotationStats extends LitElement {
             return null;
         }
         
-        return html`<div class="stats">
-            <dl>
-                <dt>Opbrengst</dt>
-                <dd>€&nbsp;${this.stats.plantDetail.income}</dd>
-                <dt>Bomen geplant</dt>
-                <dd>${this.stats.plantDetail.totalPlantTreeNum}</dd>
-                <dt>CO2 uitstoot vermeden</dt>
-                <dd>${this.stats.plantDetail.totalReduceCo2}</dd>
-                <dt>Geproduceerd vandaag</dt>
-                <dd>${this.stats.plantDetail.todayElectricity}</dd>
-                <dt>Huidig wattage</dt>
-                <dd>${this.stats.plantDetail.nowPower}</dd>
-            </dl>
-        </div>`;
+        return html`<dl>
+            <dt>Opbrengst</dt>
+            <dd>€&nbsp;${this.stats.plantDetail.income}</dd>
+            <dt>Bomen geplant</dt>
+            <dd>${this.stats.plantDetail.totalPlantTreeNum}</dd>
+            <dt>CO2 uitstoot vermeden</dt>
+            <dd>${this.stats.plantDetail.totalReduceCo2}</dd>
+            <dt>Geproduceerd vandaag</dt>
+            <dd>${this.stats.plantDetail.todayElectricity}</dd>
+            <dt>Huidig wattage</dt>
+            <dd>${this.stats.plantDetail.nowPower}</dd>
+        </dl>`;
     }
 }

@@ -23,15 +23,15 @@ export class InfoPanel extends LitElement {
             grid-area: info;
             display: flex;
             flex-direction: column;
-            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 2rem;
+            font-weight: 400;
         }
 
         p {
-            font-size: 2rem;
+            font-size: 1.35rem;
         }
 
         .txt-balloon {
