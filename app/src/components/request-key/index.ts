@@ -5,7 +5,7 @@ import '@material/web/button/filled-button'
 import '@material/web/textfield/outlined-text-field';
 
 import './wrapper';
-import './show-notication';
+import './show-notification';
 
 type Data = { [k:string]: any }
 
