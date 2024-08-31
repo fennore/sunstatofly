@@ -19,6 +19,7 @@ export class RotationSteps extends LitElement {
         md-primary-tab {
             height: 100%;
             align-content: center;
+            font-family: inherit;
         }
     `;
 
@@ -32,7 +33,7 @@ export class RotationSteps extends LitElement {
         const tabs: Array<TemplateResult> = [];
 
         this.steps.forEach((label, key) => {
-            tabs.push(html`<md-primary-tab active=${key === this.activeStep}>${label}</md-primary-tab>`);
+            tabs.push(html`<md-primary-tab ?active=${key === this.activeStep}>${label}</md-primary-tab>`);
         });
 
         return html`<md-tabs>

@@ -4,7 +4,7 @@ import { customElement } from "lit/decorators";
 @customElement('key-wrapper')
 export class Wrapper extends LitElement {
     static override styles = css`
-        div {
+        :host {
             display: grid;
             justify-content: center;
             align-content: center;
@@ -14,6 +14,6 @@ export class Wrapper extends LitElement {
         }
     `
     override render() {
-        return html`<div><slot /></div>`;
+        return html`<slot />`;
     }
 }

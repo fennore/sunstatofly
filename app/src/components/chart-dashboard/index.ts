@@ -187,12 +187,13 @@ export class ChartDashboard extends LitElement {
                     }, 20e3);
 
                     this.#stats = {
-                        day: timeDataToStats(results?.[0] as TimeDataList<string, number>, results[3] as TimeDataList<string, number>),
+                        day: timeDataToStats(results[0] as TimeDataList<string, number>, results[3] as TimeDataList<string, number>),
                         month: timeDataToStats(results[1] as TimeDataList<string, number>, results[4] as TimeDataList<string, number>),
                         year: timeDataToStats(results[2] as TimeDataList<string, number>, results[5] as TimeDataList<string, number>),
                         all: timeDataToStats(results[6] as TimeDataList<string, number>),
                         plantDetail: results[7]?.plantDetail as PlantDetail,
-                        weather: results[8]?.weather as Weather
+                        weather: results[8]?.weather as Weather,
+                        dayProduction: results[1].dataCountList.at(-1)
                     };
 
                     // TODO current day stats should run with a listener on timer (every 5 mins?)
