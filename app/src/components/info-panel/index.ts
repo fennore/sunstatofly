@@ -17,6 +17,7 @@ const TEXT = new Map([
 export class InfoPanel extends LitElement {
     static override styles = css`
         :host {
+            --balloon-background: rgba(0, 130, 200, .3);
             grid-area: info;
             display: flex;
             flex-direction: column;
@@ -28,12 +29,16 @@ export class InfoPanel extends LitElement {
         }
 
         p {
+            margin-top:
             font-size: 1.35rem;
+            margin-bottom: .8em;
         }
 
         .txt-balloon {
             position: relative;
-	        background: #00aabb;
+            padding: .4em 1em;
+            margin-right: 3px;
+	        background: var(--balloon-background);
 	        border-radius: .7em;
             flex-grow: 1;
         }
@@ -46,7 +51,7 @@ export class InfoPanel extends LitElement {
             width: 0;
             height: 0;
             border: 35px solid transparent;
-            border-top-color: #00aabb;
+            border-top-color: var(--balloon-background);
             border-bottom: 0;
             border-right: 0;
             margin-left: -17.5px;
