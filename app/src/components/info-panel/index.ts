@@ -30,15 +30,15 @@ export class InfoPanel extends LitElement {
         }
 
         p {
-            font-size: 1.35rem;
             margin-top: 0;
             margin-bottom: .8em;
         }
 
         .txt-balloon {
+            font-size: 1.35rem;
             position: relative;
-            padding: .4em 1em;
-            margin-right: 3px;
+            padding: .8em 1.4em;
+            margin-right: 0 3px 1.2em 0;
 	        background: var(--balloon-background);
 	        border-radius: 1.6em;
             justify-content: center;
@@ -63,6 +63,7 @@ export class InfoPanel extends LitElement {
             display:block;
             content: url(./img/owl.svg);
             width: 66%;
+            align-self: end;
         }
     `;
 
