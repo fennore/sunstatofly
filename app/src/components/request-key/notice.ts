@@ -1,8 +1,8 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators";
 
-@customElement('notification')
-export class Notification extends LitElement {
+@customElement('notice')
+export class Notice extends LitElement {
     static override styles = css`
         :host {
             border: 1px solid #88b;
