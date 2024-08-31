@@ -45,16 +45,16 @@ export class RotationStats extends LitElement {
         }
         
         return html`<dl>
-            <dt>Opbrengst</dt>
-            <dd>€&nbsp;${this.stats.plantDetail.income}</dd>
-            <dt>Bomen geplant</dt>
-            <dd>${this.stats.plantDetail.totalPlantTreeNum}</dd>
             <dt>CO2 uitstoot vermeden</dt>
             <dd>${this.stats.plantDetail.totalReduceCo2} ton</dd>
-            <dt>Geproduceerd vandaag</dt>
-            <dd>${this.stats.dayProduction} kW</dd>
+            <dt>Bomen geplant</dt>
+            <dd>${this.stats.plantDetail.totalPlantTreeNum}</dd>
             <dt>Zonnesterkte</dt>
             <dd>${this.stats.weather.solarradiation} W/m2</dd>
+            <dt>Opbrengst</dt>
+            <dd>€&nbsp;${this.stats.plantDetail.income}</dd>
+            <dt>Geproduceerd vandaag</dt>
+            <dd>${this.stats.dayProduction} kW</dd>
         </dl>`;
     }
 }
