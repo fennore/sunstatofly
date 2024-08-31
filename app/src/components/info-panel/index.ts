@@ -2,18 +2,15 @@ import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators";
 
 import day from './text/day';
+import month from './text/month';
+import year from './text/year';
+import all from './text/all';
 
 const TEXT = new Map([
     ['day', html`${day}`],
-    ['month', html`
-        <p>Maandgrafiek</p>
-    `],
-    ['year', html`
-        <p>Jaargrafiek</p>
-    `],
-    ['all', html`
-        <p>Totaalgrafiek</p>
-    `]
+    ['month', html`${month}`],
+    ['year', html`${year}`],
+    ['all', html`${all}`]
 ])
 
 @customElement('info-panel')
