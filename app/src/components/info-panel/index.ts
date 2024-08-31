@@ -21,6 +21,7 @@ export class InfoPanel extends LitElement {
             grid-area: info;
             display: flex;
             flex-direction: column;
+            justify-content: end;
         }
 
         h1 {
@@ -29,8 +30,8 @@ export class InfoPanel extends LitElement {
         }
 
         p {
-            margin-top:
             font-size: 1.35rem;
+            margin-top: 0;
             margin-bottom: .8em;
         }
 
@@ -39,8 +40,8 @@ export class InfoPanel extends LitElement {
             padding: .4em 1em;
             margin-right: 3px;
 	        background: var(--balloon-background);
-	        border-radius: .7em;
-            flex-grow: 1;
+	        border-radius: 1.6em;
+            justify-content: center;
         }
 
         .txt-balloon:after {
@@ -62,7 +63,6 @@ export class InfoPanel extends LitElement {
             display:block;
             content: url(./img/owl.svg);
             width: 66%;
-            align-self: end;
         }
     `;
 
