@@ -5,7 +5,7 @@ import '@material/web/button/filled-button'
 import '@material/web/textfield/outlined-text-field';
 
 import './wrapper';
-import './notice';
+import './show-notication';
 
 type Data = { [k:string]: any }
 
@@ -48,10 +48,10 @@ export class RequestKey extends LitElement {
         return html`
             <form @submit=${this.#handleSave}>
                 <key-wrapper>
-                    <notice>
+                    <show-notification>
                         De gegevens worden enkel lokaal opgeslagen.<br>
                         Wanneer u de browsergegevens (voor deze website) wist, dient u deze opnieuw in te geven.
-                    </notice>
+                    </show-notification>
                     <md-outlined-text-field name="plantUid" type="password" label="ID van de installatie" placeholder="Geef het ID in">
                     </md-outlined-text-field>
                     <md-filled-button type="submit">Naar dashboard</md-filled-button>
