@@ -36,7 +36,7 @@ export class App extends LitElement {
       --accent-graph-compare: 109, 152, 186;
       --spacing: 0.6rem;
       --spacing-2: 1.25rem;
-      font-family: 'TanoheSans', sans-serif;
+      font-family: 'Red Hat Display', sans-serif;
       font-weight: 300;
       color: var(--color-text-main);
       background-color: var(--color-background-contrastText);
