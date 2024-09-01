@@ -54,7 +54,7 @@ export class RotationStats extends LitElement {
             <dt>Opbrengst</dt>
             <dd>€&nbsp;${this.stats.plantDetail.income}</dd>
             <dt>Geproduceerd vandaag</dt>
-            <dd>${this.stats.dayProduction} kW</dd>
+            <dd>${this.stats.dayProduction} kWh</dd>
         </dl>`;
     }
 }

@@ -2,13 +2,14 @@ import { html } from "lit/static-html";
 
 export default html`
     <p>
-        In groen zie je de grafiek van de opgewekte energie per dag van vorige maand.
+        In <green>groen</green> zie je de grafiek van de hoeveelheid opgewekte energie per dag van vorige maand.
     </p>
     <p>
-        In blauw zie je ook de grafiek van de opgewekte energie per dag, maar voor deze maand.
+        In <blue>blauw</blue> zie je ook de grafiek van de hoeveelheid opgewekte energie per dag, maar voor deze maand.
     </p>
     <p>
-        Zo kan je duidelijk de verschillen zien per dag.
+        De hoeveelheid opgewekte energie gedurende een bepaalde periode wordt uitgedrukt in wattuur (Wh).
+        In dit geval per 1000 wattuur, dus kilowattuur (kWh)
     </p>
     <p>
         Wanneer is de hoeveelheid opgewekte energie het grootst, en waarom?

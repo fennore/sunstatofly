@@ -144,7 +144,7 @@ export class RotationChart extends LitElement {
   prepareAll: StatsConverter = ([...cleanStats]) => {
     // Replace label row
     cleanStats.shift();
-    cleanStats.unshift(["Jaar", "kW"]);
+    cleanStats.unshift(["Jaar", "kWh"]);
 
     // Extract compare values
     return cleanStats.map(([label, value]) => [label, value]);

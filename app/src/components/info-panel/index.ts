@@ -1,6 +1,9 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators";
 
+import './color/blue'
+import './color/green'
+
 import day from './text/day';
 import month from './text/month';
 import year from './text/year';
@@ -35,7 +38,7 @@ export class InfoPanel extends LitElement {
         }
 
         .txt-balloon {
-            font-size: 1.35rem;
+            font-size: 1.2rem;
             position: relative;
             padding: .8em 1.4em;
             margin-right: 0 3px 1.2em 0;

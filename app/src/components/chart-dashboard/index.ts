@@ -184,7 +184,7 @@ export class ChartDashboard extends LitElement {
                         } else {
                             this.#showStats = keyList[currentIndex + 1];
                         }
-                    }, 20e3);
+                    }, 60e3);
 
                     this.#stats = {
                         day: timeDataToStats(results[0] as TimeDataList<string, number>, results[3] as TimeDataList<string, number>),
@@ -219,18 +219,6 @@ export class ChartDashboard extends LitElement {
 
                         if(plantHour > 6 && plantHour < 22) {
                             promises.push(this.getStats('month'));
-                        } else {
-                            promises.push(Promise.resolve(this.#stats.month));
-                        }
-
-                        if([1,8,12].includes(plantHour)) {
-                            promises.push(this.getStats('plantDetail', {
-                                method: 'POST',
-                                headers: {
-                                    "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
-                                },
-                                body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}&clientDate=${encodeURIComponent(getToday())}`
-                            }));
                             promises.push(this.getStats('weather', {
                                 method: 'POST',
                                 headers: {
@@ -239,19 +227,38 @@ export class ChartDashboard extends LitElement {
                                 body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}`
                             }));
                         } else {
-                            promises.push(Promise.resolve(this.#stats.plantDetail));
-                            promises.push(Promise.resolve(this.#stats.weather));
+                            promises.push(Promise.resolve(false));
+                            promises.push(Promise.resolve(false));
                         }
 
-                        Promise.all(promises).then(([monthStats, plantDetail, weather]) => {
-                            // TODO check if data conversion is necessary
-                            const month = timeDataToStats(monthStats, results[4]);
-                            this.#stats = {
-                                ...this.#stats,
-                                month,
-                                plantDetail,
-                                weather
-                            };
+                        if([1,8,12,16].includes(plantHour)) {
+                            promises.push(this.getStats('plantDetail', {
+                                method: 'POST',
+                                headers: {
+                                    "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+                                },
+                                body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}&clientDate=${encodeURIComponent(getToday())}`
+                            }));
+                        } else {
+                            promises.push(Promise.resolve(false));
+                        }
+
+                        Promise.all(promises).then(([monthStats, weather, plantDetail]) => {
+                            const newStats = {...this.#stats};
+                            if(monthStats) {
+                                newStats.month = timeDataToStats(monthStats, results[4]);
+                                newStats.dayProduction = monthStats.dataCountList.at(-1);
+                            }
+
+                            if(weather) {
+                                newStats.weather = weather.weather;
+                            }
+
+                            if(plantDetail) {
+                                newStats.plantDetail = plantDetail.plantDetail;
+                            }
+
+                            this.#stats = newStats;
                         }).catch(console.error);
                     }, 6*6e5);
 
