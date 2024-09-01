@@ -1,8 +1,8 @@
 import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators";
 
-@customElement('blue')
-export class Blue extends LitElement {
+@customElement('color-blue')
+export class ColorBlue extends LitElement {
     static override styles = css`
         :host {
             color: var(--graph-blue);

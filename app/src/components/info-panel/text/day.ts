@@ -2,10 +2,10 @@ import { html } from "lit/static-html";
 
 export default html`
     <p>
-        In <green>groen</green> zie je de grafiek van de opgewekte energie van gisteren over de hele dag.
+        In <color-green>groen</color-green> zie je de grafiek van de opgewekte energie van gisteren over de hele dag.
     </p>
     <p>
-        In <blue>blauw</blue> zie je ook de grafiek van de opgewekte energie, maar voor vandaag.
+        In <color-blue>blauw</color-blue> zie je ook de grafiek van de opgewekte energie, maar voor vandaag.
     </p>
     <p>
         De opgewekte energie wordt uitgedrukt in watt (W).

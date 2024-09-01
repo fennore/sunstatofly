@@ -2,10 +2,10 @@ import { html } from "lit/static-html";
 
 export default html`
     <p>
-        In <green>groen</green> zie je de grafiek van de hoeveelheid opgewekte energie per dag van vorige maand.
+        In <color-green>groen</color-green> zie je de grafiek van de hoeveelheid opgewekte energie per dag van vorige maand.
     </p>
     <p>
-        In <blue>blauw</blue> zie je ook de grafiek van de hoeveelheid opgewekte energie per dag, maar voor deze maand.
+        In <color-blue>blauw</color-blue> zie je ook de grafiek van de hoeveelheid opgewekte energie per dag, maar voor deze maand.
     </p>
     <p>
         De hoeveelheid opgewekte energie gedurende een bepaalde periode wordt uitgedrukt in wattuur (Wh).

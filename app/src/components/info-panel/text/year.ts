@@ -2,10 +2,10 @@ import { html } from "lit/static-html";
 
 export default html`
     <p>
-        In <green>groen</green> zie je de grafiek van de opgewekte energie per maand van vorig jaar.
+        In <color-green>groen</color-green> zie je de grafiek van de opgewekte energie per maand van vorig jaar.
     </p>
     <p>
-        In <blue>blauw</blue> zie je ook de grafiek van de opgewekte energie per maand, maar voor dit jaar.
+        In <color-blue>blauw</color-blue> zie je ook de grafiek van de opgewekte energie per maand, maar voor dit jaar.
     </p>
     <p>
         Ook deze grafiek geeft de waarde in kilowattuur weer.
