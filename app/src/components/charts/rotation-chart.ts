@@ -19,19 +19,21 @@ export class RotationChart extends LitElement {
     }
 
     .chart-wrapper {
-      position:relative;
+      position: relative;
       height: 100%;
     }
 
     .chart-wrapper:before {
-      position:fixed;
-      display:block;
+      position: sticky;
+      top: 0;
+      left: 0;
+      display: block;
       content: url(./img/sun.svg);
-      width: 33%;
+      width: 36.5%;
       z-index: -1;
       top: 0;
       left: 0;
-      opacity: .3;
+      opacity: .15;
     }
   `;
 

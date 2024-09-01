@@ -93,8 +93,6 @@ const getLastYear: (tz?: number) => string = (plantTZ = 2) => {
 export class ChartDashboard extends LitElement {
     static override styles = css`
         :host {
-            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-            font-weight: 300;
             width: 100vw;
             height: 100vh;
             min-width: 900px;

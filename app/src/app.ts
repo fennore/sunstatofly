@@ -1,4 +1,4 @@
-import {LitElement, html, nothing} from 'lit';
+import {CSSResultGroup, LitElement, css, html, nothing} from 'lit';
 import {customElement,  state} from 'lit/decorators';
 
 import {initiateDb, SolarPlantRepository} from './db/index.js';
@@ -21,6 +21,22 @@ const repositories = [
 @customElement('solar-app')
 export class App extends LitElement {
   #dbName = 'SolarPowerStats';
+
+  static override styles?: CSSResultGroup = css`
+    :host {
+      --color-text-highlight:;
+      --color-text-main: #202040;
+      --color-text-secondary:;
+      --color-graph-primary:;
+      --color-graph-secondary:;
+      --color-background-main:;
+      --color-background-secondary:;
+      --color-background-contrastText:;
+      font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+      font-weight: 300;
+      font-color: var(--color-text-main);
+    }
+  `;
 
   @state()
   accessor #plantUid: string | null = null;

@@ -5,8 +5,10 @@ import { customElement, property } from "lit/decorators";
 export class RotationStats extends LitElement {
     static override styles = css`
         :host {
+            --label-height: 4rem;
             grid-area: stats;
         }
+
         dl {
             width: 100%;
             height: 100%;
@@ -22,14 +24,14 @@ export class RotationStats extends LitElement {
         }
         
         dt {
-            height: 2rem;
+            height: var(--label-height);
         }
 
         dd {
-            height: calc(100% - 2rem);
-            align-content: center;
+            height: calc(100% - var(--label-height));
+            align-content: end;
             font-size: 2.8rem;
-            color: rgb(85, 136, 170);
+            color: var(--highlight-text, rgb(85, 136, 170));
         }
     `;
 
