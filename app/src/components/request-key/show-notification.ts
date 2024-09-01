@@ -5,10 +5,10 @@ import { customElement } from "lit/decorators";
 export class ShowNotification extends LitElement {
     static override styles = css`
         :host {
-            border: 1px solid #88b;
-            color: 1px solid #88b;
-            background-color: #ccf;
-            padding: .4rem 1rem;
+            border: 1px solid var(--color-text-secondary);
+            color: 1px solid var(--color-text-secondary);
+            background-color: var(--color-background-secondary);
+            padding: var(--spacing) var(--spacing-2);
         }
 
         md-icon {

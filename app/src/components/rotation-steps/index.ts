@@ -8,6 +8,11 @@ import '@material/web/tabs/primary-tab'
 export class RotationSteps extends LitElement {
     static override styles = css`
         :host {
+            --md-primary-tab-label-text-color: var(--color-text-secondary);
+            --md-primary-tab-active-label-text-color: var(--color-text-highlight);
+            --md-primary-tab-active-indicator-color: var(--color-text-highlight);
+            --md-primary-tab-active-focus-label-text-color: var(--color-text-highlight);
+            --md-primary-tab-active-hover-label-text-color: var(--color-text-highlight);
             grid-area: steps;
         }
 
@@ -29,11 +34,17 @@ export class RotationSteps extends LitElement {
     @property()
     accessor activeStep: string = 'day';
 
+    #handleTabClick = (step: string) => () => {
+        const event = new CustomEvent('changeStep', { detail: { step } });
+        
+        return this.dispatchEvent(event);
+    }
+
     override render() {
         const tabs: Array<TemplateResult> = [];
 
         this.steps.forEach((label, key) => {
-            tabs.push(html`<md-primary-tab ?active=${key === this.activeStep}>${label}</md-primary-tab>`);
+            tabs.push(html`<md-primary-tab ?active=${key === this.activeStep} @click=${this.#handleTabClick(key)}>${label}</md-primary-tab>`);
         });
 
         return html`<md-tabs>

@@ -16,22 +16,28 @@ export class RotationStats extends LitElement {
             display: flex;
             flex-flow: column-reverse wrap;
             text-align: center;
+            border: 3px solid var(--color-background-secondary);
         }
         
         dt,dd {
             width: 20%;
             margin: 0;
         }
+
+        dt:nth-of-type(uneven), dd:nth-of-type(uneven) {
+            background-color: var(--color-background-secondary);
+        }
         
         dt {
             height: var(--label-height);
+            color: var(--color-text-secondary);
         }
 
         dd {
             height: calc(100% - var(--label-height));
             align-content: end;
             font-size: 2.8rem;
-            color: var(--highlight-text, rgb(85, 136, 170));
+            color: var(--color-text-highlight, rgb(85, 136, 170));
         }
     `;
 

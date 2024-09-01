@@ -65,7 +65,7 @@ export class RotationChart extends LitElement {
         yAxis: { type: "value" },
         // Declare several 'bar' series,
         // every series will auto-map to each column by default.
-        series: []
+        series: [],
       });
     }
   };
@@ -79,24 +79,55 @@ export class RotationChart extends LitElement {
     if (this.type === "day") {
       options.dataset = { source: this.prepareDay(this.stats) };
       options.series = [
-        { type: "line", areaStyle: {} },
-        { type: "line", areaStyle: {} }
+        {
+          type: "line",
+          areaStyle: {
+            color: "rgba(var(--accent-graph-main), .6)"
+          } 
+        },
+        {
+          type: "line",
+          areaStyle: {
+            color: "rgba(var(--accent-graph-compare), .6)"
+          }
+        }
       ];
     }
 
     if (this.type === "month") {
       options.dataset = { source: this.prepareMonth(this.stats) };
-      options.series = [{ type: "bar" }, { type: "bar" }];
+      options.series = [
+        { 
+          type: "bar",
+          color: "rgba(var(--accent-graph-main), .6)"
+        },
+        { 
+          type: "bar",
+          color: "rgba(var(--accent-graph-compare), .6)"
+        }
+      ];
     }
 
     if (this.type === "year") {
       options.dataset = { source: this.prepareYear(this.stats) };
-      options.series = [{ type: "bar" }, { type: "bar" }];
+      options.series = [
+        { 
+          type: "bar",
+          color: "rgba(var(--accent-graph-main), .6)"
+        },
+        { 
+          type: "bar",
+          color: "rgba(var(--accent-graph-compare), .6)"
+        }
+      ];
     }
 
     if (this.type === "all") {
       options.dataset = { source: this.prepareAll(this.stats) };
-      options.series = [{ type: "bar" }];
+      options.series = [{ 
+        type: "bar",
+        color: "rgba(var(--accent-graph-main), .6)"
+      }];
     }
 
     this.#chart?.resize();

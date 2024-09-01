@@ -126,6 +126,25 @@ export class ChartDashboard extends LitElement {
     #dayTimer?: number;
     #monthTimer?: number;
 
+    #setRotationTimer = () => {
+        clearInterval(this.#rotationTimer);
+        this.#rotationTimer = setInterval(() => {
+            const keyList = Array.from(this.#rotationList.keys());
+            const currentIndex = keyList.findIndex(key => key === this.#showStats);
+
+            if(currentIndex >= this.#rotationList.size - 1) {
+                this.#showStats = keyList[0];
+            } else {
+                this.#showStats = keyList[currentIndex + 1];
+            }
+        }, 60e3)
+    }
+
+    #setShowStats = (event: CustomEvent) => {
+        this.#showStats = event.detail.step;
+        this.#setRotationTimer();
+    }
+
     @state()
     accessor #showStats: StatType = 'day';
 
@@ -169,16 +188,7 @@ export class ChartDashboard extends LitElement {
                         })
                     ]);
 
-                    this.#rotationTimer = setInterval(() => {
-                        const keyList = Array.from(this.#rotationList.keys());
-                        const currentIndex = keyList.findIndex(key => key === this.#showStats);
-
-                        if(currentIndex >= this.#rotationList.size - 1) {
-                            this.#showStats = keyList[0];
-                        } else {
-                            this.#showStats = keyList[currentIndex + 1];
-                        }
-                    }, 60e3);
+                    this.#setRotationTimer();
 
                     this.#stats = {
                         day: timeDataToStats(results[0] as TimeDataList<string, number>, results[3] as TimeDataList<string, number>),
@@ -311,7 +321,7 @@ export class ChartDashboard extends LitElement {
     override render() {    
         return html`
             <info-panel type=${this.#showStats}></info-panel>
-            <rotation-steps .steps=${this.#rotationList} activeStep=${this.#showStats}></rotation-steps>
+            <rotation-steps .steps=${this.#rotationList} activeStep=${this.#showStats} @changeStep=${this.#setShowStats}></rotation-steps>
             <rotation-chart .stats=${this.#stats?.[this.#showStats] ?? nothing} type=${this.#showStats}></rotation-chart>
             <rotation-stats .stats=${this.#stats} type=${this.#showStats}></rotation-stats>
         `;

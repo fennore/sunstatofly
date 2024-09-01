@@ -8,7 +8,7 @@ export class Wrapper extends LitElement {
             display: grid;
             justify-content: center;
             align-content: center;
-            gap: 8px;
+            gap: var(--spacing);
             grid-auto-flow: column;
             min-height: 100vh;
         }

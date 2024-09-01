@@ -1,8 +1,8 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators";
 
-import './color/blue'
-import './color/green'
+import './color/main'
+import './color/compare'
 
 import day from './text/day';
 import month from './text/month';
@@ -20,7 +20,8 @@ const TEXT = new Map([
 export class InfoPanel extends LitElement {
     static override styles = css`
         :host {
-            --balloon-background: rgba(0, 130, 200, .3);
+            --balloon-background: var(--color-background-main);
+            --balloon-pointer-size: 35px;
             grid-area: info;
             display: flex;
             flex-direction: column;
@@ -34,16 +35,16 @@ export class InfoPanel extends LitElement {
 
         p {
             margin-top: 0;
-            margin-bottom: .8em;
+            margin-bottom: var(--spacing);
         }
 
         .txt-balloon {
             font-size: 1.2rem;
             position: relative;
-            padding: .8em 1.4em;
-            margin: 0 3px 1.2em 0;
+            padding: var(--spacing) var(--spacing-2);
+            margin: 0 3px var(--spacing-2) 0;
 	        background: var(--balloon-background);
-	        border-radius: 1.6em;
+	        border-radius: calc(var(--spacing-2) * 1.4);
             flex-grow: 1;
             transition: flex-grow 0.6s ease-out;
         }
@@ -55,12 +56,12 @@ export class InfoPanel extends LitElement {
             left: 50%;
             width: 0;
             height: 0;
-            border: 35px solid transparent;
+            border: var(--balloon-pointer-size) solid transparent;
             border-top-color: var(--balloon-background);
             border-bottom: 0;
             border-right: 0;
-            margin-left: -17.5px;
-            margin-bottom: -35px;
+            margin-left: calc(var(--balloon-pointer-size) * -.5);
+            margin-bottom: calc(var(--balloon-pointer-size) * -1);
         }
 
         :host:before {
@@ -73,7 +74,7 @@ export class InfoPanel extends LitElement {
         :host:after {
             display:block;
             content: url(./img/owl.svg);
-            width: 66%;
+            width: calc(100% / 3);
             align-self: end;
         }
     `;
