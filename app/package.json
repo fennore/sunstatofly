@@ -28,7 +28,7 @@
   },
   "source": "index.html",
   "parcelIgnore": [
-    "fonts/.+",
-    "img/.+"
+    "./fonts/.+",
+    "./img/.+"
   ]
 }
