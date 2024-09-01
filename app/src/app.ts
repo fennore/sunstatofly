@@ -10,8 +10,6 @@ import './components/request-key/index.js';
 import './components/chart-dashboard/index.js'
 import { SaveEvent } from './components/request-key/index.js';
 
-// TODO build and use rollup instead of dns + import map (is way too slow!)
-
 const KEY_REF = "saj-solar-plant";
 
 const repositories = [
@@ -24,6 +22,8 @@ export class App extends LitElement {
 
   static override styles?: CSSResultGroup = css`
     :host {
+      --font-family: 'Red Hat Display', sans-serif;
+      --font-weight: 300;
       --color-text-highlight: rgba(239, 62, 54, 1);
       --color-text-main: rgba(40, 48, 68, 1);
       --color-text-secondary: rgba(109, 152, 186, 1);
@@ -36,8 +36,8 @@ export class App extends LitElement {
       --accent-graph-compare: 109, 152, 186;
       --spacing: 0.6rem;
       --spacing-2: 1.25rem;
-      font-family: 'Red Hat Display', sans-serif;
-      font-weight: 300;
+      font-family: var(--font-family);
+      font-weight: var(--font-weight);
       color: var(--color-text-main);
       background-color: var(--color-background-contrastText);
     }
