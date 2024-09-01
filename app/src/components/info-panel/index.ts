@@ -44,6 +44,8 @@ export class InfoPanel extends LitElement {
             margin: 0 3px 1.2em 0;
 	        background: var(--balloon-background);
 	        border-radius: 1.6em;
+            flex-grow: 1;
+            transition: flex-grow 0.6s ease-out;
         }
 
         .txt-balloon:after {
@@ -59,6 +61,13 @@ export class InfoPanel extends LitElement {
             border-right: 0;
             margin-left: -17.5px;
             margin-bottom: -35px;
+        }
+
+        :host:before {
+            display:block;
+            content:'';
+            flex-grow: 1;
+            transition: flex-grow 0.6s ease-out;
         }
         
         :host:after {
