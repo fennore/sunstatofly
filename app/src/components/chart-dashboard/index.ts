@@ -2,15 +2,11 @@ import { LitElement, css, html, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import { Task } from "@lit/task";
 
-// import '../charts/day-production-chart.js';
-// import '../charts/month-production-chart.js';
-// import '../charts/year-production-chart.js';
-// import '../charts/all-production-chart.js';
-import '../rotation-steps/index.js';
-import '../charts/rotation-chart.js';
-import '../rotation-stats/index.js';
-import '../info-panel/index.js';
-import { PlantDetail, TimeDataList, Weather, timeDataToStats } from './transform.js';
+import '../rotation-steps';
+import '../charts/rotation-chart';
+import '../rotation-stats';
+import '../info-panel';
+import { PlantDetail, TimeDataList, Weather, timeDataToStats } from './transform';
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
 

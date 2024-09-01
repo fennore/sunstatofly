@@ -41,10 +41,9 @@ export class InfoPanel extends LitElement {
             font-size: 1.2rem;
             position: relative;
             padding: .8em 1.4em;
-            margin-right: 0 3px 1.2em 0;
+            margin: 0 3px 1.2em 0;
 	        background: var(--balloon-background);
 	        border-radius: 1.6em;
-            justify-content: center;
         }
 
         .txt-balloon:after {
