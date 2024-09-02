@@ -6,6 +6,7 @@ export class ColorMain extends LitElement {
     static override styles = css`
         :host {
             color: rgba(var(--accent-graph-main), 1);
+            font-weight: 420;
         }
     `;
 

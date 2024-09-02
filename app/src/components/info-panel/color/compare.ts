@@ -6,6 +6,7 @@ export class ColorCompare extends LitElement {
     static override styles = css`
         :host {
             color: rgba(var(--accent-graph-compare), 1);
+            font-weight: 420;
         }
     `;
 
