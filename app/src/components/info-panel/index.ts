@@ -70,7 +70,8 @@ export class InfoPanel extends LitElement {
             flex-grow: 10000;
             transition: flex-grow 0.6s ease-out;
         }
-        :host[type="day"], :host[type="year"] {
+
+        :host([type="day"]):before, :host([type="year"]):before {
             flex-grow: 100000;
         }
         

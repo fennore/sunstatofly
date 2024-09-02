@@ -56,6 +56,7 @@ export class RotationChart extends LitElement {
   assignChart = (element: HTMLElement) => {
     if (element) {
       const elementStyle = getComputedStyle(element);
+      console.log(elementStyle);
       this.#accentMain = elementStyle.getPropertyValue('--accent-graph-main');
       this.#accentCompare = elementStyle.getPropertyValue('--accent-graph-compare');
 
@@ -80,6 +81,8 @@ export class RotationChart extends LitElement {
     const colourCompare = `rgba(${this.#accentCompare}, 1)`;
     const colourBgMain = `rgba(${this.#accentMain}, .6)`;
     const colourBgCompare = `rgba(${this.#accentCompare}, .6)`;
+
+    console.log(colourMain, colourCompare);
 
     const options: EChartsOption = {
       dataset: {},

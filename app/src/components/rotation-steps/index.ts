@@ -22,6 +22,7 @@ export class RotationSteps extends LitElement {
             --md-primary-tab-active-indicator-color: var(--color-text-highlight);
             --md-primary-tab-active-focus-label-text-color: var(--color-text-highlight);
             --md-primary-tab-active-hover-label-text-color: var(--color-text-highlight);
+            --md-primary-tab-active-pressed-label-text-color: var(--color-text-highlight);
             --md-ripple-hover-color: rgba(var(--accent-background-highlight), 1);
             --md-ripple-pressed-color: rgba(var(--accent-background-highlight), 1);
             --md-ripple-hover-opacity: .08;
