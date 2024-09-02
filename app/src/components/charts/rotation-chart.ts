@@ -12,8 +12,6 @@ declare type StatsConverter = (
 @customElement("rotation-chart")
 export class RotationChart extends LitElement {
   #chart?: EChartsType;
-  #accentMain = '';
-  #accentCompare = '';
 
   static override styles = css`
     :host {
@@ -55,17 +53,6 @@ export class RotationChart extends LitElement {
 
   assignChart = (element: HTMLElement) => {
     if (element) {
-      const elementStyle = getComputedStyle(element);
-      console.log(elementStyle);
-      this.#accentMain = elementStyle.getPropertyValue('--accent-graph-main');
-      this.#accentCompare = elementStyle.getPropertyValue('--accent-graph-compare');
-
-      console.log(
-        'on init',
-        elementStyle.getPropertyValue('--accent-graph-main'),
-        elementStyle.getPropertyValue('--accent-graph-compare')
-      )
-
       this.#chart = echarts.init(element);
       this.#chart?.setOption({
         legend: {},
@@ -83,15 +70,14 @@ export class RotationChart extends LitElement {
   };
 
   updateChartOptions: () => void = () => {
-    if(this.#chart) {
-      const es = getComputedStyle(this.#chart?.getDom());
+      const DOMStyles = this.#chart ? getComputedStyle(this.#chart?.getDom()) : null;
+      const mainAccent = DOMStyles?.getPropertyValue('--accent-graph-main');
+      const compareAccent = DOMStyles?.getPropertyValue('--accent-graph-compare');
 
-      console.log('on the fly', es.getPropertyValue('--accent-graph-main'));
-    }
-    const colourMain = `rgba(${this.#accentMain}, 1)`;
-    const colourCompare = `rgba(${this.#accentCompare}, 1)`;
-    const colourBgMain = `rgba(${this.#accentMain}, .6)`;
-    const colourBgCompare = `rgba(${this.#accentCompare}, .6)`;
+      const colourMain = `rgba(${mainAccent}, 1)`;
+      const colourCompare = `rgba(${compareAccent}, 1)`;
+      const colourBgMain = `rgba(${mainAccent}, .6)`;
+      const colourBgCompare = `rgba(${compareAccent}, .6)`;
 
     console.log(colourMain, colourCompare);
 
