@@ -17,7 +17,7 @@ export class RotationSteps extends LitElement {
             --md-primary-tab-active-pressed-state-layer-color: var(--color-text-highlight);
             --md-primary-tab-label-text-color: var(--color-text-secondary);
             --md-primary-tab-hover-label-text-color: var(--color-text-highlight);
-            --md-primary-tab-focus-label-text-color: var(--color-text-highlight);
+            --md-primary-tab-focus-label-text-color: var(--color-text-secondary);
             --md-primary-tab-active-label-text-color: var(--color-text-highlight);
             --md-primary-tab-active-indicator-color: var(--color-text-highlight);
             --md-primary-tab-active-focus-label-text-color: var(--color-text-highlight);

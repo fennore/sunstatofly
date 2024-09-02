@@ -60,6 +60,12 @@ export class RotationChart extends LitElement {
       this.#accentMain = elementStyle.getPropertyValue('--accent-graph-main');
       this.#accentCompare = elementStyle.getPropertyValue('--accent-graph-compare');
 
+      console.log(
+        'on init',
+        elementStyle.getPropertyValue('--accent-graph-main'),
+        elementStyle.getPropertyValue('--accent-graph-compare')
+      )
+
       this.#chart = echarts.init(element);
       this.#chart?.setOption({
         legend: {},
@@ -77,6 +83,11 @@ export class RotationChart extends LitElement {
   };
 
   updateChartOptions: () => void = () => {
+    if(this.#chart) {
+      const es = getComputedStyle(this.#chart?.getDom());
+
+      console.log('on the fly', es.getPropertyValue('--accent-graph-main'));
+    }
     const colourMain = `rgba(${this.#accentMain}, 1)`;
     const colourCompare = `rgba(${this.#accentCompare}, 1)`;
     const colourBgMain = `rgba(${this.#accentMain}, .6)`;

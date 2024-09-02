@@ -67,12 +67,12 @@ export class InfoPanel extends LitElement {
         :host:before {
             display:block;
             content:'';
-            flex-grow: 10000;
+            flex-grow: 100000;
             transition: flex-grow 0.6s ease-out;
         }
 
-        :host([type="day"]):before, :host([type="year"]):before {
-            flex-grow: 100000;
+        :host([type="day"]) .txt-balloon, :host([type="year"]) .txt-balloon {
+            flex-grow: 2;
         }
         
         :host:after {
