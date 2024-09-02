@@ -31,6 +31,7 @@ export class RotationStats extends LitElement {
         dt {
             height: var(--label-height);
             color: var(--color-text-secondary);
+            font-size: calc(var(--font-size) + .2rem)
         }
 
         dd {
