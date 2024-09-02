@@ -17,6 +17,7 @@ export class RotationStats extends LitElement {
             flex-flow: column-reverse wrap;
             text-align: center;
             border: 3px solid var(--color-background-secondary);
+            box-sizing: border-box;
         }
         
         dt,dd {
