@@ -8,8 +8,16 @@ import '@material/web/tabs/primary-tab'
 export class RotationSteps extends LitElement {
     static override styles = css`
         :host {
+            --md-primary-tab-label-text-line-height: calc(var(--font-size) * 1.4);
+            --md-primary-tab-label-text-size: var(--font-size);
             --md-primary-tab-container-color: var(--color-background-secondary);
+            --md-primary-tab-hover-state-layer-color: var(--color-text-highlight);
+            --md-primary-tab-active-hover-state-layer-color: var(--color-text-highlight);
+            --md-primary-tab-pressed-state-layer-color: var(--color-text-highlight);
+            --md-primary-tab-active-pressed-state-layer-color: var(--color-text-highlight);
             --md-primary-tab-label-text-color: var(--color-text-secondary);
+            --md-primary-tab-hover-label-text-color: var(--color-text-highlight);
+            --md-primary-tab-focus-label-text-color: var(--color-text-highlight);
             --md-primary-tab-active-label-text-color: var(--color-text-highlight);
             --md-primary-tab-active-indicator-color: var(--color-text-highlight);
             --md-primary-tab-active-focus-label-text-color: var(--color-text-highlight);
@@ -25,6 +33,7 @@ export class RotationSteps extends LitElement {
         md-tabs {
             height: 100%;
             text-align: center;
+            font-size: 1.2rem;
         }
 
         md-primary-tab {

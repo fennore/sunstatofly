@@ -24,6 +24,7 @@ export class App extends LitElement {
     :host {
       --font-family: 'Red Hat Display', sans-serif;
       --font-weight: 300;
+      --font-size: 1.1rem;
       --color-text-highlight: rgba(239, 62, 54, 1);
       --color-text-main: rgba(40, 48, 68, 1);
       --color-text-secondary: rgba(109, 152, 186, 1);
@@ -37,6 +38,8 @@ export class App extends LitElement {
       --spacing-2: 1.25rem;
       font-family: var(--font-family);
       font-weight: var(--font-weight);
+      font-size: var(--font-size);
+      line-height: calc(var(--font-size) * 1.3)
       color: var(--color-text-main);
       background-color: var(--color-background-contrastText);
     }
