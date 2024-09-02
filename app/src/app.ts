@@ -27,11 +27,10 @@ export class App extends LitElement {
       --color-text-highlight: rgba(239, 62, 54, 1);
       --color-text-main: rgba(40, 48, 68, 1);
       --color-text-secondary: rgba(109, 152, 186, 1);
-      --color-background-main: rgba(232, 221, 181, 1);
+      --color-background-main: rgba(245, 241, 224, 1);
       --color-background-secondary: rgba(109, 152, 186, .3);
+      --accent-background-highlight: 239, 62, 54;
       --color-background-contrastText: rgba(255, 255, 255, 1);
-      --md-ripple-hover-color: rgba(239, 62, 54, .15);
-      --md-ripple-pressed-color: rgba(239, 62, 54, .25);
       --accent-graph-main: 4, 167, 119;
       --accent-graph-compare: 109, 152, 186;
       --spacing: 0.6rem;

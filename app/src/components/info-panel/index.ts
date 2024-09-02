@@ -67,14 +67,17 @@ export class InfoPanel extends LitElement {
         :host:before {
             display:block;
             content:'';
-            flex-grow: 1;
+            flex-grow: 10000;
             transition: flex-grow 0.6s ease-out;
+        }
+        :host[type="day"], :host[type="year"] {
+            flex-grow: 100000;
         }
         
         :host:after {
             display:block;
             content: url(./img/owl.svg);
-            width: calc(100% / 3);
+            width: calc(100% / 3 * 2);
             align-self: end;
         }
     `;

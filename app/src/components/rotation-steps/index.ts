@@ -8,11 +8,17 @@ import '@material/web/tabs/primary-tab'
 export class RotationSteps extends LitElement {
     static override styles = css`
         :host {
+            --md-primary-tab-container-color: var(--color-background-secondary);
             --md-primary-tab-label-text-color: var(--color-text-secondary);
             --md-primary-tab-active-label-text-color: var(--color-text-highlight);
             --md-primary-tab-active-indicator-color: var(--color-text-highlight);
             --md-primary-tab-active-focus-label-text-color: var(--color-text-highlight);
             --md-primary-tab-active-hover-label-text-color: var(--color-text-highlight);
+            --md-ripple-hover-color: rgba(var(--accent-background-highlight), 1);
+            --md-ripple-pressed-color: rgba(var(--accent-background-highlight), 1);
+            --md-ripple-hover-opacity: .08;
+            --md-ripple-pressed-opacity: .15;
+            --md-divider-thickness: 0;
             grid-area: steps;
         }
 
