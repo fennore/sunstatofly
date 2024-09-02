@@ -24,7 +24,8 @@ export class RotationStats extends LitElement {
             margin: 0;
         }
 
-        dt:nth-of-type(uneven), dd:nth-of-type(uneven) {
+        dt:nth-of-type(odd),
+        dd:nth-of-type(odd) {
             background-color: var(--color-background-secondary);
         }
         

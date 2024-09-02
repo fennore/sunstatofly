@@ -76,7 +76,7 @@ export class RotationChart extends LitElement {
 
       const colourMain = `rgba(${mainAccent}, 1)`;
       const colourCompare = `rgba(${compareAccent}, 1)`;
-      const colourBgMain = `rgba(${mainAccent}, .6)`;
+      const colourBgMain = `rgba(${mainAccent}, .8)`;
       const colourBgCompare = `rgba(${compareAccent}, .6)`;
 
     console.log(colourMain, colourCompare);
@@ -111,7 +111,7 @@ export class RotationChart extends LitElement {
       options.series = [
         { 
           type: "bar",
-          color: colourBgMain
+          color: colourMain
         },
         { 
           type: "bar",
@@ -125,7 +125,7 @@ export class RotationChart extends LitElement {
       options.series = [
         { 
           type: "bar",
-          color: colourBgMain
+          color: colourMain
         },
         { 
           type: "bar",
@@ -138,7 +138,7 @@ export class RotationChart extends LitElement {
       options.dataset = { source: this.prepareAll(this.stats) };
       options.series = [{ 
         type: "bar",
-        color: colourBgMain
+        color: colourMain
       }];
     }
 
