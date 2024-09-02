@@ -5,7 +5,7 @@ export default html`
         In <color-main>groen</color-main> zie je de grafiek van de hoeveelheid opgewekte energie per dag voor deze maand.
     </p>
     <p>
-        In <color-secondary>blauw</color-secondary> zie je ook de grafiek van de hoeveelheid opgewekte energie per dag, maar van vorige maand.
+        In <color-compare>blauw</color-compare> zie je ook de grafiek van de hoeveelheid opgewekte energie per dag, maar van vorige maand.
     </p>
     <p>
         De hoeveelheid opgewekte energie gedurende een bepaalde periode wordt uitgedrukt in wattuur (Wh).

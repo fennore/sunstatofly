@@ -12,6 +12,8 @@ declare type StatsConverter = (
 @customElement("rotation-chart")
 export class RotationChart extends LitElement {
   #chart?: EChartsType;
+  #accentMain = '';
+  #accentCompare = '';
 
   static override styles = css`
     :host {
@@ -53,6 +55,10 @@ export class RotationChart extends LitElement {
 
   assignChart = (element: HTMLElement) => {
     if (element) {
+      const elementStyle = getComputedStyle(element);
+      this.#accentMain = elementStyle.getPropertyValue('--accent-graph-main');
+      this.#accentCompare = elementStyle.getPropertyValue('--accent-graph-compare');
+
       this.#chart = echarts.init(element);
       this.#chart?.setOption({
         legend: {},
@@ -70,6 +76,11 @@ export class RotationChart extends LitElement {
   };
 
   updateChartOptions: () => void = () => {
+    const colourMain = `rgba(${this.#accentMain}, 1)`;
+    const colourCompare = `rgba(${this.#accentCompare}, 1)`;
+    const colourBgMain = `rgba(${this.#accentMain}, .6)`;
+    const colourBgCompare = `rgba(${this.#accentCompare}, .6)`;
+
     const options: EChartsOption = {
       dataset: {},
       series: []
@@ -80,14 +91,16 @@ export class RotationChart extends LitElement {
       options.series = [
         {
           type: "line",
+          color: colourMain,
           areaStyle: {
-            color: "rgba(var(--accent-graph-main), .6)"
+            color: colourBgMain
           } 
         },
         {
           type: "line",
+          color: colourCompare,
           areaStyle: {
-            color: "rgba(var(--accent-graph-compare), .6)"
+            color: colourBgCompare
           }
         }
       ];
@@ -98,11 +111,11 @@ export class RotationChart extends LitElement {
       options.series = [
         { 
           type: "bar",
-          color: "rgba(var(--accent-graph-main), .6)"
+          color: colourBgMain
         },
         { 
           type: "bar",
-          color: "rgba(var(--accent-graph-compare), .6)"
+          color: colourBgCompare
         }
       ];
     }
@@ -112,11 +125,11 @@ export class RotationChart extends LitElement {
       options.series = [
         { 
           type: "bar",
-          color: "rgba(var(--accent-graph-main), .6)"
+          color: colourBgMain
         },
         { 
           type: "bar",
-          color: "rgba(var(--accent-graph-compare), .6)"
+          color: colourBgCompare
         }
       ];
     }
@@ -125,7 +138,7 @@ export class RotationChart extends LitElement {
       options.dataset = { source: this.prepareAll(this.stats) };
       options.series = [{ 
         type: "bar",
-        color: "rgba(var(--accent-graph-main), .6)"
+        color: colourBgMain
       }];
     }
 

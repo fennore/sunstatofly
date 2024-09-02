@@ -153,7 +153,7 @@ export class ChartDashboard extends LitElement {
     accessor #stats: any = null;
 
     // TODO set proper specific type
-    private ranStats: Task<Array<string>, any> = new Task(
+    #ranStats: Task<Array<string>, any> = new Task(
         this,
         {
             task: async () => {
@@ -305,7 +305,7 @@ export class ChartDashboard extends LitElement {
         })
 
     clearIntervals = () => {
-        if(this.ranStats) {
+        if(this.#ranStats) {
             clearInterval(this.#rotationTimer);
             clearInterval(this.#dayTimer);
             clearInterval(this.#monthTimer);

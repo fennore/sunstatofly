@@ -5,7 +5,7 @@ export default html`
         In <color-main>groen</color-main> zie je de grafiek van de opgewekte energie per maand voor dit jaar.
     </p>
     <p>
-        In <color-secondary>blauw</color-secondary> zie je ook de grafiek van de opgewekte energie per maand, maar van vorig jaar.
+        In <color-compare>blauw</color-compare> zie je ook de grafiek van de opgewekte energie per maand, maar van vorig jaar.
     </p>
     <p>
         Ook deze grafiek geeft de waarde in kilowattuur weer.
