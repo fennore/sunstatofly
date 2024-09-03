@@ -147,15 +147,11 @@ export class RotationChart extends LitElement {
   };
 
   prepareDay: StatsConverter = ([...cleanStats]) => {
-    console.log('before', [...cleanStats]);
-    
-    // Replace label row
+    // Sort and replace label row
     cleanStats.shift();
     cleanStats.sort();
     cleanStats.unshift(["Tijdstip", "Vandaag", "Gisteren"]);
-    
-    console.log('after', [...cleanStats]);
-    
+        
     // Filter out undefined
     return cleanStats.filter(([timeString, data, compare]) => {
       const [hours, minutes, seconds] = String(timeString).split(":");
@@ -171,21 +167,21 @@ export class RotationChart extends LitElement {
   };
 
   prepareMonth: StatsConverter = ([...cleanStats]) => {
-    console.log('before', [...cleanStats]);
-    // Replace label row
+    // Sort and replace label row
     cleanStats.shift();
     cleanStats.sort();
     cleanStats.unshift(["Dag", "Deze maand", "Vorige maand"]);
-    console.log('before', [...cleanStats]);
     
     return cleanStats;
   };
 
   prepareYear: StatsConverter = stats => {
     const monthsInYear = new Array(12).fill(null);
+
     const statsMap = new Map(
       stats.map(([label, data, compare]) => [label, [data, compare]])
     );
+
     const cleanStats = monthsInYear.map((_, index) => {
       const date = new Date();
       date.setMonth(index);
@@ -197,19 +193,17 @@ export class RotationChart extends LitElement {
       ];
     });
     
-    // Replace label row
+    // Add label row
     cleanStats.unshift(["Maand", "Dit jaar", "Vorig jaar"]);
     
     return cleanStats;
   };
   
   prepareAll: StatsConverter = ([...cleanStats]) => {
-    console.log('before', [...cleanStats]);
-    // Replace label row
+    // Sort and replace label row
     cleanStats.shift();
     cleanStats.sort();
     cleanStats.unshift(["Jaar", "kWh"]);
-    console.log('before', [...cleanStats]);
     
     // Extract compare values
     return cleanStats.map(([label, value]) => [label, value]);
