@@ -79,8 +79,6 @@ export class RotationChart extends LitElement {
       const colourBgMain = `rgba(${mainAccent}, .8)`;
       const colourBgCompare = `rgba(${compareAccent}, .6)`;
 
-    console.log(colourMain, colourCompare);
-
     const options: EChartsOption = {
       dataset: {},
       series: []
@@ -149,15 +147,20 @@ export class RotationChart extends LitElement {
   };
 
   prepareDay: StatsConverter = ([...cleanStats]) => {
+    console.log('before', [...cleanStats]);
+    
     // Replace label row
     cleanStats.shift();
+    cleanStats.sort();
     cleanStats.unshift(["Tijdstip", "Vandaag", "Gisteren"]);
-
+    
+    console.log('after', [...cleanStats]);
+    
     // Filter out undefined
     return cleanStats.filter(([timeString, data, compare]) => {
       const [hours, minutes, seconds] = String(timeString).split(":");
       const statDate = new Date();
-
+      
       statDate.setHours(Number(hours), Number(minutes), Number(seconds), 0);
 
       return (
@@ -168,10 +171,13 @@ export class RotationChart extends LitElement {
   };
 
   prepareMonth: StatsConverter = ([...cleanStats]) => {
+    console.log('before', [...cleanStats]);
     // Replace label row
     cleanStats.shift();
+    cleanStats.sort();
     cleanStats.unshift(["Dag", "Deze maand", "Vorige maand"]);
-
+    console.log('before', [...cleanStats]);
+    
     return cleanStats;
   };
 
@@ -190,19 +196,21 @@ export class RotationChart extends LitElement {
         ...(statsMap.get(String(index + 1).padStart(2, "0")) ?? [])
       ];
     });
-
+    
     // Replace label row
-    cleanStats.shift();
     cleanStats.unshift(["Maand", "Dit jaar", "Vorig jaar"]);
-
+    
     return cleanStats;
   };
-
+  
   prepareAll: StatsConverter = ([...cleanStats]) => {
+    console.log('before', [...cleanStats]);
     // Replace label row
     cleanStats.shift();
+    cleanStats.sort();
     cleanStats.unshift(["Jaar", "kWh"]);
-
+    console.log('before', [...cleanStats]);
+    
     // Extract compare values
     return cleanStats.map(([label, value]) => [label, value]);
   };
