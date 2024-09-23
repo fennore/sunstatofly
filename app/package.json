@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@lit/task": "^1.0.1",
-    "@material/web": "^2.1.0",
+    "@material/web": "^2.2.0",
     "buffer": "^6.0.3",
     "dexie": "^4.0.8",
     "echarts": "^5.5.1",
