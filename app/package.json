@@ -3,7 +3,9 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "build:next": "tsc",
     "postbuild": "rm -rf .parcel-cache && parcel build ./ --dist-dir ../public --public-url ./ && rm -rf .parcel-cache dist",
+    "postbuild:next": "rm -rf .parcel-cache && parcel build ./ --dist-dir ../public/next --public-url ./next/ && rm -rf .parcel-cache dist",
     "start": "web-dev-server --open public/ --node-resolve --watch"
   },
   "dependencies": {
