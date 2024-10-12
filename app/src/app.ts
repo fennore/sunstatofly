@@ -57,17 +57,28 @@ export class App extends LitElement {
   constructor() {
     super();
 
-    this.#loading = true;
-    const db = initiateDb(this.#dbName, repositories);
-    const repo = new SolarPlantRepository(db);
+    
+    // Build state from URL 
+    const params = new URLSearchParams(window.location.search);
+    
+    this.#plantUid = params.get('plantUid');
+    
+    // When no state from URL params, build from client side db
+    if(!this.#plantUid) {
+      // Set initial loading state
+      this.#loading = true;
       
-    repo.get(KEY_REF).then(plant => {
+      const db = initiateDb(this.#dbName, repositories);
+      const repo = new SolarPlantRepository(db);
+      
+      repo.get(KEY_REF).then(plant => {
         this.#plantUid = plant?.plantUid ?? null;
         this.#loading = false;
-    }).catch((error) => {
+      }).catch((error) => {
         console.error(error);
         this.#error = "Something went wrong, try again later."
-    });
+      });
+    }
   }
 
   handleSave: (event: SaveEvent) => void = (event) => {

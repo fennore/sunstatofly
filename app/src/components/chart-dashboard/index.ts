@@ -116,8 +116,8 @@ export class ChartDashboard extends LitElement {
     `;
 
     #rotationList: Map<StatType, string> = new Map([
+        ['month', 'Deze maand'], // Month should always be first
         ['day', 'Vandaag'],
-        ['month', 'Deze maand'],
         ['year', 'Dit jaar'],
         ['all', 'Totaal per jaar']
     ]);
@@ -128,6 +128,9 @@ export class ChartDashboard extends LitElement {
 
     #setRotationTimer = () => {
         clearInterval(this.#rotationTimer);
+
+        // TODO only set rotation timer when there is more than 1 item in rotation list
+
         this.#rotationTimer = setInterval(() => {
             const keyList = Array.from(this.#rotationList.keys());
             const currentIndex = keyList.findIndex(key => key === this.#showStats);
@@ -143,6 +146,21 @@ export class ChartDashboard extends LitElement {
     #setShowStats = (event: CustomEvent) => {
         this.#showStats = event.detail.step;
         this.#setRotationTimer();
+    }
+
+    constructor() {
+        super();
+
+        // Get URL params
+        const params = new URLSearchParams(window.location.search);
+    
+        const focusKey = params.get('focus') as StatType;
+
+        // Set fixed rotation when applicable
+        if(focusKey && this.#rotationList.has(focusKey)) {
+            const label = this.#rotationList.get(focusKey) as string;
+            this.#rotationList = new Map([[focusKey, label]]);
+        }
     }
 
     @state()
@@ -164,14 +182,23 @@ export class ChartDashboard extends LitElement {
                 try {
                     this.clearIntervals();
 
-                    const results = await Promise.all([
-                        this.getStats('day'),
-                        this.getStats('month'),
-                        this.getStats('year'),
-                        this.getStats('compareDay'),
-                        this.getStats('compareMonth'),
-                        this.getStats('compareYear'),
-                        this.getStats('years'),
+                    // Build requests according to rotation list
+                    const promises = [this.getStats("month")] as Array<Promise<any>>;
+                    const requestKeys = Array.from(this.#rotationList.keys());
+                    requestKeys.forEach(statType => {
+                        if(statType === 'all') {
+                            promises.push(this.getStats('years'))
+                        } else {
+                            if(statType !== 'month') {
+                                promises.push(this.getStats(statType));
+                            }
+                            
+                            const compareKey = `compare${statType.charAt(0).toLocaleUpperCase}${statType.slice(1)}`;
+                            promises.push(this.getStats(compareKey));
+                        }
+                    })
+
+                    const results = await Promise.all(promises.concat([
                         this.getStats('plantDetail', {
                             method: 'POST',
                             headers: {
@@ -186,37 +213,47 @@ export class ChartDashboard extends LitElement {
                             },
                             body: `plantuid=${encodeURIComponent(this.plantUid ?? '')}`
                         })
-                    ]);
+                    ]));
 
-                    this.#setRotationTimer();
-
-                    this.#stats = {
-                        day: timeDataToStats(results[0] as TimeDataList<string, number>, results[3] as TimeDataList<string, number>),
-                        month: timeDataToStats(results[1] as TimeDataList<string, number>, results[4] as TimeDataList<string, number>),
-                        year: timeDataToStats(results[2] as TimeDataList<string, number>, results[5] as TimeDataList<string, number>),
-                        all: timeDataToStats(results[6] as TimeDataList<string, number>),
-                        plantDetail: results[7]?.plantDetail as PlantDetail,
-                        weather: results[8]?.weather as Weather,
-                        dayProduction: results[1].dataCountList.at(-1)
+                    const resultIndexOffset = (this.#rotationList.has('month') ? 0 : 1);
+                    const stats: any = {
+                        dayProduction: results[0].dataCountList.at(-1), // data from month request
                     };
 
-                    // TODO current day stats should run with a listener on timer (every 5 mins?)
-                    this.#dayTimer = setInterval(() => {
-                        const plantHour = getPlantDate(2, new Date()).getHours();
-
-                        if(plantHour > 6 && plantHour < 22) {
-                            this.getStats('day').then(dayStats => {
-                                const day = timeDataToStats(dayStats, results[3]);
-                                this.#stats = {
-                                    ...this.#stats,
-                                    day
-                                };
-                            }).catch(console.error);
-
+                    requestKeys.forEach((statType, index) => {
+                        if(statType === 'all') {
+                            stats.all = timeDataToStats(results[index] as TimeDataList<string, number>)
+                        } else {
+                            stats[statType] = timeDataToStats(
+                                results[index*2 + resultIndexOffset] as TimeDataList<string, number>, 
+                                results[index*2 + resultIndexOffset + 1] as TimeDataList<string, number>
+                            );
                         }
-                    }, 5*6e4);
-                    
-                    // TODO current month stats should run with a listener on timer (every 60 mins?)
+                    });
+
+                    this.#stats = {
+                        ...stats,
+                        plantDetail: results[requestKeys.length * 2 + resultIndexOffset]?.plantDetail as PlantDetail,
+                        weather: results[requestKeys.length * 2 + resultIndexOffset + 1]?.weather as Weather,
+                    };
+
+                    if(this.#stats?.day) {
+                        this.#dayTimer = setInterval(() => {
+                            const plantHour = getPlantDate(2, new Date()).getHours();
+                            
+                            if(plantHour > 6 && plantHour < 22) {
+                                this.getStats('day').then(dayStats => {
+                                    const day = timeDataToStats(dayStats, results[3]);
+                                    this.#stats = {
+                                        ...this.#stats,
+                                        day
+                                    };
+                                }).catch(console.error);
+                                
+                            }
+                        }, 5*6e4);
+                    }
+
                     this.#monthTimer = setInterval(() => {
                         const plantHour = getPlantDate(2, new Date()).getHours();
                         const promises = [];
