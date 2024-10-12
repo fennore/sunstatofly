@@ -9,7 +9,7 @@ export class Wrapper extends LitElement {
             justify-content: center;
             align-content: center;
             gap: var(--spacing);
-            grid-auto-flow: column;
+            grid-auto-flow: row;
             min-height: 100vh;
         }
     `
