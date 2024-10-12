@@ -8,22 +8,22 @@
   },
   "dependencies": {
     "@lit/task": "^1.0.1",
-    "@material/web": "^2.1.0",
+    "@material/web": "^2.2.0",
     "buffer": "^6.0.3",
     "dexie": "^4.0.8",
     "echarts": "^5.5.1",
-    "lit": "^3.2.0",
+    "lit": "^3.2.1",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^8.3.0",
+    "@typescript-eslint/parser": "^8.8.1",
     "@web/dev-server": "^0.4.6",
-    "eslint": "^9.9.1",
+    "eslint": "^9.12.0",
     "lit-analyzer": "^2.0.3",
     "parcel": "^2.12.0",
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.3"
   },
   "source": "index.html"
 }
