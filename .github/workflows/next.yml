@@ -45,11 +45,14 @@ jobs:
         working-directory: app
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
+#     - name: Upload artifact
+#       uses: actions/upload-pages-artifact@v3
+#       with:
           # Upload entire repository
-          path: './public/demo'
+#         path: './public/next'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: JamesIves/github-pages-deploy-action@v4.6.8
+        with: 
+          folder: 'public/next'
+          target-folder: 'next'
