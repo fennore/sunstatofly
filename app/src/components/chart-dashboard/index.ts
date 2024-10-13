@@ -183,7 +183,7 @@ export class ChartDashboard extends LitElement {
                     this.clearIntervals();
 
                     // Build requests according to rotation list
-                    const promises = [this.getStats("month")] as Array<Promise<any>>;
+                    const promises = [this.getStats('month')] as Array<Promise<any>>;
                     const requestKeys = Array.from(this.#rotationList.keys());
                     requestKeys.forEach(statType => {
                         if(statType === 'all') {
@@ -194,9 +194,12 @@ export class ChartDashboard extends LitElement {
                             }
                             
                             const compareKey = `compare${statType.charAt(0).toLocaleUpperCase}${statType.slice(1)}`;
+                            console.log('key', compareKey);
                             promises.push(this.getStats(compareKey));
                         }
                     })
+
+                    console.log('promises', promises);
 
                     const results = await Promise.all(promises.concat([
                         this.getStats('plantDetail', {
@@ -236,6 +239,8 @@ export class ChartDashboard extends LitElement {
                         plantDetail: results[requestKeys.length * 2 + resultIndexOffset]?.plantDetail as PlantDetail,
                         weather: results[requestKeys.length * 2 + resultIndexOffset + 1]?.weather as Weather,
                     };
+
+                    console.log('stats', this.#stats);
 
                     if(this.#stats?.day) {
                         this.#dayTimer = setInterval(() => {
