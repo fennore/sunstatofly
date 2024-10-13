@@ -54,5 +54,5 @@ jobs:
         id: deployment
         uses: JamesIves/github-pages-deploy-action@v4.6.8
         with: 
-          folder: 'public/next'
-          target-folder: 'next'
+          folder: public/next
+          target-folder: next
