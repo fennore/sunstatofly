@@ -193,7 +193,7 @@ export class ChartDashboard extends LitElement {
                                 promises.push(this.getStats(statType));
                             }
                             
-                            const compareKey = `compare${statType.charAt(0).toLocaleUpperCase}${statType.slice(1)}`;
+                            const compareKey = `compare${statType.charAt(0).toLocaleUpperCase()}${statType.slice(1)}`;
                             console.log('key', compareKey);
                             promises.push(this.getStats(compareKey));
                         }
