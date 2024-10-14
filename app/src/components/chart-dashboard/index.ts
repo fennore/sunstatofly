@@ -115,6 +115,7 @@ export class ChartDashboard extends LitElement {
         }
     `;
 
+    #menuList: Map<StatType, string> = new Map();
     #rotationList: Map<StatType, string> = new Map([
         ['month', 'Deze maand'], // Month should always be first
         ['day', 'Vandaag'],
@@ -129,7 +130,13 @@ export class ChartDashboard extends LitElement {
     #setRotationTimer = () => {
         clearInterval(this.#rotationTimer);
 
-        // TODO only set rotation timer when there is more than 1 item in rotation list
+        // Only set rotation timer when there is more than 1 item in rotation list
+        if(this.#rotationList.size <= 1) {
+            this.#showStats = Array.from(this.#rotationList.keys())[0] ?? 'day';
+
+            // Do nothing
+            return;
+        }
 
         this.#rotationTimer = setInterval(() => {
             const keyList = Array.from(this.#rotationList.keys());
@@ -151,6 +158,9 @@ export class ChartDashboard extends LitElement {
     constructor() {
         super();
 
+        // Set the menu list
+        this.#menuList = new Map(this.#rotationList);
+
         // Get URL params
         const params = new URLSearchParams(window.location.search);
     
@@ -159,6 +169,7 @@ export class ChartDashboard extends LitElement {
         // Set fixed rotation when applicable
         if(focusKey && this.#rotationList.has(focusKey)) {
             const label = this.#rotationList.get(focusKey) as string;
+            this.#showStats = focusKey
             this.#rotationList = new Map([[focusKey, label]]);
         }
     }
@@ -199,8 +210,6 @@ export class ChartDashboard extends LitElement {
                         }
                     })
 
-                    console.log('promises', promises);
-
                     const results = await Promise.all(promises.concat([
                         this.getStats('plantDetail', {
                             method: 'POST',
@@ -236,11 +245,9 @@ export class ChartDashboard extends LitElement {
 
                     this.#stats = {
                         ...stats,
-                        plantDetail: results[requestKeys.length * 2 + resultIndexOffset]?.plantDetail as PlantDetail,
-                        weather: results[requestKeys.length * 2 + resultIndexOffset + 1]?.weather as Weather,
+                        plantDetail: results[results.length - 2]?.plantDetail as PlantDetail,
+                        weather: results[results.length - 1]?.weather as Weather,
                     };
-
-                    console.log('stats', this.#stats);
 
                     if(this.#stats?.day) {
                         this.#dayTimer = setInterval(() => {
@@ -363,7 +370,7 @@ export class ChartDashboard extends LitElement {
     override render() {    
         return html`
             <info-panel type=${this.#showStats}></info-panel>
-            <rotation-steps .steps=${this.#rotationList} activeStep=${this.#showStats} @changeStep=${this.#setShowStats}></rotation-steps>
+            <rotation-steps .steps=${this.#menuList} activeStep=${this.#showStats} @changeStep=${this.#setShowStats}></rotation-steps>
             <rotation-chart .stats=${this.#stats?.[this.#showStats] ?? nothing} type=${this.#showStats}></rotation-chart>
             <rotation-stats .stats=${this.#stats} type=${this.#showStats}></rotation-stats>
         `;
