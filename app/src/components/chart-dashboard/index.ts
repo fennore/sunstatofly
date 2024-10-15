@@ -147,7 +147,7 @@ export class ChartDashboard extends LitElement {
             } else {
                 this.#showStats = keyList[currentIndex + 1];
             }
-        }, 60e3)
+        }, 60e3);
     }
 
     #setShowStats = (event: CustomEvent) => {
@@ -164,7 +164,7 @@ export class ChartDashboard extends LitElement {
         const focusKey = params.get('focus') as StatType;
 
         // Set fixed rotation when applicable
-        if(focusKey && this.#rotationList.has(focusKey)) {
+        if(focusKey && this.#menuList.has(focusKey)) {
             this.#showStats = focusKey
             this.#rotationList = new Set([focusKey]);
         } else {
@@ -262,6 +262,9 @@ export class ChartDashboard extends LitElement {
                             }
                         }, 5*6e4);
                     }
+
+                    // Initiate rotation timer
+                    this.#setRotationTimer();
 
                     this.#monthTimer = setInterval(() => {
                         const plantHour = getPlantDate(2, new Date()).getHours();
