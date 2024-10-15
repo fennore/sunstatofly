@@ -115,13 +115,13 @@ export class ChartDashboard extends LitElement {
         }
     `;
 
-    #menuList: Map<StatType, string> = new Map();
-    #rotationList: Map<StatType, string> = new Map([
-        ['month', 'Deze maand'], // Month should always be first
+    #menuList: Map<StatType, string> = new Map([
         ['day', 'Vandaag'],
+        ['month', 'Deze maand'],
         ['year', 'Dit jaar'],
         ['all', 'Totaal per jaar']
     ]);
+    #rotationList: Set<StatType> = new Set();
 
     #rotationTimer?: number;
     #dayTimer?: number;
@@ -132,14 +132,14 @@ export class ChartDashboard extends LitElement {
 
         // Only set rotation timer when there is more than 1 item in rotation list
         if(this.#rotationList.size <= 1) {
-            this.#showStats = Array.from(this.#rotationList.keys())[0] ?? 'day';
+            this.#showStats = Array.from(this.#rotationList)[0] ?? 'day';
 
             // Do nothing
             return;
         }
 
         this.#rotationTimer = setInterval(() => {
-            const keyList = Array.from(this.#rotationList.keys());
+            const keyList = Array.from(this.#rotationList);
             const currentIndex = keyList.findIndex(key => key === this.#showStats);
 
             if(currentIndex >= this.#rotationList.size - 1) {
@@ -158,9 +158,6 @@ export class ChartDashboard extends LitElement {
     constructor() {
         super();
 
-        // Set the menu list
-        this.#menuList = new Map(this.#rotationList);
-
         // Get URL params
         const params = new URLSearchParams(window.location.search);
     
@@ -168,9 +165,10 @@ export class ChartDashboard extends LitElement {
 
         // Set fixed rotation when applicable
         if(focusKey && this.#rotationList.has(focusKey)) {
-            const label = this.#rotationList.get(focusKey) as string;
             this.#showStats = focusKey
-            this.#rotationList = new Map([[focusKey, label]]);
+            this.#rotationList = new Set([focusKey]);
+        } else {
+            this.#rotationList = new Set(['month' as StatType].concat(Array.from(this.#menuList.keys())))
         }
     }
 
@@ -195,7 +193,7 @@ export class ChartDashboard extends LitElement {
 
                     // Build requests according to rotation list
                     const promises = [this.getStats('month')] as Array<Promise<any>>;
-                    const requestKeys = Array.from(this.#rotationList.keys());
+                    const requestKeys = Array.from(this.#rotationList);
                     requestKeys.forEach(statType => {
                         if(statType === 'all') {
                             promises.push(this.getStats('years'))
@@ -205,7 +203,6 @@ export class ChartDashboard extends LitElement {
                             }
                             
                             const compareKey = `compare${statType.charAt(0).toLocaleUpperCase()}${statType.slice(1)}`;
-                            console.log('key', compareKey);
                             promises.push(this.getStats(compareKey));
                         }
                     })
