@@ -119,7 +119,7 @@ export class ChartDashboard extends LitElement {
         ['day', 'Vandaag'],
         ['month', 'Deze maand'],
         ['year', 'Dit jaar'],
-        ['all', 'Totaal per jaar']
+        ['-', 'Totaal per jaar']
     ]);
     #rotationList: Set<StatType> = new Set();
 
@@ -231,7 +231,7 @@ export class ChartDashboard extends LitElement {
 
                     requestKeys.forEach((statType, index) => {
                         if(statType === 'all') {
-                            stats.all = timeDataToStats(results[index] as TimeDataList<string, number>)
+                            stats.all = timeDataToStats(results[index*2 + resultIndexOffset] as TimeDataList<string, number>)
                         } else {
                             stats[statType] = timeDataToStats(
                                 results[index*2 + resultIndexOffset] as TimeDataList<string, number>, 
