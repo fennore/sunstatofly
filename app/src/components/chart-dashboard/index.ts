@@ -139,10 +139,10 @@ export class ChartDashboard extends LitElement {
         }
 
         this.#rotationTimer = setInterval(() => {
-            const keyList = Array.from(this.#rotationList);
+            const keyList = Array.from(this.#menuList.keys());
             const currentIndex = keyList.findIndex(key => key === this.#showStats);
 
-            if(currentIndex >= this.#rotationList.size - 1) {
+            if(currentIndex >= this.#menuList.size - 1) {
                 this.#showStats = keyList[0];
             } else {
                 this.#showStats = keyList[currentIndex + 1];
