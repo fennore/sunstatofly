@@ -119,7 +119,7 @@ export class ChartDashboard extends LitElement {
         ['day', 'Vandaag'],
         ['month', 'Deze maand'],
         ['year', 'Dit jaar'],
-        ['-', 'Totaal per jaar']
+        ['all', 'Totaal per jaar']
     ]);
     #rotationList: Set<StatType> = new Set();
 
