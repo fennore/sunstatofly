@@ -192,6 +192,7 @@ export class ChartDashboard extends LitElement {
                     this.clearIntervals();
 
                     // Build requests according to rotation list
+                    const hasCompareMonthRequest = this.#rotationList.has('month');
                     const promises = [this.getStats('month')] as Array<Promise<any>>;
                     const requestKeys = Array.from(this.#rotationList);
                     requestKeys.forEach(statType => {
@@ -224,7 +225,7 @@ export class ChartDashboard extends LitElement {
                         })
                     ]));
 
-                    const resultIndexOffset = (this.#rotationList.has('month') ? 0 : 1);
+                    const resultIndexOffset = (hasCompareMonthRequest ? 0 : 1);
                     const stats: any = {
                         dayProduction: results[0].dataCountList.at(-1), // data from month request
                     };
@@ -247,15 +248,30 @@ export class ChartDashboard extends LitElement {
                     };
 
                     if(this.#stats?.day) {
+                        const compareIndex = requestKeys.findIndex(key => key === 'day') * 2 + resultIndexOffset + 1;
+
                         this.#dayTimer = setInterval(() => {
                             const plantHour = getPlantDate(2, new Date()).getHours();
-                            
-                            if(plantHour > 6 && plantHour < 22) {
-                                this.getStats('day').then(dayStats => {
-                                    const day = timeDataToStats(dayStats, results[3]);
+
+                            // Switching days
+                            if(plantHour <= 6 && this.#stats.day?.[0]?.[1]) {
+                                this.getStats('compareDay').then(compareDayStats => {
+                                    results[compareIndex] = compareDayStats;
+
                                     this.#stats = {
                                         ...this.#stats,
-                                        day
+                                        day: timeDataToStats({ dataCountList: [], dataTimeList: [] }, results[compareIndex]),
+                                    }
+                                })
+                            }
+                            
+                            // Only update data during relevant hours
+                            if(plantHour > 6 && plantHour < 22) {
+                                this.getStats('day').then(dayStats => {
+                                    const day = timeDataToStats(dayStats, results[compareIndex]);
+                                    this.#stats = {
+                                        ...this.#stats,
+                                        day,
                                     };
                                 }).catch(console.error);
                                 
@@ -268,7 +284,29 @@ export class ChartDashboard extends LitElement {
 
                     this.#monthTimer = setInterval(() => {
                         const plantHour = getPlantDate(2, new Date()).getHours();
+                        const plantDay = getPlantDate(2, new Date()).getDate();
+
                         const promises = [];
+
+                        // Month changed
+                        if(hasCompareMonthRequest && plantHour <= 6 && plantDay === 1 && this.#stats.month?.[0]?.[1]) {
+                            this.getStats('compareMonth').then(compareMonthStats => {
+                                results[1] = compareMonthStats;
+
+                                this.#stats = {
+                                    ...this.#stats,
+                                    month: timeDataToStats({ dataCountList: [], dataTimeList: [] }, results[1]),
+                                }
+                            })
+                        }
+
+                        // Day changed
+                        if(plantHour <= 6 && plantDay === 1) {
+                            this.#stats = {
+                                ...this.#stats,
+                                dayProduction: 0
+                            }
+                        }
 
                         if(plantHour > 6 && plantHour < 22) {
                             promises.push(this.getStats('month'));
@@ -298,9 +336,13 @@ export class ChartDashboard extends LitElement {
 
                         Promise.all(promises).then(([monthStats, weather, plantDetail]) => {
                             const newStats = {...this.#stats};
+                            
+                            if(hasCompareMonthRequest && monthStats) {
+                                newStats.month = timeDataToStats(monthStats, results[1]);
+                            }
+
                             if(monthStats) {
-                                newStats.month = timeDataToStats(monthStats, results[4]);
-                                newStats.dayProduction = monthStats.dataCountList.at(-1);
+                                newStats.dayProduction = monthStats.dataCountList.at(-1); // data from month request
                             }
 
                             if(weather) {
@@ -370,7 +412,7 @@ export class ChartDashboard extends LitElement {
     override render() {    
         return html`
             <info-panel type=${this.#showStats}></info-panel>
-            <rotation-steps .steps=${this.#menuList} activeStep=${this.#showStats} @changeStep=${this.#setShowStats}></rotation-steps>
+            <rotation-steps .steps=${this.#menuList} activeStep=${this.#showStats} ?locked=${this.#rotationList.size <= 1} @changeStep=${this.#setShowStats}></rotation-steps>
             <rotation-chart .stats=${this.#stats?.[this.#showStats] ?? nothing} type=${this.#showStats}></rotation-chart>
             <rotation-stats .stats=${this.#stats} type=${this.#showStats}></rotation-stats>
         `;

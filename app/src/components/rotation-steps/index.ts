@@ -50,6 +50,9 @@ export class RotationSteps extends LitElement {
     @property()
     accessor activeStep: string = 'day';
 
+    @property({type: Boolean})
+    accessor locked: Boolean = false;
+
     #handleTabClick = (step: string) => () => {
         const event = new CustomEvent('changeStep', { detail: { step } });
         
@@ -60,7 +63,7 @@ export class RotationSteps extends LitElement {
         const tabs: Array<TemplateResult> = [];
 
         this.steps.forEach((label, key) => {
-            tabs.push(html`<md-primary-tab ?active=${key === this.activeStep} @click=${this.#handleTabClick(key)}>${label}</md-primary-tab>`);
+            tabs.push(html`<md-primary-tab ?active=${key === this.activeStep} ?isTab=${!this.locked} @click=${this.#handleTabClick(key)}>${label}</md-primary-tab>`);
         });
 
         return html`<md-tabs>
