@@ -9,23 +9,23 @@
     "start": "web-dev-server --open public/ --node-resolve --watch"
   },
   "dependencies": {
-    "@lit/task": "^1.0.1",
-    "@material/web": "^2.2.0",
+    "@lit/task": "^1.0.3",
+    "@material/web": "^2.4.0",
     "buffer": "^6.0.3",
-    "dexie": "^4.0.8",
-    "echarts": "^5.5.1",
-    "lit": "^3.2.1",
-    "uuid": "^10.0.0"
+    "dexie": "^4.2.0",
+    "echarts": "^6.0.0",
+    "lit": "^3.3.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^8.8.1",
+    "@typescript-eslint/parser": "^8.41.0",
     "@web/dev-server": "^0.4.6",
-    "eslint": "^9.12.0",
+    "eslint": "^9.34.0",
     "lit-analyzer": "^2.0.3",
-    "parcel": "^2.12.0",
-    "prettier": "^3.3.3",
-    "prettier-eslint": "^16.3.0",
-    "typescript": "5.5.4"
+    "parcel": "^2.15.4",
+    "prettier": "^3.6.2",
+    "prettier-eslint": "^16.4.2",
+    "typescript": "5.9.2"
   },
   "source": "index.html"
 }

@@ -1,8 +1,12 @@
 {
     "compilerOptions": {
-      "target": "ES2021",
-      "module": "ES2022",
-      "lib": ["es2021", "DOM", "DOM.Iterable"],
+      "target": "es2022",
+      "module": "nodenext",
+      "lib": ["es2022", "DOM", "DOM.Iterable"],
+      "skipLibCheck": true,
+      "moduleDetection": "force",
+      "isolatedModules": true,
+      "verbatimModuleSyntax": true,
       "declaration": true,
       "declarationMap": true,
       "sourceMap": true,
@@ -12,16 +16,16 @@
       "strict": true,
       "noUnusedLocals": true,
       "noUnusedParameters": true,
+      "noUncheckedIndexedAccess": true,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
       "noImplicitAny": true,
       "noImplicitThis": true,
-      "moduleResolution": "node",
+      "noImplicitOverride": true,
       "allowSyntheticDefaultImports": true,
       "experimentalDecorators": false, // Using accessor
       "useDefineForClassFields": true, // Recommended false according to Lit docs, but we shall see...
       "forceConsistentCasingInFileNames": true,
-      "noImplicitOverride": true,
       "plugins": [
         {
           "name": "ts-lit-plugin",

@@ -6,3 +6,4 @@
 /public/index.html
 .parcel-cache
 dist/
+app.config.ts

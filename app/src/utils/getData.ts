@@ -1,8 +1,6 @@
-// TODO can env variables be set for github pages and how?
-// TODO use config for urls
-// TODO use middleWare to build requests so it can easily be swapped out with a different API
+import { DOMAIN } from '../app.config.js';
 
-const DOMAIN = 'https://saj-api-proxy.fennore.workers.dev/?https://fop.saj-electric.com';
+// TODO use middleWare to build requests so it can easily be swapped out with a different API
 
 const requestMap: Map<string, string> = new Map([
     // solar power today
