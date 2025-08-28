@@ -2,7 +2,7 @@ import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import type { RefOrCallback } from "lit/directives/ref.js";
 import { ref } from "lit/directives/ref.js";
-import echarts from "echarts";
+import * as echarts from "echarts";
 
 type EChartsType = echarts.EChartsType;
 
@@ -51,7 +51,7 @@ export class AllProductionChart extends LitElement {
     }
   };
 
-  prepareStats: (stats: Array<Array<string | number>>) => Array<Array<string | number>> = stats => {
+  prepareStats: (stats: Array<Array<string | number>>) => Array<Array<string | number | undefined>> = stats => {
     const cleanStats = [...stats];
     // Replace label row
     cleanStats.shift();

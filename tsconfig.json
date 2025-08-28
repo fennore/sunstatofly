@@ -23,6 +23,7 @@
       "noImplicitThis": true,
       "noImplicitOverride": true,
       "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
       "experimentalDecorators": false, // Using accessor
       "useDefineForClassFields": true,
       "forceConsistentCasingInFileNames": true,

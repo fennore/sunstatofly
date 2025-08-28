@@ -2,7 +2,7 @@ import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import type { RefOrCallback } from "lit/directives/ref.js";
 import { ref } from "lit/directives/ref.js";
-import echarts from "echarts";
+import * as echarts from "echarts";
 
 
 type EChartsType = echarts.EChartsType;
@@ -53,7 +53,7 @@ export class YearProductionChart extends LitElement {
     }
   };
 
-  prepareStats: (stats: Array<Array<string | number>>) => Array<Array<string | number>> = stats => {
+  prepareStats: (stats: Array<Array<string | number>>) => Array<Array<string | number | undefined>> = stats => {
     const monthsInYear = new Array(12).fill(null);
     const statsMap = new Map(stats.map(([label, data, compare]) => [label, [data, compare]]));
     const cleanStats = monthsInYear.map((_, index) => {

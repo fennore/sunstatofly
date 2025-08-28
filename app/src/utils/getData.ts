@@ -1,4 +1,4 @@
-import { DOMAIN } from '../app.config.js';
+import { DOMAIN } from './../app.config.js';
 
 // TODO defined proper type for T
 
