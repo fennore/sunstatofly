@@ -2,7 +2,7 @@ import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import type { RefOrCallback } from "lit/directives/ref.js";
 import { ref } from "lit/directives/ref.js";
-import * as echarts from "echarts";
+import echarts from "echarts";
 
 type EChartsType = echarts.EChartsType;
 

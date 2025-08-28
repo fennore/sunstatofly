@@ -1,4 +1,5 @@
-import Dexie, { IndexableType } from 'dexie';
+import type { IndexableType } from 'dexie';
+import { Dexie } from 'dexie';
 
 interface Repository {
     /**
