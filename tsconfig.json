@@ -24,7 +24,7 @@
       "noImplicitOverride": true,
       "allowSyntheticDefaultImports": true,
       "experimentalDecorators": false, // Using accessor
-      "useDefineForClassFields": true, // Recommended false according to Lit docs, but we shall see...
+      "useDefineForClassFields": true,
       "forceConsistentCasingInFileNames": true,
       "plugins": [
         {

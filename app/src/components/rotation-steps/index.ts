@@ -1,5 +1,6 @@
-import { LitElement, TemplateResult, css, html } from "lit";
-import { customElement, property } from "lit/decorators";
+import type { TemplateResult } from "lit";
+import { LitElement, css, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 import '@material/web/tabs/tabs'
 import '@material/web/tabs/primary-tab'
@@ -44,14 +45,14 @@ export class RotationSteps extends LitElement {
         }
     `;
 
-    @property()
+    @property({ type: Object})
     accessor steps: Map<string, string> = new Map();
 
-    @property()
+    @property({ type: String})
     accessor activeStep: string = 'day';
 
     @property({type: Boolean})
-    accessor locked: Boolean = false;
+    accessor locked: boolean = false;
 
     #handleTabClick = (step: string) => () => {
         const event = new CustomEvent('changeStep', { detail: { step } });

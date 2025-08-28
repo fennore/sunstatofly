@@ -1,5 +1,6 @@
-import {CSSResultGroup, LitElement, css, html, nothing} from 'lit';
-import {customElement,  state} from 'lit/decorators';
+import type {CSSResultGroup } from 'lit';
+import { LitElement, css, html, nothing} from 'lit';
+import {customElement,  state} from 'lit/decorators.js';
 
 import {initiateDb, SolarPlantRepository} from './db/index.js';
 

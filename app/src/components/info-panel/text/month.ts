@@ -1,4 +1,4 @@
-import { html } from "lit/static-html";
+import { html } from "lit/static-html.js";
 
 export default html`
     <p>

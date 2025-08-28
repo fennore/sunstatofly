@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit'
-import { customElement } from 'lit/decorators'
+import { customElement } from 'lit/decorators.js'
 
 import '@material/web/icon/icon'
 import '@material/web/iconbutton/icon-button'

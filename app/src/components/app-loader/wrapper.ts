@@ -1,6 +1,6 @@
 import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
 import '@material/web/progress/circular-progress';
-import { customElement } from "lit/decorators";
 
 @customElement('page-loader-wrapper')
 export class Wrapper extends LitElement {

@@ -1,13 +1,13 @@
 import { css, html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators";
+import { customElement, property } from "lit/decorators.js";
 
 import './color/main'
 import './color/compare'
 
-import day from './text/day';
-import month from './text/month';
-import year from './text/year';
-import all from './text/all';
+import day from './text/day.js';
+import month from './text/month.js';
+import year from './text/year.js';
+import all from './text/all.js';
 
 const TEXT = new Map([
     ['day', html`${day}`],

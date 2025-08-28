@@ -1,6 +1,12 @@
 import { DOMAIN } from '../app.config.js';
 
-// TODO use middleWare to build requests so it can easily be swapped out with a different API
+// TODO defined proper type for T
+
+declare type ResponseObject = {[key: string]: any};
+
+declare type Reader<T extends ResponseObject> = {
+    getData: (type: string) => Promise<T>
+}
 
 const requestMap: Map<string, string> = new Map([
     // solar power today
@@ -27,7 +33,7 @@ const requestMap: Map<string, string> = new Map([
 /**
  * Get plant local date.
  */
-const getPlantDate: (tz: number, date: Date) => Date = (plantTZ = 2, date) => {
+export const getPlantDate: (tz: number, date: Date) => Date = (plantTZ = 2, date) => {
     const plantDate = new Date(date);
     plantDate.setHours(date.getHours() + Math.round(date.getTimezoneOffset()/60) + plantTZ);
 
@@ -78,7 +84,7 @@ const getLastYear: (tz?: number) => string = (plantTZ = 2) => {
     return getYmd(plantLastYear);
 }
 
-export default (uid: string) => {
+export default <T extends ResponseObject>(uid: string): Reader<T> => {
 
     const getUrl: (url?:string) => URL = (url) => {
 
@@ -92,7 +98,7 @@ export default (uid: string) => {
         return new URL(filledUrl ?? '');
     }
     
-    const getStats: (type: string, options?: RequestInit) => Promise<any> 
+    const getStats: (type: string, options?: RequestInit) => Promise<T> 
         = (type, options) => fetch(getUrl(requestMap.get(type)), options).then(response => {
             if(response.ok) {
                 return response.json();

@@ -1,5 +1,5 @@
 import {LitElement, css, html} from 'lit';
-import {customElement} from 'lit/decorators';
+import {customElement} from 'lit/decorators.js';
 
 import '@material/web/button/filled-button'
 import '@material/web/textfield/outlined-text-field';

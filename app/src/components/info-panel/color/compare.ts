@@ -1,5 +1,5 @@
 import { css, html, LitElement } from "lit";
-import { customElement } from "lit/decorators";
+import { customElement } from "lit/decorators.js";
 
 @customElement('color-compare')
 export class ColorCompare extends LitElement {
