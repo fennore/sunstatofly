@@ -1,10 +1,13 @@
 import { LitElement, html, css } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import type { RefOrCallback } from "lit/directives/ref.js";
-import { ref } from "lit/directives/ref.js";
-import echarts from "echarts";
+import { customElement, property } from "lit/decorators";
+import type { RefOrCallback } from "lit/directives/ref";
+import { ref } from "lit/directives/ref";
+import { use, init, type EChartsType} from "echarts/core";
+import { BarChart } from "echarts/charts";
+import { LegendComponent, TooltipComponent, GridComponent, DatasetComponent } from "echarts/components";
+import { CanvasRenderer } from "echarts/renderers";
 
-type EChartsType = echarts.EChartsType;
+use([BarChart, DatasetComponent, LegendComponent, TooltipComponent, GridComponent, CanvasRenderer]);
 
 @customElement("all-production-chart")
 export class AllProductionChart extends LitElement {
@@ -30,7 +33,7 @@ export class AllProductionChart extends LitElement {
 
   assignChart = (element: HTMLElement) => {
     if (element) {
-      this.#chart = echarts.init(element, null, {
+      this.#chart = init(element, null, {
         width: 900,
         height: 600
       });

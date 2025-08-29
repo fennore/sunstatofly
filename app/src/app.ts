@@ -1,15 +1,15 @@
 import type {CSSResultGroup } from 'lit';
 import { LitElement, css, html, nothing} from 'lit';
-import {customElement,  state} from 'lit/decorators.js';
+import {customElement,  state} from 'lit/decorators';
 
-import {initiateDb, SolarPlantRepository} from './db/index.js';
+import {initiateDb, SolarPlantRepository} from './db';
 
 import '@material/web/dialog/dialog'
 
-import './components/app-loader/index.js';
-import './components/request-key/index.js';
-import './components/chart-dashboard/index.js'
-import { SaveEvent } from './components/request-key/index.js';
+import './components/app-loader';
+import './components/request-key';
+import './components/chart-dashboard'
+import { SaveEvent } from './components/request-key';
 
 const KEY_REF = "saj-solar-plant";
 

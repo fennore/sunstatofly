@@ -1,5 +1,5 @@
 import { LitElement, html, nothing } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators";
 import '@material/web/progress/circular-progress';
 
 import './wrapper';

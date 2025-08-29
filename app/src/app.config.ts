@@ -1,0 +1,1 @@
+export const DOMAIN: string = 'https://saj-api-proxy.fennore.workers.dev/?https://eopi.saj-electric.com';

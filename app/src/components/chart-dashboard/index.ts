@@ -1,14 +1,14 @@
 import { LitElement, css, html, nothing } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators";
 import { Task } from "@lit/task";
 
 import '../rotation-steps';
 import '../charts/rotation-chart';
 import '../rotation-stats';
 import '../info-panel';
-import type { PlantDetail, TimeDataList, Weather } from './transform.ts';
-import { timeDataToStats } from './transform.js';
-import { default as dataFactory, getPlantDate } from '../../utils/getData.js'
+import type { PlantDetail, TimeDataList, Weather } from './transform';
+import { timeDataToStats } from './transform';
+import { default as dataFactory, getPlantDate } from '../../utils/getData'
 
 // TODO maybe use date-fns ??? Nah just writing to show awareness.
 

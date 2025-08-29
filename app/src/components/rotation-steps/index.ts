@@ -1,6 +1,6 @@
 import type { TemplateResult } from "lit";
 import { LitElement, css, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators";
 
 import '@material/web/tabs/tabs'
 import '@material/web/tabs/primary-tab'

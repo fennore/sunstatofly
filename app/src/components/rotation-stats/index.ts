@@ -1,5 +1,5 @@
 import { LitElement, css, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators";
 
 @customElement('rotation-stats')
 export class RotationStats extends LitElement {

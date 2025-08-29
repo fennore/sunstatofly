@@ -1,14 +1,25 @@
 import { LitElement, html, css } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import type { RefOrCallback } from "lit/directives/ref.js";
-import { ref } from "lit/directives/ref.js";
-import echarts from "echarts";
+import { customElement, property } from "lit/decorators";
+import type { RefOrCallback } from "lit/directives/ref";
+import { ref } from "lit/directives/ref";
+import { use, init, type EChartsType, type ComposeOption } from "echarts/core";
+import { BarChart, LineChart, type BarSeriesOption, type LineSeriesOption } from "echarts/charts";
+import { DatasetComponent, GridComponent, LegendComponent, TooltipComponent, type DatasetComponentOption, type GridComponentOption, type TooltipComponentOption } from "echarts/components";
+import { CanvasRenderer } from "echarts/renderers";
 
-declare type EChartsType = echarts.EChartsType;
-declare type EChartsOption = echarts.EChartsOption;
+use([BarChart, LineChart, DatasetComponent, LegendComponent, GridComponent, TooltipComponent, CanvasRenderer])
+
+type EChartsOption = ComposeOption<
+  | BarSeriesOption
+  | LineSeriesOption
+  | TooltipComponentOption
+  | GridComponentOption
+  | DatasetComponentOption
+>;
+
 declare type StatsConverter = (
   stats: Array<Array<number | string>>
-) => echarts.DatasetComponentOption["source"];
+) => DatasetComponentOption["source"];
 
 @customElement("rotation-chart")
 export class RotationChart extends LitElement {
@@ -54,7 +65,7 @@ export class RotationChart extends LitElement {
 
   assignChart = (element: HTMLElement) => {
     if (element) {
-      this.#chart = echarts.init(element);
+      this.#chart = init(element);
       this.#chart?.setOption({
         legend: {},
         tooltip: {},
