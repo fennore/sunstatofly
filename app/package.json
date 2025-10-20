@@ -20,7 +20,7 @@
   "devDependencies": {
     "@typescript-eslint/parser": "^8.41.0",
     "@web/dev-server": "^0.4.6",
-    "eslint": "^9.34.0",
+    "eslint": "^9.38.0",
     "lit-analyzer": "^2.0.3",
     "parcel": "^2.15.4",
     "prettier": "^3.6.2",
